@@ -43,7 +43,6 @@ const CardTest = () => {
       score.hardTotal += value;
       score.softTotal += value;
     }
-    console.log('this is the score ', score)
     console.log(value, score);
     setScore({...score});
   }
@@ -60,7 +59,7 @@ const CardTest = () => {
         Draw 1 Card
       </button>
       {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
-      <h2>{score.softTotal > 21 ? score.hardTotal : score.softTotal}</h2>
+      <h2>Points: {(score.softTotal > 1) && (score.softTotal > 21 ? score.hardTotal : score.softTotal)}</h2>
       {/*Display cards value/suit/img*/}
       <h2>Players Cards:</h2>
       {playerCards.map((card, index) => {
