@@ -6,8 +6,8 @@ const CardTest = () => {
   const [deckId, setDeckId] = useState("");
   const [playerCards, setPlayerCards] = useState([]);
   const [score, setScore] = useState({
-    softTotal: 0,
-    hardTotal: 0,
+      softTotal: 0,
+      hardTotal: 0
   });
 
   //initialise a new 6 decks and set the id in state
@@ -39,11 +39,13 @@ const CardTest = () => {
       score.softTotal += 10;
     } else {
       // number cards
-      value = parseInt(value);
+      value = parseInt(value)
       score.hardTotal += value;
       score.softTotal += value;
     }
-    setScore({ ...score });
+    console.log('this is the score ', score)
+    console.log(value, score);
+    setScore({...score});
   }
 
   return (
@@ -57,6 +59,8 @@ const CardTest = () => {
       <button onClick={() => drawCard(deckId, 1).then(addToHand)}>
         Draw 1 Card
       </button>
+      {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
+      <h2>{score.softTotal > 21 ? score.hardTotal : score.softTotal}</h2>
       {/*Display cards value/suit/img*/}
       <h2>Players Cards:</h2>
       {playerCards.map((card, index) => {
