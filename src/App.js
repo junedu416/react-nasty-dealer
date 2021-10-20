@@ -1,7 +1,6 @@
 import CardTest from "./components/CardTest";
 import Home from "./components/Home";
 import BlackJackRule from "./components/BlackJackRule";
-import Username from "./components/Username";
 import { Link, Switch, Route } from "react-router-dom";
 
 
@@ -25,7 +24,6 @@ function App() {
           </li>
         </ul>
       </nav>
-      <Username />
       <Switch>
         <Route exact path="/">
           <Home />
