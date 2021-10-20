@@ -6,8 +6,8 @@ const CardTest = () => {
   const [deckId, setDeckId] = useState("");
   const [playerCards, setPlayerCards] = useState([]);
   const [score, setScore] = useState({
-      softTotal: 0,
-      hardTotal: 0
+    softTotal: 0,
+    hardTotal: 0,
   });
 
   //initialise a new 6 decks and set the id in state
@@ -29,10 +29,6 @@ const CardTest = () => {
   }
 
   function calculateScore(value) {
-    // console.log('this is the value: ',value);
-    // console.log('this is the type: ', typeof value);
-    // console.log(isNaN(value));
-    // if (isNaN(value) === false) value = par
     // calculates score for aces
     if (value === "ACE") {
       score.hardTotal += 1;
@@ -43,13 +39,11 @@ const CardTest = () => {
       score.softTotal += 10;
     } else {
       // number cards
-      value = parseInt(value)
+      value = parseInt(value);
       score.hardTotal += value;
       score.softTotal += value;
     }
-    console.log('this is the score ', score)
-    console.log(value, score);
-    setScore({...score});
+    setScore({ ...score });
   }
 
   return (
