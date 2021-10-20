@@ -1,3 +1,4 @@
+import CardTest from "./components/CardTest";
 
 function App() {
   return (
