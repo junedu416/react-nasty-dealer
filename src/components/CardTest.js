@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { initialiseDeck, drawCard } from "../utils/api-utils";
 import Card from "../classes/Card";
 import Hand from "./Hand";
-import Bet from './buttons/Bet';
-import Deal from './buttons/Deal';
-import Double from './buttons/Double';
-import Hit from './buttons/Hit';
-import Split from './buttons/Split';
-import Stand from './buttons/Stand';
-
+// import Bet from "./buttons/Bet";
+// import Deal from "./buttons/Deal";
+// import Double from "./buttons/Double";
+// import Hit from "./buttons/Hit";
+// import Split from "./buttons/Split";
+// import Stand from "./buttons/Stand";
+import Button from "@mui/material/Button";
 
 const CardTest = () => {
   const [deckId, setDeckId] = useState("");
@@ -46,25 +46,53 @@ const CardTest = () => {
 
   return (
     <>
-      <h1>card api test</h1>
-      <h2>deckId: {deckId}</h2>
+      <p>deckId: {deckId}</p>
       {/*buttons call drawCard to make API request and then pass data to addToHand*/}
-      <button onClick={() => drawCard(deckId, 2).then(addToHand)}>
+      {/* <button onClick={() => drawCard(deckId, 2).then(addToHand)}>
         Draw 2 Cards
       </button>
       <button onClick={() => drawCard(deckId, 1).then(addToHand)}>
         Draw 1 Card
       </button>
-      <button onClick={dealCards}>Deal</button>
-      <Hand dealer dealersTurn={dealersTurn} cards={dealerCards}/>
-      <Hand cards={playerCards}/>
-      <Deal />
+      <button onClick={dealCards}>Deal</button> */}
+      <Hand dealer dealersTurn={dealersTurn} cards={dealerCards} />
+      <Hand cards={playerCards} />
+      {/* <Deal onClick={dealCards} /> */}
       <div>
-        <Bet />
+        {/* <Bet />
         <Split />
         <Stand />
         <Hit />
-        <Double />
+        <Double /> */}
+        <Button variant="contained" size="large" color="success">
+          Bet
+        </Button>
+        <Button variant="contained" size="large" color="warning">
+          Split
+        </Button>
+        <Button variant="contained" size="large" color="error">
+          Stand
+        </Button>
+        <Button
+          variant="contained"
+          size="large"
+          color="primary"
+          onClick={() => drawCard(deckId, 1).then(addToHand)}
+        >
+          Hit
+        </Button>
+        <Button variant="contained" size="large" color="secondary">
+          Double
+        </Button>
+
+        <Button
+          variant="contained"
+          size="large"
+          color="info"
+          onClick={dealCards}
+        >
+          Deal
+        </Button>
       </div>
     </>
   );
