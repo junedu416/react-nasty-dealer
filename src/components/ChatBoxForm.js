@@ -4,6 +4,8 @@ import React, {useState} from 'react';
 const ChatBoxForm = (props) => {
     const{addComment} = props;
     const [inputData, setInputData] = useState("");
+    const user = (localStorage.getItem("username") || "You");
+
 
     // form input value
     function handleInput(e) {
@@ -13,15 +15,10 @@ const ChatBoxForm = (props) => {
    function submitHandler(e) {
         e.preventDefault();
         if (inputData) {
-            addComment(inputData, "You");
+            addComment(inputData, user);
             setInputData("");
-            // addInsultReply();
         }
     }
-
-    // function addInsultReply() {
-    //     getInsult().then(insult => addComment(insult, "Dealer"))
-    // }
 
 
     return(
