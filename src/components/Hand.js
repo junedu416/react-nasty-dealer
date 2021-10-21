@@ -4,31 +4,31 @@ import faceDownCard from "./../images/face-down-card.jpeg"
 const Hand = (props) => {
     const {dealer, cards, dealersTurn} = props;
     const [score, setScore] = useState({
-        softTotal: 0,
-        hardTotal: 0
+        highTotal: 0,
+        lowTotal: 0
     });
 
-    //Originally calculateScore()
+    //Originally calculateScore
     useEffect(() => {
         // calculates score for aces
         let newScore = {
-            softTotal: 0,
-            hardTotal: 0
+            highTotal: 0,
+            lowTotal: 0
         };
         for (let i = 0; i < (dealer && !dealersTurn && cards.length === 2 ? 1 : cards.length); i++) {
             let value = cards[i].value;
             if (value === "ACE") {
-                newScore.hardTotal += 1;
-                newScore.softTotal += newScore.softTotal + 11 > 21 ? 1 : 11;
+                newScore.lowTotal += 1;
+                newScore.highTotal += newScore.highTotal + 11 > 21 ? 1 : 11;
             } else if (isNaN(value) === true) {
                 // face cards
-                newScore.hardTotal += 10;
-                newScore.softTotal += 10;
+                newScore.lowTotal += 10;
+                newScore.highTotal += 10;
             } else {
                 // number cards
                 value = parseInt(value)
-                newScore.hardTotal += value;
-                newScore.softTotal += value;
+                newScore.lowTotal += value;
+                newScore.highTotal += value;
             }
             console.log(value, newScore);
         }
@@ -56,7 +56,7 @@ const Hand = (props) => {
                 );
             })}
             {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
-            <h2>Points: {(score.softTotal > 1) && (score.softTotal > 21 ? score.hardTotal : score.softTotal)}</h2>
+            <h2>Points: {(score.highTotal > 1) && (score.highTotal > 21 ? score.lowTotal : score.highTotal)}</h2>
         </div>
     )
 }
