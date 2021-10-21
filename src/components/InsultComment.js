@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const InsultComment = () => {
   const [insult, setInsult] = useState("");
 
+
   useEffect(() => {
     fetch(
       "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
@@ -17,7 +18,9 @@ const InsultComment = () => {
       .catch((error) => console.error(error));
   }, []);
 
-  return <p>my insult: {insult}</p>;
+  return( 
+    <p>my insult: {insult}</p>
+  )
 };
 
 export default InsultComment;

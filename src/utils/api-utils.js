@@ -20,4 +20,19 @@ async function drawCard(deckId, numCards) {
   return data.cards;
 }
 
-export { initialiseDeck, drawCard };
+// insult api retrieval
+async function getInsult() {
+    const response = await fetch('https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json', {
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    const data = response.json();
+    return data.insult;
+}
+export {
+    initialiseDeck,
+    drawCard,
+    getInsult
+}
+
