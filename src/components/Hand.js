@@ -7,7 +7,6 @@ const Hand = (props) => {
     highTotal: 0,
     lowTotal: 0,
   });
-  const [bust, setBust] = useState(false);
 
   //Originally calculateScore
   useEffect(() => {
@@ -35,23 +34,29 @@ const Hand = (props) => {
         newScore.lowTotal += value;
         newScore.highTotal += value;
       }
+      console.log(value, newScore);
     }
+
     setScore(newScore);
   }, [cards, dealer, dealersTurn]);
 
-  useEffect(() => {
-    if (score.lowTotal > 21) {
-      setBust(true);
-    } else {
-      setBust(false);
-    }
-  }, [score])
+  function calculateTotal(score) {
+    if (score.lowTotal === 21 || score.highTotal === 21) return 21;
+    else if (score.highTotal > 21) return score.lowTotal;
+    
+    return score.highTotal;
+  }
 
   return (
     <div>
       {/* Displays cards */}
-      <h2>{dealer ? "Dealer's" : "Player's"} Cards:</h2>
-      <div style={{display: "flex"}}>
+      <h2>
+        {dealer ? "Dealer: " : "Player: "}
+        {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
+        {score.highTotal > 1 &&
+          (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
+      </h2>
+      <div style={{ display: "flex" }}>
         {cards.map((card, index) => {
           return (
             <div key={index}>
@@ -59,9 +64,6 @@ const Hand = (props) => {
                 <img alt={"face down card"} src={faceDownCard} width={225} />
               ) : (
                 <>
-                  {/* <p>
-                    {card.value} {card.suit}
-                  </p> */}
                   <img
                     alt={`${card.value} ${card.suit}`}
                     src={card.imgString}
@@ -72,15 +74,6 @@ const Hand = (props) => {
           );
         })}
       </div>
-      {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
-      {/* Dont show points if no cards*/}
-      {cards.length > 0 &&
-      <h2>
-        Points:{" "}
-        {score.highTotal > 1 &&
-          (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
-      </h2>}
-      {bust && <h2>Bust!</h2>}
     </div>
   );
 };

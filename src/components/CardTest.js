@@ -17,6 +17,23 @@ const CardTest = () => {
   const [dealerCards, setDealerCards] = useState([]);
   const [dealersTurn, setDealersTurn] = useState(false);
 
+  const [balance, setBalance] = useState(1000);
+  const [bet, setBet] = useState(0);
+
+  const [gameState, setGameState] = useState({
+    bet: '',
+    init: false,
+    userTurn: true,
+    dealerTurn: false
+  });
+
+  const placeBet = (amount) => {
+    setBet(amount);
+    setBalance(balance - amount);
+    setGameState(gameState.init === true);
+
+  }
+
   //initialise a new 6 decks and set the id in state
   useEffect(() => {
     initialiseDeck(6).then(setDeckId);
