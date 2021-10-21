@@ -1,8 +1,9 @@
 import Button from "@mui/material/Button";
 
-const Hit = () => {
+const Hit = (props) => {
+  const {buttonFunc} = props;
   return (
-    <Button variant="contained" size="large">
+    <Button variant="contained" size="large" onClick={buttonFunc}>
       Hit
     </Button>
   );

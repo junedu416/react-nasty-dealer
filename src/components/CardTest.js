@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import { initialiseDeck, drawCard } from "../utils/api-utils";
 import Card from "../classes/Card";
 import Hand from "./Hand";
-// import Bet from "./buttons/Bet";
-// import Deal from "./buttons/Deal";
-// import Double from "./buttons/Double";
-// import Hit from "./buttons/Hit";
-// import Split from "./buttons/Split";
-// import Stand from "./buttons/Stand";
+import Bet from "./buttons/Bet";
+import Deal from "./buttons/Deal";
+import Double from "./buttons/Double";
+import Hit from "./buttons/Hit";
+import Split from "./buttons/Split";
+import Stand from "./buttons/Stand";
 import Button from "@mui/material/Button";
 import ChatBox from "./ChatBox";
 
@@ -58,42 +58,14 @@ const CardTest = () => {
       <button onClick={dealCards}>Deal</button> */}
       <Hand dealer dealersTurn={dealersTurn} cards={dealerCards} />
       <Hand cards={playerCards} />
-      {/* <Deal onClick={dealCards} /> */}
+
       <div>
-        {/* <Bet />
+        <Bet />
         <Split />
         <Stand />
-        <Hit />
-        <Double /> */}
-        <Button variant="contained" size="large" color="success">
-          Bet
-        </Button>
-        <Button variant="contained" size="large" color="warning">
-          Split
-        </Button>
-        <Button variant="contained" size="large" color="error">
-          Stand
-        </Button>
-        <Button
-          variant="contained"
-          size="large"
-          color="primary"
-          onClick={() => drawCard(deckId, 1).then(addToHand)}
-        >
-          Hit
-        </Button>
-        <Button variant="contained" size="large" color="secondary">
-          Double
-        </Button>
-
-        <Button
-          variant="contained"
-          size="large"
-          color="info"
-          onClick={dealCards}
-        >
-          Deal
-        </Button>
+        <Hit buttonFunc={() => drawCard(deckId, 1).then(addToHand)}/>
+        <Double />
+        <Deal buttonFunc={dealCards} />
       </div>
       <ChatBox />
     </>
