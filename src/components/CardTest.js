@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { initialiseDeck, drawCard } from "../utils/api-utils";
 import Card from "../classes/Card";
 import Hand from "./Hand";
+import Bet from './buttons/Bet';
+import Deal from './buttons/Deal';
+import Double from './buttons/Double';
+import Hit from './buttons/Hit';
+import Split from './buttons/Split';
+import Stand from './buttons/Stand';
+
 
 const CardTest = () => {
   const [deckId, setDeckId] = useState("");
@@ -51,6 +58,14 @@ const CardTest = () => {
       <button onClick={dealCards}>Deal</button>
       <Hand dealer dealersTurn={dealersTurn} cards={dealerCards}/>
       <Hand cards={playerCards}/>
+      <Deal />
+      <div>
+        <Bet />
+        <Split />
+        <Stand />
+        <Hit />
+        <Double />
+      </div>
     </>
   );
 };
