@@ -2,7 +2,8 @@ import CardTest from "./components/CardTest";
 
 import Home from './components/Home';
 import BlackJackRule from './components/BlackJackRule';
-import {Link, Switch, Route} from 'react-router-dom'
+import {Link, Switch, Route} from 'react-router-dom';
+import Timer from './components/Timer'
 
 function App() {
 
@@ -28,6 +29,10 @@ function App() {
         {/* there's no link for backjack rule page yet. Can put it on game page after game page set */}
         <Route path="/blackjack/rule">
           <BlackJackRule />
+        </Route>
+        {/* set this route temporarily to test Timer function */}
+        <Route path="/timer">
+          <Timer/>
         </Route>
       </Switch>
     </>
