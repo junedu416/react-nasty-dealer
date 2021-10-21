@@ -7,14 +7,6 @@ const CardTest = () => {
   const [deckId, setDeckId] = useState("");
   const [playerCards, setPlayerCards] = useState([]);
   const [dealerCards, setDealerCards] = useState([]);
-  const [playerScore, setPlayerScore] = useState({
-      softTotal: 0,
-      hardTotal: 0
-  });
-  const [dealerScore, setDealerScore] = useState({
-      softTotal: 0,
-      hardTotal: 0
-  });
   const [dealersTurn, setDealersTurn] = useState(false);
 
   //initialise a new 6 decks and set the id in state
@@ -29,11 +21,6 @@ const CardTest = () => {
     //create a new Card from data receieved and push to array of Cards to add to state
     cards.forEach((card) => {
       cardsToAdd.push(new Card(card.suit, card.value, card.image));
-      if (dealer) {
-        calculateScore(card.value, dealerScore, setDealerScore);
-      } else {
-        calculateScore(card.value, playerScore, setPlayerScore);
-      }
     });
 
     //add new cards to players cards paying respect to what cards they already have
@@ -42,29 +29,6 @@ const CardTest = () => {
     } else {
       setPlayerCards([...playerCards, ...cardsToAdd]);
     }
-  }
-
-  /*INPUT: value: card value
-           score: relevant score state
-           setScore: relevant score setter function
-  */
-  function calculateScore(value, score, setScore) {
-    // calculates score for aces
-    if (value === "ACE") {
-      score.hardTotal += 1;
-      score.softTotal += score.softTotal + 11 > 21 ? 1 : 11;
-    } else if (isNaN(value) === true) {
-      // face cards
-      score.hardTotal += 10;
-      score.softTotal += 10;
-    } else {
-      // number cards
-      value = parseInt(value)
-      score.hardTotal += value;
-      score.softTotal += value;
-    }
-    console.log(value, score);
-    setScore({...score});
   }
 
   //draw 2 cards for player then for dealer
@@ -85,8 +49,8 @@ const CardTest = () => {
         Draw 1 Card
       </button>
       <button onClick={dealCards}>Deal</button>
-      <Hand dealer dealersTurn={dealersTurn} cards={dealerCards} score={dealerScore} />
-      <Hand cards={playerCards} score={playerScore} />
+      <Hand dealer dealersTurn={dealersTurn} cards={dealerCards}/>
+      <Hand cards={playerCards}/>
     </>
   );
 };
