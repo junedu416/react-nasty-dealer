@@ -19,6 +19,32 @@ const ChatBox = () => {
                 }
             ]
         )
+        if (user !== "Dealer") {
+            getInsult(comment, user);
+        }
+    }
+    // asynchronously retrieves insult from api and set comment along with reply
+    function getInsult(comment, user) {
+        fetch(
+            "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          )
+            .then((response) => response.json())
+            .then((data) => setComments([...comments,
+                {
+                    name: user,
+                    message: comment
+                },
+                {
+                    name: "Dealer",
+                    message: data.insult
+                }
+            ]))
+            .catch((error) => console.error(error));
     }
 
 
