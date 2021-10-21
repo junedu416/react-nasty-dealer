@@ -5,12 +5,6 @@ import BlackJackRule from './components/BlackJackRule';
 import {Link, Switch, Route} from 'react-router-dom'
 
 function App() {
-  // onChangeUsername = (event) => {
-  //   const updatedUsername = {
-  //   ...this.state, [event.target.name]:event.target.value,
-  //   }
-  //   this.setState(updatedUsername)
-  // }
 
   return (
     <>
