@@ -13,9 +13,9 @@ import Button from "@mui/material/Button";
 //   },
 // });
 
-const Split = () => {
+const Split = (props) => {
   return (
-    <Button variant="contained" size="large" color="warning">
+    <Button variant="contained" size="large" color="warning" onClick={() => props.handleClick}>
       Split
     </Button>
   );
