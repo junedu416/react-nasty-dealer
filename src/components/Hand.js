@@ -7,6 +7,7 @@ const Hand = (props) => {
     highTotal: 0,
     lowTotal: 0,
   });
+  const [bust, setBust] = useState(false);
 
   //Originally calculateScore
   useEffect(() => {
@@ -34,10 +35,17 @@ const Hand = (props) => {
         newScore.lowTotal += value;
         newScore.highTotal += value;
       }
-      console.log(value, newScore);
     }
     setScore(newScore);
   }, [cards, dealer, dealersTurn]);
+
+  useEffect(() => {
+    if (score.lowTotal > 21) {
+      setBust(true);
+    } else {
+      setBust(false);
+    }
+  }, [score])
 
   return (
     <div>
@@ -65,11 +73,14 @@ const Hand = (props) => {
         })}
       </div>
       {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
+      {/* Dont show points if no cards*/}
+      {cards.length > 0 &&
       <h2>
         Points:{" "}
         {score.highTotal > 1 &&
           (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
-      </h2>
+      </h2>}
+      {bust && <h2>Bust!</h2>}
     </div>
   );
 };
