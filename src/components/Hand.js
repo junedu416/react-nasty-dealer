@@ -1,3 +1,5 @@
+import faceDownCard from "./../images/face-down-card.jpeg"
+
 const Hand = (props) => {
     const {dealer, cards, score, dealersTurn} = props;
 
@@ -8,13 +10,15 @@ const Hand = (props) => {
             {cards.map((card, index) => {
                 return (
                 <div key={index}>
-                    <p>
-                        {card.value} {card.suit}
-                    </p>
                     { dealer && !dealersTurn && cards.length === 2 && index === 1 ?
-                        <img alt={"face down card"} src={""} />
+                        <img alt={"face down card"} src={faceDownCard} width={225}/>
                         :
+                        <>
+                        <p>
+                            {card.value} {card.suit}
+                        </p>
                         <img alt={`${card.value} ${card.suit}`} src={card.imgString} />
+                        </>
                     }
                 </div>
                 );
