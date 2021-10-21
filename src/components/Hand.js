@@ -44,7 +44,8 @@ const Hand = (props) => {
 
   // State for bust
   useEffect(() => {
-    if(calculateTotal(score) > 21) setBust(true); 
+    if(calculateTotal(score) > 21) setBust(true);
+    setBust(false);
   }, [score])
 
   function calculateTotal(score) {
