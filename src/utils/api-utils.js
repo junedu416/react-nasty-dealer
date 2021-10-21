@@ -21,18 +21,19 @@ async function drawCard(deckId, numCards) {
 }
 
 // insult api retrieval
-async function getInsult() {
-    const response = await fetch('https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json', {
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    const data = response.json();
-    return data.insult;
-}
+// async function getInsult() {
+//     const response = await fetch('https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json', {
+//         headers: {
+//             'Content-Type': 'application/json'
+//         }
+//     })
+//     const data = response.json();
+//     return data.insult;
+// }
+
+
 export {
     initialiseDeck,
-    drawCard,
-    getInsult
+    drawCard
 }
 

@@ -9,6 +9,7 @@ import Hand from "./Hand";
 // import Split from "./buttons/Split";
 // import Stand from "./buttons/Stand";
 import Button from "@mui/material/Button";
+import ChatBox from "./ChatBox";
 
 const CardTest = () => {
   const [deckId, setDeckId] = useState("");
@@ -94,6 +95,7 @@ const CardTest = () => {
           Deal
         </Button>
       </div>
+      <ChatBox />
     </>
   );
 };
