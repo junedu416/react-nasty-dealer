@@ -47,6 +47,10 @@ const Hand = (props) => {
     return score.highTotal;
   }
 
+  function isBust() {
+    return calculateTotal(score) > 21;
+  }
+
   return (
     <div>
       {/* Displays cards */}
@@ -55,7 +59,9 @@ const Hand = (props) => {
         {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
         {score.highTotal > 1 &&
           (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
+          {isBust() ? " BUST!" : ''}
       </h2>
+
       <div style={{ display: "flex" }}>
         {cards.map((card, index) => {
           return (
