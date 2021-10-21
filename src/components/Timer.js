@@ -25,20 +25,19 @@ function Timer(){
 
     const percentage = Math.round( seconds / secondsTotal * 100) ;
     const style = buildStyles({
-    //TODO: styling - leave it here for later change to match the payge styling
+    //TODO: styling - leave it here for later change to match game page styling
         rotation: 0,
         strokeLinecap: 'round',
         textSize: '25px',
         pathTransitionDuration: 0.5, 
         pathColor: `${color}`,
         textColor: '#f88',
-        trailColor: '#d6d6d6',
-        backgroundColor: '#3e98c7',
+        trailColor: '#d6d6d6'
       })
 
     return (
         <div>
-            <div style = {{maxWidth:150}}><CircularProgressbar styles={style} value={percentage} text={seconds} /></div>
+            <div style = {{maxWidth:150}}><CircularProgressbar styles={style} value={percentage}/></div>
         </div>
     )
 }
