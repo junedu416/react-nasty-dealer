@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 
 function Home() {
-  const [username, setUsername] = useState("");
+  const [username, setUsername] = useState(retrieveUser());
   const [login, setLogin] = useState(false);
 
   function handleSubmit(event) {
@@ -13,6 +13,12 @@ function Home() {
 
   function handleChange(event) {
     setUsername(event.target.value);
+    localStorage.setItem("username", event.target.value)
+  }
+
+  function retrieveUser() {
+    const user = localStorage.getItem("username");
+    return user || "";
   }
 
   return (
@@ -30,6 +36,7 @@ function Home() {
             id="outlined-basic"
             label="Enter name"
             variant="outlined"
+            value={username}
             onChange={handleChange}
           />
           <Button type="submit" variant="contained" size="large">
