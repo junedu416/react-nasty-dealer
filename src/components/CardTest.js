@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { initialiseDeck, drawCard } from "../utils/api-utils";
 import Card from "../classes/Card";
+import Hand from "./Hand";
 
 const CardTest = () => {
   const [deckId, setDeckId] = useState("");
@@ -14,6 +15,7 @@ const CardTest = () => {
       softTotal: 0,
       hardTotal: 0
   });
+  const [dealersTurn, setDealersTurn] = useState(false);
 
   //initialise a new 6 decks and set the id in state
   useEffect(() => {
@@ -83,34 +85,8 @@ const CardTest = () => {
         Draw 1 Card
       </button>
       <button onClick={dealCards}>Deal</button>
-      {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
-      <h2>Player Points: {(playerScore.softTotal > 1) && (playerScore.softTotal > 21 ? playerScore.hardTotal : playerScore.softTotal)}</h2>
-      {/*Display cards value/suit/img*/}
-      <h2>Players Cards:</h2>
-      {playerCards.map((card, index) => {
-        return (
-          <div key={index}>
-            <p>
-              {card.value} {card.suit}
-            </p>
-            <img alt={`${card.value} ${card.suit}`} src={card.imgString} />
-          </div>
-        );
-      })}
-      {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
-      <h2>Dealer Points: {(dealerScore.softTotal > 1) && (dealerScore.softTotal > 21 ? dealerScore.hardTotal : dealerScore.softTotal)}</h2>
-      {/*Display cards value/suit/img*/}
-      <h2>Dealers Cards:</h2>
-      {dealerCards.map((card, index) => {
-        return (
-          <div key={index}>
-            <p>
-              {card.value} {card.suit}
-            </p>
-            <img alt={`${card.value} ${card.suit}`} src={card.imgString} />
-          </div>
-        );
-      })}
+      <Hand dealer dealersTurn={dealersTurn} cards={dealerCards} score={dealerScore} />
+      <Hand cards={playerCards} score={playerScore} />
     </>
   );
 };
