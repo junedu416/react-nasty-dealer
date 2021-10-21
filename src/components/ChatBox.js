@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import ChatBoxForm from './ChatBoxForm';
-import InsultComment from './InsultComment'
+
 
 
 const ChatBox = () => {
@@ -20,7 +20,6 @@ const ChatBox = () => {
             ]
         )
     }
-
 
 
     return(

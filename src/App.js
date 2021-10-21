@@ -3,7 +3,6 @@ import CardTest from "./components/CardTest";
 import Home from './components/Home';
 import BlackJackRule from './components/BlackJackRule';
 import {Link, Switch, Route} from 'react-router-dom';
-import ChatBox from './components/ChatBox'
 
 function App() {
   // onChangeUsername = (event) => {
@@ -25,7 +24,6 @@ function App() {
           </li>
         </ul>
       </nav>
-      <ChatBox />
       <Switch>
         <Route exact path="/">
           <Home />

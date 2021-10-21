@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { initialiseDeck, drawCard } from "../utils/api-utils";
 import Card from "../classes/Card";
+import ChatBox from "./ChatBox";
 
 const CardTest = () => {
   const [deckId, setDeckId] = useState("");
@@ -111,6 +112,7 @@ const CardTest = () => {
           </div>
         );
       })}
+      <ChatBox />
     </>
   );
 };
