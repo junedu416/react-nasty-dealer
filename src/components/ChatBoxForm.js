@@ -11,8 +11,10 @@ const ChatBoxForm = (props) => {
     // handle new comment submission
     function submitHandler(e) {
         e.preventDefault();
-        addComment(inputData, "You");
-        setInputData("");
+        if (inputData) {
+            addComment(inputData, "You");
+            setInputData("");
+        }
     }
 
     return(

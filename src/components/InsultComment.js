@@ -16,7 +16,7 @@ const InsultComment = () => {
     }, [])
 
     return(
-        <p>my insult: {insult}</p>
+        <p>{insult}</p>
     )
 }
 
