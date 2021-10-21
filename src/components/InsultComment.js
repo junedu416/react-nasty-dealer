@@ -5,7 +5,7 @@ const InsultComment = () => {
    const [insult, setInsult] = useState("")
 
     useEffect(()=> {
-        fetch('https://cors-anywhere.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json', {
+        fetch('https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json', {
             headers: {
                 'Content-Type': 'application/json'
             }
