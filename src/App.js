@@ -3,7 +3,6 @@ import CardTest from "./components/CardTest";
 import Home from './components/Home';
 import BlackJackRule from './components/BlackJackRule';
 import {Link, Switch, Route} from 'react-router-dom'
-import InsultComment from './components/InsultComment';
 
 function App() {
   // onChangeUsername = (event) => {
@@ -25,7 +24,6 @@ function App() {
           </li>
         </ul>
       </nav>
-      <InsultComment />
       <Switch>
         <Route exact path="/">
           <Home />
