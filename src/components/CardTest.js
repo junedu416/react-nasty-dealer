@@ -19,19 +19,25 @@ const CardTest = () => {
 
   const [balance, setBalance] = useState(1000);
   const [bet, setBet] = useState(0);
+  // const [bust, setBust] = useState(false);
 
-  const [gameState, setGameState] = useState({
-    bet: '',
-    init: false,
-    userTurn: true,
-    dealerTurn: false
-  });
+  // const [gameState, setGameState] = useState({
+  //   bet: '',
+  //   init: false,
+  //   userTurn: true,
+  //   dealerTurn: false
+  // });
+
+  // const [buttonState, setButtonState] = useState({
+  //   hitDisabled: false,
+  //   standDisabled: false,
+  //   resetDisabled: true
+  // });
 
   const placeBet = (amount) => {
     setBet(amount);
     setBalance(balance - amount);
-    setGameState(gameState.init === true);
-
+    // setGameState(gameState.init === true);
   }
 
   //initialise a new 6 decks and set the id in state
