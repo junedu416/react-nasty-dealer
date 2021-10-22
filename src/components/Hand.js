@@ -3,7 +3,7 @@ import faceDownCard from "./../images/face-down-card.jpeg";
 import { CenteredBox } from './styled-components';
 
 const Hand = (props) => {
-  const { dealer, cards, dealersTurn, score, bust } = props;
+  const { dealer, cards, dealersTurn, score, bust, chips, betSize } = props;
   const cardBack = {
     width: "135px",
     height: "197px",
@@ -41,6 +41,7 @@ const Hand = (props) => {
         </h2>
         <p style={bustedStyling}>{cards.length > 0 && bust && <h2>BUST!</h2>}</p>
       </div>
+
       <CenteredBox height='100%'>
         <div style={{ display: "flex" }}>
           {cards.map((card, index) => {
@@ -81,6 +82,8 @@ const Hand = (props) => {
           })}
         </div>
       </CenteredBox>
+
+      {!dealer && <h3>chips: ${chips} - bet: ${betSize}</h3>}
     </div>
   );
 };
