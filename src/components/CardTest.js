@@ -138,7 +138,7 @@ const CardTest = () => {
         <Bet />
         <Split />
         <Stand buttonFunc={() => {
-          if (playerVars.cards.length >= 2) {
+          if (playerVars.cards.length >= 2 && !playerVars.stand && !dealerVars.stand) {
             playerDispatch({type: "stand"});
             dealerDispatch({type: "setTurn"});
           }
