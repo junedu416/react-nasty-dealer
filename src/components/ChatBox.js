@@ -1,6 +1,7 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ChatBoxForm from './ChatBoxForm';
 import {getRandomInteger, playerWinResponse, playerBustResponse} from '../utils/util-functions';
+import { applyCensorship } from '../utils/api-utils';
 
 
 
@@ -34,7 +35,8 @@ const ChatBox = ({playerBust, dealerBust}) => {
                     },
                 })
                 .then((response) => response.json())
-                .then(data => addDealerComment(data.insult, comment, user))
+                .then(data => applyCensorship(data.insult))
+                .then(insult => addDealerComment(insult, comment, user))
                 .catch(error => console.error(error))
     }
 

@@ -20,8 +20,16 @@ async function drawCard(deckId, numCards) {
   return data.cards;
 }
 
+// use API to censor swear words. API Returns as json in format {result: "{censored string}"}
+async function applyCensorship(string) {
+    const response = await fetch(`https://www.purgomalum.com/service/json?text=${string}`)
+    const data = await response.json();
+    return data.result;
+}
+
 export {
     initialiseDeck,
-    drawCard
+    drawCard,
+    applyCensorship
 }
 
