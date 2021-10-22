@@ -14,17 +14,19 @@ const ChatBox = ({playerBust, dealerBust}) => {
 
     // add new comment to the list of comments displayed in chat
     function addComment(comment, user) {
-        setComments(
-            [...comments,
-                {
-                    name: user,
-                    message: comment
-                }
-            ]
-        )
-        if (user !== "Dealer") {
-            getInsult(comment, user);
-        }
+        applyCensorship(comment).then( censoredComment => {
+            setComments(
+                [...comments,
+                    {
+                        name: user,
+                        message: censoredComment
+                    }
+                ]
+            )
+            if (user !== "Dealer") {
+                getInsult(censoredComment, user);
+            }
+        })
     }
 
     function getInsult(comment, user) {
