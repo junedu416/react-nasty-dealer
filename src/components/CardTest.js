@@ -9,6 +9,7 @@ import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
+import RulePage from './rule/RulePage'
 
 
 const CardTest = () => {
@@ -46,6 +47,9 @@ const CardTest = () => {
           stand: faceDownValue.highTotal >= 17 || faceDownValue.lowTotal >= 17 ? true : false
         })
       }
+      case "reset": {
+        return ({...initialHand})
+      }
       default: {
         throw new Error("Invalid action for Dealer");
       }
@@ -65,7 +69,11 @@ const CardTest = () => {
         })
       }
       case "stand": {
-        return ({...state, stand: true})
+        return ({
+          ...state, stand: true})
+      }
+      case "reset": {
+        return ({...initialHand})
       }
       default: {
         throw new Error("Invalid action for Player");
@@ -104,10 +112,15 @@ const CardTest = () => {
 
   //draw 2 cards for player then for dealer
   function dealCards() {
-    drawCard(deckId, 1).then(addCardToPlayer);
-    drawCard(deckId, 1).then(addCardToDealer);
-    drawCard(deckId, 1).then(addCardToPlayer);
-    drawCard(deckId, 1).then(addCardToDealer);
+    if (dealerVars.cards.length === 0 && playerVars.cards.length === 0) {
+      drawCard(deckId, 1).then(addCardToPlayer);
+      drawCard(deckId, 1).then(addCardToDealer);
+      drawCard(deckId, 1).then(addCardToPlayer);
+      drawCard(deckId, 1).then(addCardToDealer);
+    } else if ((dealerVars.stand && playerVars.stand) || playerVars.bust){
+      console.log("no dealio");
+      resetPlayers();
+    }
   }
 
   //===================
@@ -127,6 +140,15 @@ const CardTest = () => {
       payload: newCard
     });
   }
+
+  function resetPlayers() {
+    playerDispatch({
+      type: "reset"
+    });
+    dealerDispatch({
+      type: "reset"
+    })
+  }
   //================
 
   return (
@@ -137,18 +159,25 @@ const CardTest = () => {
         <Bet />
         <Split />
         <Stand buttonFunc={() => {
-          playerDispatch({type: "stand"});
-          dealerDispatch({type: "setTurn"});
-          }}/>
-        <Hit buttonFunc={() => drawCard(deckId, 1).then(addCardToPlayer)}/>
+          if (playerVars.cards.length >= 2 && !playerVars.stand) {
+            playerDispatch({type: "stand"});
+            dealerDispatch({type: "setTurn"});
+          }
+        }}/>
+        <Hit buttonFunc={() => {
+          if (playerVars.cards.length >= 2 && !playerVars.stand) {
+            drawCard(deckId, 1).then(addCardToPlayer)
+          }
+        }}/>
         <Double />
         <Deal buttonFunc={dealCards} />
       </div>
-      
+
       <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
       <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
 
       <ChatBox />
+      <RulePage/>
     </>
   );
 };
