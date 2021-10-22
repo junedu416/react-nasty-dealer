@@ -133,9 +133,6 @@ const CardTest = () => {
     <>
       <p>deckId: {deckId}</p>
 
-      <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
-      <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
-
       <div>
         <Bet />
         <Split />
@@ -147,6 +144,10 @@ const CardTest = () => {
         <Double />
         <Deal buttonFunc={dealCards} />
       </div>
+      
+      <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
+      <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
+
       <ChatBox />
     </>
   );

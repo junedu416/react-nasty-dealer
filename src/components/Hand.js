@@ -6,7 +6,12 @@ const Hand = (props) => {
   return (
     <div>
       {/* Displays cards */}
-      <h2>{dealer ? "Dealer's" : "Player's"} Cards:</h2>
+      <h2>{dealer ? "Dealer: " : "Player: "}
+      {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1
+      Dont show points if no cards */}
+        {score.highTotal >= 1 &&
+          (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
+          {(cards.length > 0 && (bust && <h2>Bust!</h2>))}</h2>
       <div style={{display: "flex"}}>
         {cards.map((card, index) => {
           return (
@@ -28,15 +33,6 @@ const Hand = (props) => {
           );
         })}
       </div>
-      {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1 */}
-      {/* Dont show points if no cards*/}
-      {cards.length > 0 &&
-      <h2>
-        Points:{" "}
-        {score.highTotal >= 1 &&
-          (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
-      </h2>}
-      {bust && <h2>Bust!</h2>}
     </div>
   );
 };
