@@ -3,9 +3,9 @@
 //E.g converting J,Q,K to 10 and A to 11/1
 
 export default class Card {
-    constructor(suit, value, imgString) {
-        this.suit = suit;
-        this.value = value;
-        this.imgString = imgString;
-    }
+  constructor(suit, value, imgString) {
+    this.suit = suit;
+    this.value = value;
+    this.imgString = imgString;
+  }
 }

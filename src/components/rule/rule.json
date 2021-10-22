@@ -1,10 +1,11 @@
 {
     "title": "Angry Cards",
-    "generalRule": "The goal of the game is to beat the dealer's hand without going over 21.Face cards are worth 10. Aces are worth 1 or 11, whichever makes a better hand. Each player starts with two cards, one of the dealer's cards is hidden until the end. If you go over 21 you bust, and the dealer wins regardless of the dealer's hand. If you are dealt 21 from the start (Ace & 10), you got a blackjack. Dealer will hit until his/her cards total 17 or higher.",
-    "hit": "to ask for another card ",
-    "stand": "to hold your total and end your turn.",
-    "double": "doubling is like a hit, only the bet is doubled and you only get one more card. (You can only double/split on the first move, or first move of a hand created by a split.)",
-    "split": "split can be done when you have two of the same card - the pair is split into two hands. Splitting also doubles the bet, because each new hand is worth the original bet. You cannot play on two aces after they are split.",
-    "bet": "TODO: bet rule goes here",
-    "insurance": "TODO: insurance rule goes here"
+    "generalRule": "The goal of the game is to beat the dealer's hand without going over 21. Face cards are worth 10. Aces are worth 1 or 11, whichever makes a better hand. Each player starts with two cards, the dealer will have one card hidden until their turn starts. You bust if you go over 21 and the dealer wins regardless of their hand. If you are dealt 21 from the start (Ace & 10 or picture card), you got a blackjack. Dealer will hit until their hand is 16, and stand on 17 or higher.",
+    "hit": "draw another card ",
+    "stand": "end your turn.",
+    "double": "you double your bet and only draw one more card and end your turn. (You can only double on your first move of your hand after the cards have been dealt and if you chose to split, the same rules apply for each split hand.)",
+    "split": "you can only split when you have two of the same card - the pair is split into two separate hands. Splitting also requires you to bet the same value as the original bet for the new split hand. You cannot play on two aces after they are split.",
+    "bet": "You must place your bet before each hand, min. $25 - max. $5,000. You can clear your bet and set the amount of chips you wish to bet by clicking on the corresponding chip(s).",
+    "insurance": "if the dealer's face up card is an Ace, you may opt to buy insurance, which is the same value as your original bet, and if the dealer has BlackJack, you will be paid out 2 to 1. If the dealer does not have BlackJack, the insurance bet is forfeited to the dealer",
+    "surrender": "at the start of your turn, you may chose to surrender and have half your bet returned and the other half forfeited to the dealer."
 }
