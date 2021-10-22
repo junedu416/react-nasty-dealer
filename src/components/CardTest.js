@@ -9,6 +9,7 @@ import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
+import RulePage from './rule/RulePage'
 
 
 const CardTest = () => {
@@ -149,6 +150,7 @@ const CardTest = () => {
       <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
 
       <ChatBox />
+      <RulePage/>
     </>
   );
 };
