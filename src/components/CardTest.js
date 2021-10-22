@@ -20,11 +20,11 @@ const CardTest = () => {
       lowTotal: 0
     },
     bust: false,
-    turn: false
+    stand: false
   }
   const [deckId, setDeckId] = useState("");
 
-  //State for dealer vars - add dealers turn here later
+  //State for dealer vars
   const [dealerVars, dealerDispatch] = useReducer((state, action) => {
     switch(action.type) {
       case "addCard": {
@@ -33,14 +33,17 @@ const CardTest = () => {
           ...state,
           cards: [...state.cards, action.payload],
           score: state.cards.length === 1 && !state.turn ? state.score : newScore,
-          bust: newScore.lowTotal > 21 ? true : false
+          bust: newScore.lowTotal > 21 ? true : false,
+          stand: (newScore.highTotal >= 17 && newScore.lowTotal >= 17)|| newScore.lowTotal >= 17 ? true : false
         })
       }
       case "setTurn": {
+        const faceDownValue = updateScore(state.cards[state.cards.length-1].value, state.score);
         return ({
           ...state,
           turn: true,
-          score: updateScore(state.cards[state.cards.length-1].value, state.score)
+          score: faceDownValue,
+          stand: faceDownValue.highTotal >= 17 || faceDownValue.lowTotal >= 17 ? true : false
         })
       }
       default: {
@@ -61,6 +64,9 @@ const CardTest = () => {
           bust: newScore.lowTotal > 21 ? true : false
         })
       }
+      case "stand": {
+        return ({...state, stand: true})
+      }
       default: {
         throw new Error("Invalid action for Player");
       }
@@ -71,6 +77,12 @@ const CardTest = () => {
   useEffect(() => {
     initialiseDeck(6).then(setDeckId);
   }, []);
+
+  useEffect(() => {
+    if (!dealerVars.stand && dealerVars.turn) {
+      drawCard(deckId, 1).then(addCardToDealer);
+    }
+  }, [dealerVars.score, dealerVars.turn, dealerVars.stand, deckId])
 
   function updateScore(value, curScore) {
     let newScore = {...curScore}
@@ -127,7 +139,10 @@ const CardTest = () => {
       <div>
         <Bet />
         <Split />
-        <Stand buttonFunc={() => dealerDispatch({type: "setTurn"})}/>
+        <Stand buttonFunc={() => {
+          playerDispatch({type: "stand"});
+          dealerDispatch({type: "setTurn"});
+          }}/>
         <Hit buttonFunc={() => drawCard(deckId, 1).then(addCardToPlayer)}/>
         <Double />
         <Deal buttonFunc={dealCards} />
