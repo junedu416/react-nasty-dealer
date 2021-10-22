@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ChatBoxForm from './ChatBoxForm';
-import {getRandomInteger, playerWinResponse, playerBustResponse} from '../utils/util-functions';
+import {getRandomInteger, playerWinResponse, playerBustResponse, decodeHtmlEntity} from '../utils/util-functions';
 import { applyCensorship } from '../utils/api-utils';
 
 
@@ -37,8 +37,9 @@ const ChatBox = ({playerBust, dealerBust}) => {
                     },
                 })
                 .then((response) => response.json())
-                .then(data => applyCensorship(data.insult))
-                .then(insult => addDealerComment(insult, comment, user))
+                .then(data => decodeHtmlEntity(data.insult))
+                .then(insult => applyCensorship(insult))
+                .then(filteredInsult => addDealerComment(filteredInsult, comment, user))
                 .catch(error => console.error(error))
     }
 
