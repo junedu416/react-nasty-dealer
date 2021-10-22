@@ -3,7 +3,9 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { CenteredBox } from './styled-components';
 import Background from '../images/hero.png'
-import { autocompleteClasses } from "@mui/material";
+// import { autocompleteClasses } from "@mui/material";
+import { Link } from "react-router-dom";
+import { StartGame } from "./buttons/StartGame";
 
 function Home() {
   const [username, setUsername] = useState(retrieveUser());
@@ -38,24 +40,42 @@ function Home() {
   }
 
   const welcome = {
-    backgroundColor: 'rgb(0, 0, 0, 0.6)',
-    padding: '20px',
-    borderRadius: '4px',
+    backgroundColor: 'rgb(0, 0, 0, 0.64)',
+    padding: '20px 60px',
+    borderRadius: '5px',
     color: 'white',
     fontFamily: 'helvetica',
     fontSize: '3.6rem',
+    whiteSpace: 'pre',
+    textAlign: 'center',
+    lineHeight: '2',
+    border: '5px solid #FFC200',
+  }
+
+  const loggedIn = {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+
   }
 
   return (
     <div style={homePage}>
       <CenteredBox>
           {login ? (
-            <h1 style={welcome}>
-              Hi
-              {username
-                ? ` ${username}! Welcome to the Nasty Dealer`
-                : " idiot, you forget to input your name, but still welcome!"}
-            </h1>
+            <>
+              <div style={loggedIn}>
+                <h1 style={welcome}>
+                  Hi
+                  {username
+                    ? ` ${username}! \nWelcome to the Nasty Dealer`
+                    : " idiot! \nYou forget to input your name, but you're still welcome!"}
+                </h1>
+                <Link to="/blackjack" style={{textDecoration: 'none'}}>
+                  <StartGame />
+                </Link>
+              </div>
+            </>
           ) : (
             <form onSubmit={handleSubmit} style={textStyle}>
               <TextField
@@ -64,7 +84,7 @@ function Home() {
                 variant="outlined"
                 value={username}
                 onChange={handleChange}
-                style={{width:'0px', paddingRight:'8px'}}
+                style={{width:'280px', paddingRight:'8px'}}
               />
               <Button type="submit" variant="contained" size="large" style={{height: '55px'}}>
                 Submit

@@ -21,9 +21,6 @@ function App() {
         <Link to="/">
           <Lobby />
         </Link>
-        <Link to="/blackjack" style={{textDecoration: 'none', marginLeft: '200px'}}>
-          <StartGame />
-        </Link>
       </nav>
 
       <Switch>

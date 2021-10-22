@@ -11,7 +11,7 @@ import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
 import RulePage from './rule/RulePage';
 import { GameContainer, ChatContainer, CenteredBox } from './styled-components';
-import { flexbox } from "@chakra-ui/styled-system";
+// import { flexbox } from "@chakra-ui/styled-system";
 
 
 const CardTest = () => {

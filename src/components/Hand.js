@@ -1,4 +1,4 @@
-import { AbsoluteCenter } from "@chakra-ui/layout";
+// import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
 import { CenteredBox } from './styled-components';
 
