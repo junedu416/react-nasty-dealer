@@ -65,7 +65,8 @@ const CardTest = () => {
         })
       }
       case "stand": {
-        return ({...state, stand: true})
+        return ({
+          ...state, stand: true})
       }
       default: {
         throw new Error("Invalid action for Player");
@@ -137,14 +138,16 @@ const CardTest = () => {
         <Bet />
         <Split />
         <Stand buttonFunc={() => {
-          playerDispatch({type: "stand"});
-          dealerDispatch({type: "setTurn"});
-          }}/>
+          if (playerVars.cards.length >= 2) {
+            playerDispatch({type: "stand"});
+            dealerDispatch({type: "setTurn"});
+          }
+        }}/>
         <Hit buttonFunc={() => drawCard(deckId, 1).then(addCardToPlayer)}/>
         <Double />
         <Deal buttonFunc={dealCards} />
       </div>
-      
+
       <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
       <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
 
