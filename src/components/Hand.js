@@ -1,7 +1,19 @@
+import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
 
 const Hand = (props) => {
   const { dealer, cards, dealersTurn, score, bust } = props;
+  const cardBack = {
+    width:'135px',
+    height:'197px',
+    padding:'5px',
+    border:'1px solid black',
+    borderRadius:'9px',
+    position: 'absolute',
+    left: '50px',
+    backgroundClip: 'content-box',
+    boxShadow: 'inset 0 0 0 9px white'
+  }
 
   return (
     <div>
@@ -17,7 +29,7 @@ const Hand = (props) => {
           return (
             <div key={index}>
               {dealer && !dealersTurn && cards.length === 2 && index === 1 ? (
-                <img alt={"face down card"} src={faceDownCard} width={225} />
+                <img alt={"face down card"} src={faceDownCard} style={cardBack}  />
               ) : (
                 <>
                   {/* <p>
@@ -26,6 +38,7 @@ const Hand = (props) => {
                   <img
                     alt={`${card.value} ${card.suit}`}
                     src={card.imgString}
+                    width={150}
                   />
                 </>
               )}
