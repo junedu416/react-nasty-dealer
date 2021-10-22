@@ -11,7 +11,7 @@ const Hand = (props) => {
       Dont show points if no cards */}
         {score.highTotal >= 1 &&
           (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
-          {(cards.length > 0 && (bust && <h2>Bust!</h2>))}</h2>
+          {(cards.length > 0 && (bust && ' - Bust!'))}</h2>
       <div style={{display: "flex"}}>
         {cards.map((card, index) => {
           return (
