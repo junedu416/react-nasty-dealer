@@ -11,7 +11,7 @@ import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
 
 
-import { GameContainer, ChatContainer, CenteredBox } from "./styled-components";
+import { GameContainer, ChatContainer, CenteredBox, PageContainer } from "./styled-components";
 
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -357,8 +357,7 @@ const CardTest = () => {
 
   const cardContainer = {
     width: "100%",
-    height: "85%",
-    border: "1px solid red",
+    height: "100%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -367,13 +366,21 @@ const CardTest = () => {
   const outerContainer = {
     display: "flex",
     flexDirection: "row",
+    position: 'absolute',
+    bottom: '30px',
   };
 
-  const buttonContainer = {};
+  const buttonContainer = {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: '100%',
+  };
 
   return (
     <>
-      <CenteredBox>
+      <PageContainer>
         <GameContainer>
           {/* <p>deckId: {deckId}</p> */}
 
@@ -388,6 +395,7 @@ const CardTest = () => {
                 }}
               />
               <Split buttonFunc={() => {splitSound();}} />
+
               <Stand
                 buttonFunc={() => {
                   if (playerVars.cards.length >= 2 && !playerVars.stand) {
@@ -411,7 +419,7 @@ const CardTest = () => {
               <Deal buttonFunc={dealCards} />
             </div>
           </div>
-          {bettingMode && <Chips buttonFunc={addToBet} />}
+         
 
           {/* ===================== CARDS ===================== */}
           <div style={cardContainer}>
@@ -432,11 +440,12 @@ const CardTest = () => {
               />
             </div>
           </div>
+          {bettingMode && <Chips buttonFunc={addToBet} />}
         </GameContainer>
         <ChatContainer>
           <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust} />
         </ChatContainer>
-      </CenteredBox>
+      </PageContainer>
     </>
   );
 };

@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import TextField from '@mui/material/TextField';
+import Send from '../images/send-button.png'
+import { CommentButton } from './styled-components'
 // import {getInsult} from '../utils/api-utils.js'
 
 const ChatBoxForm = (props) => {
@@ -20,9 +23,12 @@ const ChatBoxForm = (props) => {
   }
 
   return (
-    <form onSubmit={submitHandler}>
-      <input type="text" onChange={handleInput} value={inputData} />
-      <button>Comment</button>
+    <form onSubmit={submitHandler} style={{display: 'flex'}}>
+      <TextField id="standard-basic" variant="outlined" onChange={handleInput} value={inputData}  style={{width: '100%', backgroundColor: 'rgb(255, 255, 255, 0.5'}} />
+      {/* <input type="text" onChange={handleInput} value={inputData} /> */}
+      <CommentButton>
+        <img src={Send} alt="send button" width="54px" />
+      </CommentButton>
     </form>
   );
 };

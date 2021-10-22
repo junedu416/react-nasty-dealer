@@ -4,17 +4,19 @@ import { CenteredBox } from './styled-components';
 
 const Hand = (props) => {
   const { dealer, cards, dealersTurn, score, bust, chips, betSize } = props;
-  const cardBack = {
-    width: "135px",
-    height: "197px",
-    padding: "5px",
-    border: "1px solid black",
-    borderRadius: "9px",
-    position: "relative",
-    left: "-125px",
-    backgroundClip: "content-box",
-    boxShadow: "inset 0 0 0 9px white",
-  };
+
+// MOVED STYLING BACK INTO RETURN TO USE INDEX FOR SHIFTING.
+  // const cardBack = {
+  //   width: "90px",
+  //   height: "128px",
+  //   padding: "5px",
+  //   border: "1px solid black",
+  //   borderRadius: "9px",
+  //   position: "relative",
+  //   top: '-21px',
+  //   backgroundClip: "content-box",
+  //   boxShadow: "inset 0 0 0 9px white",
+  // };
 
   const bustedStyling = {
     color: "red",
@@ -46,12 +48,23 @@ const Hand = (props) => {
         <div style={{ display: "flex" }}>
           {cards.map((card, index) => {
             return (
-              <div key={index} style={{width: '100%', border: '2px solid black'}}>
+              <div key={index} style={{width: '100%'}}>
                 {dealer && !dealersTurn && cards.length === 2 && index === 1 ? (
                   <img
                     alt={"face down card"}
                     src={faceDownCard}
-                    style={cardBack}
+                    style={{
+                      width: "90px",
+                      height: "128px",
+                      padding: "5px",
+                      border: "1px solid black",
+                      borderRadius: "9px",
+                      position: "relative",
+                      top: '-21px',
+                      right: `${(55 * index) + (40 * (index - 1))}px`,
+                      backgroundClip: "content-box",
+                      boxShadow: "inset 0 0 0 9px white",
+                    }}       
                   />
                 ) : (
                   <>
@@ -59,9 +72,10 @@ const Hand = (props) => {
                       <img
                         alt={`${card.value} ${card.suit}`}
                         src={card.imgString}
-                        width={150}
+                        width={100}
                         style={{
-                          alignSelf: 'center',
+                          position: "relative",
+                          right: `${(-20 * index) + (20 * (index - 1))}px`,
                         }}
                       />
                     ) : (
@@ -69,9 +83,10 @@ const Hand = (props) => {
                         alt={`${card.value} ${card.suit}`}
                         src={card.imgString}
                         style={{
-                          width: "150px",
+                          width: "100px",
                           position: "relative",
-                          left: `${-122 - (122 * (index - 1))}px`
+                          right: `${(55 * index) + (20 * (index - 1))}px`,
+                          top: `${-22 - (22 * (index - 1))}px`
                         }}
                       />
                     )}
