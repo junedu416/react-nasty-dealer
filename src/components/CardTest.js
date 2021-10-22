@@ -9,6 +9,10 @@ import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
+
+import RulePage from './rule/RulePage';
+import { GameContainer, ChatContainer, CenteredBox } from './styled-components';
+
 import RulePage from './rule/RulePage'
 import Chips from "./Chips";
 import useSound from 'use-sound';
@@ -285,17 +289,64 @@ const CardTest = () => {
   }
 
   function addToBet(event) {
-    if (playerVars.cards.length === 0) {
-      playerDispatch({type: "addBet",
-        payload: Number(event.target.textContent)
-      });
-    }
+  if (playerVars.cards.length === 0) {
+    playerDispatch({type: "addBet",
+      payload: Number(event.target.textContent)
+    });
+  }
+
+  const cardContainer = {
+    width: '100%',
+    height: '85%',
+    border: '1px solid red',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+
+  }
+
+  const outerContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+  }
+
+  const buttonContainer = {
+
   }
 
   return (
     <>
-      <p>deckId: {deckId}</p>
+      <CenteredBox>
+        <GameContainer>
+          <div style={cardContainer}>
+            <div>
+              <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
+            </div>
+            <div>
+              <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
+            </div>
+          </div>
 
+          <div style={outerContainer}>
+            <div style={buttonContainer}>
+              <Bet />
+              <Split />
+              <Stand buttonFunc={() => {
+                if (playerVars.cards.length >= 2 && !playerVars.stand) {
+                  playerDispatch({type: "stand"});
+                  dealerDispatch({type: "setTurn"});
+                  }
+                }}/>
+              <Hit buttonFunc={() => {
+                if (playerVars.cards.length >= 2 && !playerVars.stand) {
+                  drawCard(deckId, 1).then(addCardToPlayer)
+                }
+              }}/>
+              <Double buttonFunc={double}/>
+              <Deal buttonFunc={dealCards} />
+            </div>
+        <p>deckId: {deckId}</p>
+      </div>
       <div>
         <Bet buttonFunc={() => {          
           betSound()
@@ -332,9 +383,14 @@ const CardTest = () => {
 
       {bettingMode && <Chips buttonFunc={addToBet}/>}
 
-      <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust}/>
-      <RulePage/>
+      <ChatContainer>
+        <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust}/>
+      </ChatContainer>
 
+       <RulePage/>
+      </GameContainer>
+
+      </CenteredBox>
     </>
   );
 };

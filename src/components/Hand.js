@@ -1,5 +1,6 @@
-import { AbsoluteCenter } from "@chakra-ui/layout";
+// import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
+import { CenteredBox } from './styled-components';
 
 const Hand = (props) => {
   const { dealer, cards, dealersTurn, score, bust, chips, betSize } = props;
@@ -9,8 +10,8 @@ const Hand = (props) => {
     padding: "5px",
     border: "1px solid black",
     borderRadius: "9px",
-    position: "absolute",
-    left: "35px",
+    position: "relative",
+    left: "-125px",
     backgroundClip: "content-box",
     boxShadow: "inset 0 0 0 9px white",
   };
@@ -40,41 +41,48 @@ const Hand = (props) => {
         </h2>
         <p style={bustedStyling}>{cards.length > 0 && bust && <h2>BUST!</h2>}</p>
       </div>
-      <div style={{ display: "flex" }}>
-        {cards.map((card, index) => {
-          return (
-            <div key={index}>
-              {dealer && !dealersTurn && cards.length === 2 && index === 1 ? (
-                <img
-                  alt={"face down card"}
-                  src={faceDownCard}
-                  style={cardBack}
-                />
-              ) : (
-                <>
-                  {index === 0 ? (
-                    <img
-                      alt={`${card.value} ${card.suit}`}
-                      src={card.imgString}
-                      width={150}
-                    />
-                  ) : (
-                    <img
-                      alt={`${card.value} ${card.suit}`}
-                      src={card.imgString}
-                      style={{
-                        width: "150px",
-                        position: "relative",
-                        left: `${-122 - (122 * (index - 1))}px`
-                      }}
-                    />
-                  )}
-                </>
-              )}
-            </div>
-          );
-        })}
-      </div>
+
+      <CenteredBox height='100%'>
+        <div style={{ display: "flex" }}>
+          {cards.map((card, index) => {
+            return (
+              <div key={index} style={{width: '100%', border: '2px solid black'}}>
+                {dealer && !dealersTurn && cards.length === 2 && index === 1 ? (
+                  <img
+                    alt={"face down card"}
+                    src={faceDownCard}
+                    style={cardBack}
+                  />
+                ) : (
+                  <>
+                    {index === 0 ? (
+                      <img
+                        alt={`${card.value} ${card.suit}`}
+                        src={card.imgString}
+                        width={150}
+                        style={{
+                          alignSelf: 'center',
+                        }}
+                      />
+                    ) : (
+                      <img
+                        alt={`${card.value} ${card.suit}`}
+                        src={card.imgString}
+                        style={{
+                          width: "150px",
+                          position: "relative",
+                          left: `${-122 - (122 * (index - 1))}px`
+                        }}
+                      />
+                    )}
+                  </>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </CenteredBox>
+
       {!dealer && <h3>chips: ${chips} - bet: ${betSize}</h3>}
     </div>
   );
