@@ -238,7 +238,7 @@ const CardTest = () => {
       <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
 
 
-      <ChatBox playerBust={playerVars.bust}/>
+      <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust}/>
       <RulePage/>
 
     </>
