@@ -34,7 +34,7 @@ const CardTest = () => {
           cards: [...state.cards, action.payload],
           score: state.cards.length === 1 && !state.turn ? state.score : newScore,
           bust: newScore.lowTotal > 21 ? true : false,
-          stand: newScore.highTotal >= 17 || newScore.lowTotal >= 17 ? true : false
+          stand: (newScore.highTotal >= 17 && newScore.lowTotal >= 17)|| newScore.lowTotal >= 17 ? true : false
         })
       }
       case "setTurn": {
