@@ -4,7 +4,7 @@ import ChatBoxForm from './ChatBoxForm';
 
 
 
-const ChatBox = ({dealerWin}) => {
+const ChatBox = ({playerBust}) => {
     // each comment will be in the form {name: "", message: ""}
     const initialComments = []
     const [comments, setComments] = useState(initialComments)
@@ -65,12 +65,17 @@ const ChatBox = ({dealerWin}) => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
-        } else if (dealerWin === true){
+        } else if (playerBust === true){
         console.log("player's gone bust")
         getInsult("Haha you Busted", "Dealer");
         return;
-        }
-    }, [dealerWin])
+        } 
+        // else if(dealerWin) {
+        //     console.log("player lost")
+        //     getInsult("I WIN AHAAA", "Dealer");
+        //     return;
+        // }
+    }, [playerBust])
 
 
     return(

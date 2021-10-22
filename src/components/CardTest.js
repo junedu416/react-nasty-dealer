@@ -21,8 +21,8 @@ const CardTest = () => {
     },
     bust: false,
     stand: false,
-    // clare: add winCount 
-    // winCount: 0
+    // //clare: add win/lose status 
+    // win: false
   }
   const [deckId, setDeckId] = useState("");
 
@@ -48,11 +48,11 @@ const CardTest = () => {
           stand: faceDownValue.highTotal >= 17 || faceDownValue.lowTotal >= 17 ? true : false
         })
       }
-      // // clare: add winCount 
-      // case "addWinCount": {
+      // // clare: change win status 
+      // case "dealerWin": {
       //   return({
       //     ...state,
-      //     winCount: state.winCount + 1
+      //     win: true
       //   })
       // }
       default: {
@@ -76,11 +76,11 @@ const CardTest = () => {
       case "stand": {
         return ({...state, stand: true})
       }
-      // // clare: add winCount 
-      // case "addWinCount": {
+      // // clare: change win status 
+      // case "playerWin": {
       //   return({
       //     ...state,
-      //     winCount: state.winCount + 1
+      //     win: true
       //   })
       // }
       default: {
@@ -164,7 +164,7 @@ const CardTest = () => {
       <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
       <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
 
-      <ChatBox dealerWin={playerVars.bust}/>
+      <ChatBox playerBust={playerVars.bust}/>
     </>
   );
 };
