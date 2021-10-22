@@ -22,7 +22,7 @@ const CardTest = () => {
     },
     bust: false,
     stand: false,
-    // //clare: add win/lose status 
+    // //clare: add win/lose status
     // win: false
   }
   const [deckId, setDeckId] = useState("");
@@ -46,8 +46,11 @@ const CardTest = () => {
           ...state,
           turn: true,
           score: faceDownValue,
-          stand: faceDownValue.highTotal >= 17 || faceDownValue.lowTotal >= 17 ? true : false
+          stand: state.stand || faceDownValue.highTotal >= 17 || faceDownValue.lowTotal >= 17 ? true : false
         })
+      }
+      case "stand": {
+        return ({...state, stand: true});
       }
       case "reset": {
         return ({...initialHand})
@@ -58,7 +61,7 @@ const CardTest = () => {
     }
   },{...initialHand})
 
-      // // clare: change win status 
+      // // clare: change win status
       // case "dealerWin": {
       //   return({
       //     ...state,
@@ -66,27 +69,31 @@ const CardTest = () => {
       //   })
       // }
 
-  
+
   //state for playerVars
   const [playerVars, playerDispatch] = useReducer((state, action) => {
     switch(action.type) {
       case "addCard": {
         const newScore = updateScore(action.payload.value, state.score);
+        const bust = newScore.lowTotal > 21;
+        if (bust) dealerDispatch({type: "stand"});
         return ({
           ...state,
           cards: [...state.cards, action.payload],
           score: newScore,
-          bust: newScore.lowTotal > 21 ? true : false
+          bust: bust,
+          stand: state.stand || bust
         })
       }
       case "stand": {
+        console.log("player stand")
         return ({
           ...state, stand: true})
       }
       case "reset": {
         return ({...initialHand})
       }
-      // // clare: change win status 
+      // // clare: change win status
       // case "playerWin": {
       //   return({
       //     ...state,
@@ -169,6 +176,17 @@ const CardTest = () => {
   }
   //================
 
+  function double() {
+    //double bet//then
+    if (playerVars.cards.length >= 2 && !playerVars.stand) {
+      drawCard(deckId, 1).then(addCardToPlayer);
+      playerDispatch({type: "stand"})
+      setTimeout(() => {
+        dealerDispatch({type: "setTurn"})
+      }, 1000)
+    }
+  }
+
   return (
     <>
       <p>deckId: {deckId}</p>
@@ -187,7 +205,7 @@ const CardTest = () => {
             drawCard(deckId, 1).then(addCardToPlayer)
           }
         }}/>
-        <Double />
+        <Double buttonFunc={double}/>
         <Deal buttonFunc={dealCards} />
       </div>
 
