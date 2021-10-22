@@ -8,9 +8,16 @@ import { Lobby } from "./components/buttons/Lobby";
 import { StartGame } from "./components/buttons/StartGame";
 
 function App() {
+  const navStyling = {
+    width: '100%',
+    maxWidth: '1400px',
+    height: '50px',
+    margin: '0 auto',
+  }
+
   return (
     <>
-      <nav>
+      <nav style={navStyling}>
         <Link to="/">
           <Lobby />
         </Link>

@@ -1,11 +1,9 @@
-// import Button from "@mui/material/Button";
-// import React from 'react';
 import Home from "../../images/Home.png";
 
 const Lobby = () => {
   return (
     <>
-      <img src={Home} style={{ width: "40px", height: "40px" }} />
+      <img src={Home} alt="Home button" style={{ width: "45px", height: "45px", marginLeft: "15px" }} />
     </>
   );
 };

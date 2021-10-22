@@ -9,7 +9,9 @@ import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
-import RulePage from './rule/RulePage'
+import RulePage from './rule/RulePage';
+import { GameContainer, ChatContainer, CenteredBox } from './styled-components';
+import { flexbox } from "@chakra-ui/styled-system";
 
 
 const CardTest = () => {
@@ -187,35 +189,63 @@ const CardTest = () => {
     }
   }
 
+  const cardContainer = {
+    width: '100%',
+    height: '85%',
+    border: '1px solid red',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+
+  }
+
+  const outerContainer = {
+    display: 'flex',
+    flexDirection: 'row',
+  }
+
+  const buttonContainer = {
+
+  }
+
   return (
     <>
-      <p>deckId: {deckId}</p>
+      <CenteredBox>
+        <GameContainer>
+          <div style={cardContainer}>
+            <div>
+              <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
+            </div>
+            <div>
+              <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
+            </div>
+          </div>
 
-      <div>
-        <Bet />
-        <Split />
-        <Stand buttonFunc={() => {
-          if (playerVars.cards.length >= 2 && !playerVars.stand) {
-            playerDispatch({type: "stand"});
-            dealerDispatch({type: "setTurn"});
-          }
-        }}/>
-        <Hit buttonFunc={() => {
-          if (playerVars.cards.length >= 2 && !playerVars.stand) {
-            drawCard(deckId, 1).then(addCardToPlayer)
-          }
-        }}/>
-        <Double buttonFunc={double}/>
-        <Deal buttonFunc={dealCards} />
-      </div>
-
-      <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
-      <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
-
-
-      <ChatBox playerBust={playerVars.bust}/>
-      <RulePage/>
-
+          <div style={outerContainer}>
+            <div style={buttonContainer}>
+              <Bet />
+              <Split />
+              <Stand buttonFunc={() => {
+                if (playerVars.cards.length >= 2 && !playerVars.stand) {
+                  playerDispatch({type: "stand"});
+                  dealerDispatch({type: "setTurn"});
+                  }
+                }}/>
+              <Hit buttonFunc={() => {
+                if (playerVars.cards.length >= 2 && !playerVars.stand) {
+                  drawCard(deckId, 1).then(addCardToPlayer)
+                }
+              }}/>
+              <Double buttonFunc={double}/>
+              <Deal buttonFunc={dealCards} />
+            </div>
+            <p>deckId: {deckId} <RulePage/></p>
+          </div>
+        </GameContainer>
+        <ChatContainer>
+          <ChatBox playerBust={playerVars.bust}/>
+        </ChatContainer>
+      </CenteredBox>
     </>
   );
 };
