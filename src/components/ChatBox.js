@@ -65,9 +65,11 @@ const ChatBox = ({dealerWin}) => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
-        }
+        } else if (dealerWin === true){
         console.log("player's gone bust")
-        getInsult();
+        getInsult("Haha you Busted", "Dealer");
+        return;
+        }
     }, [dealerWin])
 
 
