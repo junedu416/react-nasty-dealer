@@ -143,7 +143,11 @@ const CardTest = () => {
             dealerDispatch({type: "setTurn"});
           }
         }}/>
-        <Hit buttonFunc={() => drawCard(deckId, 1).then(addCardToPlayer)}/>
+        <Hit buttonFunc={() => {
+          if (playerVars.cards.length >= 2 && !playerVars.stand) {
+            drawCard(deckId, 1).then(addCardToPlayer)
+          }
+        }}/>
         <Double />
         <Deal buttonFunc={dealCards} />
       </div>
