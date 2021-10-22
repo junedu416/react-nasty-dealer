@@ -21,7 +21,9 @@ const CardTest = () => {
       lowTotal: 0
     },
     bust: false,
-    stand: false
+    stand: false,
+    // //clare: add win/lose status 
+    // win: false
   }
   const [deckId, setDeckId] = useState("");
 
@@ -56,6 +58,15 @@ const CardTest = () => {
     }
   },{...initialHand})
 
+      // // clare: change win status 
+      // case "dealerWin": {
+      //   return({
+      //     ...state,
+      //     win: true
+      //   })
+      // }
+
+  
   //state for playerVars
   const [playerVars, playerDispatch] = useReducer((state, action) => {
     switch(action.type) {
@@ -75,6 +86,13 @@ const CardTest = () => {
       case "reset": {
         return ({...initialHand})
       }
+      // // clare: change win status 
+      // case "playerWin": {
+      //   return({
+      //     ...state,
+      //     win: true
+      //   })
+      // }
       default: {
         throw new Error("Invalid action for Player");
       }
@@ -176,8 +194,10 @@ const CardTest = () => {
       <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
       <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
 
-      <ChatBox />
+
+      <ChatBox playerBust={playerVars.bust}/>
       <RulePage/>
+
     </>
   );
 };

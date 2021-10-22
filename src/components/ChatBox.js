@@ -1,10 +1,10 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import ChatBoxForm from './ChatBoxForm';
 
 
 
 
-const ChatBox = () => {
+const ChatBox = ({playerBust}) => {
     // each comment will be in the form {name: "", message: ""}
     const initialComments = []
     const [comments, setComments] = useState(initialComments)
@@ -59,6 +59,23 @@ const ChatBox = () => {
             ])
         }
     }
+    // render insult after dealer win
+    const firstUpdate = useRef(true);
+    useEffect(() => {
+        if (firstUpdate.current) {
+            firstUpdate.current = false;
+            return;
+        } else if (playerBust === true){
+        console.log("player's gone bust")
+        getInsult("Haha you Busted", "Dealer");
+        return;
+        } 
+        // else if(dealerWin) {
+        //     console.log("player lost")
+        //     getInsult("I WIN AHAAA", "Dealer");
+        //     return;
+        // }
+    }, [playerBust])
 
 
     return(
