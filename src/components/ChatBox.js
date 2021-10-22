@@ -1,10 +1,12 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ChatBoxForm from './ChatBoxForm';
+import {getRandomInteger, playerWinResponse, playerBustResponse} from '../utils/util-functions';
+import { applyCensorship } from '../utils/api-utils';
 
 
 
 
-const ChatBox = ({playerBust}) => {
+const ChatBox = ({playerBust, dealerBust}) => {
     // each comment will be in the form {name: "", message: ""}
     const initialComments = []
     const [comments, setComments] = useState(initialComments)
@@ -12,17 +14,19 @@ const ChatBox = ({playerBust}) => {
 
     // add new comment to the list of comments displayed in chat
     function addComment(comment, user) {
-        setComments(
-            [...comments,
-                {
-                    name: user,
-                    message: comment
-                }
-            ]
-        )
-        if (user !== "Dealer") {
-            getInsult(comment, user);
-        }
+        applyCensorship(comment).then( censoredComment => {
+            setComments(
+                [...comments,
+                    {
+                        name: user,
+                        message: censoredComment
+                    }
+                ]
+            )
+            if (user !== "Dealer") {
+                getInsult(censoredComment, user);
+            }
+        })
     }
 
     function getInsult(comment, user) {
@@ -33,7 +37,8 @@ const ChatBox = ({playerBust}) => {
                     },
                 })
                 .then((response) => response.json())
-                .then(data => addDealerComment(data.insult, comment, user))
+                .then(data => applyCensorship(data.insult))
+                .then(insult => addDealerComment(insult, comment, user))
                 .catch(error => console.error(error))
     }
 
@@ -65,17 +70,19 @@ const ChatBox = ({playerBust}) => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
-        } else if (playerBust === true){
-        console.log("player's gone bust")
-        getInsult("Haha you Busted", "Dealer");
-        return;
+        } else if (playerBust){
+            console.log("player's gone bust")
+            const message = playerBustResponse[getRandomInteger(playerBustResponse.length - 1)]
+            getInsult(message, "Dealer");
+            return;
         } 
-        // else if(dealerWin) {
-        //     console.log("player lost")
-        //     getInsult("I WIN AHAAA", "Dealer");
-        //     return;
-        // }
-    }, [playerBust])
+        else if(dealerBust) {
+            console.log("dealer's gone bust")
+            const message = playerWinResponse[getRandomInteger(playerWinResponse.length - 1)]
+            addComment(message, "Dealer");
+            return;
+        }
+    }, [playerBust, dealerBust])
 
 
     return(
