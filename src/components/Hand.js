@@ -1,51 +1,7 @@
-import { useEffect, useState } from "react";
 import faceDownCard from "./../images/face-down-card.jpeg";
 
 const Hand = (props) => {
-  const { dealer, cards, dealersTurn } = props;
-  const [score, setScore] = useState({
-    highTotal: 0,
-    lowTotal: 0,
-  });
-  const [bust, setBust] = useState(false);
-
-  //Originally calculateScore
-  useEffect(() => {
-    // calculates score for aces
-    let newScore = {
-      highTotal: 0,
-      lowTotal: 0,
-    };
-    for (
-      let i = 0;
-      i < (dealer && !dealersTurn && cards.length === 2 ? 1 : cards.length);
-      i++
-    ) {
-      let value = cards[i].value;
-      if (value === "ACE") {
-        newScore.lowTotal += 1;
-        newScore.highTotal += newScore.highTotal + 11 > 21 ? 1 : 11;
-      } else if (isNaN(value) === true) {
-        // face cards
-        newScore.lowTotal += 10;
-        newScore.highTotal += 10;
-      } else {
-        // number cards
-        value = parseInt(value);
-        newScore.lowTotal += value;
-        newScore.highTotal += value;
-      }
-    }
-    setScore(newScore);
-  }, [cards, dealer, dealersTurn]);
-
-  useEffect(() => {
-    if (score.lowTotal > 21) {
-      setBust(true);
-    } else {
-      setBust(false);
-    }
-  }, [score])
+  const { dealer, cards, dealersTurn, score, bust } = props;
 
   return (
     <div>
@@ -77,7 +33,7 @@ const Hand = (props) => {
       {cards.length > 0 &&
       <h2>
         Points:{" "}
-        {score.highTotal > 1 &&
+        {score.highTotal >= 1 &&
           (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
       </h2>}
       {bust && <h2>Bust!</h2>}
