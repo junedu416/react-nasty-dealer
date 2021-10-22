@@ -1,11 +1,10 @@
 import CardTest from "./components/CardTest";
-
 import Home from "./components/Home";
 import BlackJackRule from "./components/BlackJackRule";
 import { Link, Switch, Route } from "react-router-dom";
 import Timer from "./components/Timer";
 import { Lobby } from "./components/buttons/Lobby";
-import { StartGame } from "./components/buttons/StartGame";
+import RulePage from "./components/rule/RulePage";
 
 function App() {
   const navStyling = {
@@ -13,6 +12,7 @@ function App() {
     maxWidth: '1400px',
     height: '50px',
     margin: '0 auto',
+    display: 'flex',
   }
 
   return (
@@ -21,6 +21,7 @@ function App() {
         <Link to="/">
           <Lobby />
         </Link>
+        <RulePage />
       </nav>
 
       <Switch>
