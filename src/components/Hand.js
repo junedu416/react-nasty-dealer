@@ -2,7 +2,7 @@ import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
 
 const Hand = (props) => {
-  const { dealer, cards, dealersTurn, score, bust } = props;
+  const { dealer, cards, dealersTurn, score, bust, chips, betSize } = props;
   const cardBack = {
     width: "135px",
     height: "197px",
@@ -75,6 +75,7 @@ const Hand = (props) => {
           );
         })}
       </div>
+      {!dealer && <h3>chips: ${chips} - bet: ${betSize}</h3>}
     </div>
   );
 };

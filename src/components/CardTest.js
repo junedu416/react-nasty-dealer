@@ -10,6 +10,7 @@ import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
 import RulePage from './rule/RulePage'
+import Chips from "./Chips";
 import useSound from 'use-sound';
 import soundHit from './sounds/card-flick.wav';
 import soundDouble from './sounds/bonus.wav'
@@ -17,7 +18,6 @@ import soundSplit from './sounds/split.mp3'
 import soundDeal from './sounds/deal.wav'
 import soundStand from './sounds/stand.wav'
 import soundBet from './sounds/clinking-coins.wav'
-
 
 const CardTest = () => {
   // useSound hook 
@@ -37,10 +37,15 @@ const CardTest = () => {
     },
     bust: false,
     stand: false,
+    chips: 1000,
+    betSize: 0,
+    playerPaid: false,
     // //clare: add win/lose status
-    // win: false
+    result: {win: false, condition: ""}
   }
   const [deckId, setDeckId] = useState("");
+
+  const [bettingMode, setBettingMode] = useState(false);
 
   //State for dealer vars
   const [dealerVars, dealerDispatch] = useReducer((state, action) => {
@@ -91,13 +96,19 @@ const CardTest = () => {
       case "addCard": {
         const newScore = updateScore(action.payload.value, state.score);
         const bust = newScore.lowTotal > 21;
+        let blackjack = false;
+        if (newScore.highTotal === 21 && state.cards.length + 1 === 2) {
+          blackjack = true;
+          console.log("blackjack");
+          dealerDispatch({type: "stand"});
+        }
         if (bust) dealerDispatch({type: "stand"});
         return ({
           ...state,
           cards: [...state.cards, action.payload],
           score: newScore,
           bust: bust,
-          stand: state.stand || bust
+          stand: state.stand || bust || blackjack,
         })
       }
       case "stand": {
@@ -106,7 +117,34 @@ const CardTest = () => {
           ...state, stand: true})
       }
       case "reset": {
-        return ({...initialHand})
+        console.log("resetting")
+        return ({...initialHand, chips: state.chips})
+      }
+      case "addBet": {
+        return ({...state,
+          betSize: state.betSize + action.payload > state.chips ? state.betSize : state.betSize + action.payload})
+      }
+      case "confirmBet": {
+        return ({...state,
+          chips: state.chips - state.betSize
+        });
+      }
+      case "double": {
+        return({
+          ...state, stand: true, betSize: state.betSize * 2, chips: state.chips - state.betSize
+        })
+      }
+      case "addChips": {
+        console.log("player wins", action.payload)
+        return({
+          ...state, chips: state.chips + action.payload, stand: true, playerPaid: true
+        })
+      }
+      case "changeResult": {
+        return({
+          ...state,
+          result: {win: true, condition: action.payload}
+        })
       }
       // // clare: change win status
       // case "playerWin": {
@@ -132,6 +170,44 @@ const CardTest = () => {
     }
   }, [dealerVars.score, dealerVars.turn, dealerVars.stand, deckId])
 
+  useEffect(() => {
+    if (playerVars.result.win && !playerVars.paid) {
+      if (playerVars.result.condition === "blackjack") {
+        playerDispatch({type: "addChips", payload: playerVars.betSize * 2.5})
+      } else {
+        playerDispatch({type: "addChips", payload: playerVars.betSize * 2})
+      }
+    }
+  }, [playerVars.result, playerVars.score, playerVars.cards, playerVars.betSize, playerVars.paid])
+
+  useEffect(() => {
+    function getPlayerFinalScore() {
+      if (playerVars.score.highTotal === 21 || playerVars.score.lowTotal === 21) return 21;
+      if (playerVars.score.highTotal < 21 && playerVars.score.highTotal > playerVars.score.lowTotal) return playerVars.score.highTotal;
+      return playerVars.score.lowTotal;
+    }
+
+    function getDealerFinalScore() {
+      if (dealerVars.score.highTotal === 21 || dealerVars.score.lowTotal === 21) return 21;
+      if (dealerVars.score.highTotal < 21 && dealerVars.score.highTotal > dealerVars.score.lowTotal) return dealerVars.score.highTotal;
+      return dealerVars.score.lowTotal;
+    }
+
+    if (dealerVars.stand && playerVars.stand) {
+      const playerScore = getPlayerFinalScore();
+      const dealerScore = getDealerFinalScore();
+      if (playerScore === 21 && playerVars.cards.length === 2) {
+        playerDispatch({type: "changeResult", payload: "blackjack"})
+      } else if (playerScore > dealerScore && playerScore <= 21) {
+        playerDispatch({type: "changeResult", payload: "beat_dealer"})
+      } else if (playerScore <= 21 && dealerScore > 21) {
+        playerDispatch({type: "changeResult", payload: "dealer_bust"})
+      }
+    }
+  }, [playerVars.stand, dealerVars.stand, playerVars.cards.length, dealerVars.score, playerVars.score])
+
+
+
   function updateScore(value, curScore) {
     let newScore = {...curScore}
     if (value === "ACE") {
@@ -153,14 +229,18 @@ const CardTest = () => {
   //draw 2 cards for player then for dealer
   function dealCards() {
     setTimeout(()=> {dealSound()}, 1200);
-    if (dealerVars.cards.length === 0 && playerVars.cards.length === 0) {
+    
+    if (dealerVars.cards.length === 0 && playerVars.cards.length === 0 && playerVars.betSize > 0) {
+      playerDispatch({type: "confirmBet"})
       drawCard(deckId, 1).then(addCardToPlayer);
       drawCard(deckId, 1).then(addCardToDealer);
       drawCard(deckId, 1).then(addCardToPlayer);
       drawCard(deckId, 1).then(addCardToDealer);
-    } else if ((dealerVars.stand && playerVars.stand) || playerVars.bust){
+    } else if (playerVars.stand || playerVars.bust){
       console.log("no dealio");
       resetPlayers();
+    } else if (playerVars.betSize === 0) {
+      console.log("no chips, no play, no game today")
     }
   }
 
@@ -194,9 +274,9 @@ const CardTest = () => {
 
   function double() {
     //double bet//then
-    if (playerVars.cards.length >= 2 && !playerVars.stand) {
+    if (playerVars.cards.length >= 2 && !playerVars.stand && playerVars.chips >= playerVars.betSize) {
       drawCard(deckId, 1).then(addCardToPlayer);
-      playerDispatch({type: "stand"})
+      playerDispatch({type: "double"})
       setTimeout(() => {
         dealerDispatch({type: "setTurn"})
       }, 1000)
@@ -204,19 +284,32 @@ const CardTest = () => {
     doubleSound()
   }
 
+  function addToBet(event) {
+    if (playerVars.cards.length === 0) {
+      playerDispatch({type: "addBet",
+        payload: Number(event.target.textContent)
+      });
+    }
+  }
+
   return (
     <>
       <p>deckId: {deckId}</p>
 
       <div>
-        <Bet buttonFunc={() => {
+        <Bet buttonFunc={() => {          
           betSound()
+          if (bettingMode) {
+            setBettingMode(false);
+          } else {
+            setBettingMode(true);
           }
-        }/>
+        }}/>
+
         <Split buttonFunc={() => {
           splitSound()
-          }
-        }/>
+        }}/>
+
         <Stand buttonFunc={() => {
           if (playerVars.cards.length >= 2 && !playerVars.stand) {
             playerDispatch({type: "stand"});
@@ -235,8 +328,9 @@ const CardTest = () => {
       </div>
 
       <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
-      <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
+      <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust} chips={playerVars.chips} betSize={playerVars.betSize}/>
 
+      {bettingMode && <Chips buttonFunc={addToBet}/>}
 
       <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust}/>
       <RulePage/>
