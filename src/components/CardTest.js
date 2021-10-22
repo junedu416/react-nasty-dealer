@@ -20,7 +20,9 @@ const CardTest = () => {
       lowTotal: 0
     },
     bust: false,
-    stand: false
+    stand: false,
+    // clare: add winCount 
+    // winCount: 0
   }
   const [deckId, setDeckId] = useState("");
 
@@ -46,6 +48,13 @@ const CardTest = () => {
           stand: faceDownValue.highTotal >= 17 || faceDownValue.lowTotal >= 17 ? true : false
         })
       }
+      // // clare: add winCount 
+      // case "addWinCount": {
+      //   return({
+      //     ...state,
+      //     winCount: state.winCount + 1
+      //   })
+      // }
       default: {
         throw new Error("Invalid action for Dealer");
       }
@@ -67,6 +76,13 @@ const CardTest = () => {
       case "stand": {
         return ({...state, stand: true})
       }
+      // // clare: add winCount 
+      // case "addWinCount": {
+      //   return({
+      //     ...state,
+      //     winCount: state.winCount + 1
+      //   })
+      // }
       default: {
         throw new Error("Invalid action for Player");
       }
@@ -148,7 +164,7 @@ const CardTest = () => {
       <Hand dealer dealersTurn={dealerVars.turn} cards={dealerVars.cards} score={dealerVars.score} bust={dealerVars.bust}/>
       <Hand cards={playerVars.cards} score={playerVars.score} bust={playerVars.bust}/>
 
-      <ChatBox />
+      <ChatBox dealerWin={playerVars.bust}/>
     </>
   );
 };
