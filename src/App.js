@@ -1,25 +1,24 @@
 import CardTest from "./components/CardTest";
 
-import Home from './components/Home';
-import BlackJackRule from './components/BlackJackRule';
-import {Link, Switch, Route} from 'react-router-dom';
-import Timer from './components/Timer'
-
+import Home from "./components/Home";
+import BlackJackRule from "./components/BlackJackRule";
+import { Link, Switch, Route } from "react-router-dom";
+import Timer from "./components/Timer";
+import { Lobby } from "./components/buttons/Lobby";
+import { StartGame } from "./components/buttons/StartGame";
 
 function App() {
-
   return (
     <>
       <nav>
-        <ul>
-          <li>
-            <Link to="/">Lobby</Link>
-          </li>
-          <li>
-            <Link to="/blackjack">Angry Blackjack</Link>
-          </li>
-        </ul>
+        <Link to="/">
+          <Lobby />
+        </Link>
+        <Link to="/blackjack" style={{textDecoration: 'none', marginLeft: '200px'}}>
+          <StartGame />
+        </Link>
       </nav>
+
       <Switch>
         <Route exact path="/">
           <Home />
@@ -33,7 +32,7 @@ function App() {
         </Route>
         {/* set this route temporarily to test Timer function */}
         <Route path="/timer">
-          <Timer/>
+          <Timer />
         </Route>
       </Switch>
     </>
