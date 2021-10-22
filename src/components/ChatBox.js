@@ -1,10 +1,11 @@
 import React, {useState, useEffect, useRef} from 'react';
 import ChatBoxForm from './ChatBoxForm';
+import {getRandomInteger, playerWinResponse, playerBustResponse} from '../utils/util-functions';
 
 
 
 
-const ChatBox = ({playerBust}) => {
+const ChatBox = ({playerBust, dealerBust}) => {
     // each comment will be in the form {name: "", message: ""}
     const initialComments = []
     const [comments, setComments] = useState(initialComments)
@@ -65,17 +66,19 @@ const ChatBox = ({playerBust}) => {
         if (firstUpdate.current) {
             firstUpdate.current = false;
             return;
-        } else if (playerBust === true){
-        console.log("player's gone bust")
-        getInsult("Haha you Busted", "Dealer");
-        return;
+        } else if (playerBust){
+            console.log("player's gone bust")
+            const message = playerBustResponse[getRandomInteger(playerBustResponse.length - 1)]
+            getInsult(message, "Dealer");
+            return;
         } 
-        // else if(dealerWin) {
-        //     console.log("player lost")
-        //     getInsult("I WIN AHAAA", "Dealer");
-        //     return;
-        // }
-    }, [playerBust])
+        else if(dealerBust) {
+            console.log("dealer's gone bust")
+            const message = playerWinResponse[getRandomInteger(playerWinResponse.length - 1)]
+            addComment(message, "Dealer");
+            return;
+        }
+    }, [playerBust, dealerBust])
 
 
     return(
