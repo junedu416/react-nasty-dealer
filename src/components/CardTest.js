@@ -9,6 +9,9 @@ import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
+import WarningMessage from "./WarningMessage";
+import resultMessageReducer from "../utils/result-message-reducer";
+import GameResultMessage from "./GameResultMessage";
 
 
 import { GameContainer, ChatContainer, CenteredBox, PageContainer } from "./styled-components";
@@ -35,6 +38,12 @@ const CardTest = () => {
 
   // set button clicked bool for timer use
   const [timerMode, setTimerMode] = useState(false)
+
+  // state for warning message e.g. "No bet, No deal"
+  const [warning, setWarning] = useState("")
+
+  // state for game result message. reducer function defined in utils/ 
+  const [resultMessage, resultMessageDispatch] = useReducer(resultMessageReducer, {result:"", winAmount: 0})
 
   //initState for dealer and player
   const initialHand = {
@@ -117,7 +126,10 @@ const CardTest = () => {
             console.log("blackjack");
             dealerDispatch({ type: "stand" });
           }
-          if (bust) dealerDispatch({ type: "stand" });
+          if (bust) {
+            dealerDispatch({ type: "stand" });
+            resultMessageDispatch({type: 'player_bust', data: state.betSize});
+          }
           return {
             ...state,
             cards: [...state.cards, action.payload],
@@ -135,6 +147,7 @@ const CardTest = () => {
         }
         case "reset": {
           console.log("resetting");
+          resultMessageDispatch({type: 'reset'});
           return { ...initialHand, chips: state.chips };
         }
         case "addBet": {
@@ -174,6 +187,7 @@ const CardTest = () => {
         }
         case "pushResult": {
           console.log("nobody wins, betSize", state.betSize, "added back to ", state.chips)
+          resultMessageDispatch({type: "push"})
           return {
             ...state,
             chips: state.chips + state.betSize,
@@ -182,6 +196,7 @@ const CardTest = () => {
         }
         case "loseToDealer": {
           console.log("both player and dealer's hand under 21. player loses", state.betSize);
+          resultMessageDispatch({type: "lose", data: state.betSize})
           return {
             ...state,
             result: {win: false, condition: action.payload}
@@ -210,8 +225,10 @@ const CardTest = () => {
     if (playerVars.result.win && !playerVars.paid) {
       if (playerVars.result.condition === "blackjack") {
         playerDispatch({ type: "addChips", payload: playerVars.betSize * 2.5 });
+        resultMessageDispatch({type: "blackjack", data: playerVars.betSize * 2.5})
       } else {
         playerDispatch({ type: "addChips", payload: playerVars.betSize * 2 });
+        resultMessageDispatch({type: "win", data: playerVars.betSize * 2});
       }
     } 
   }, [
@@ -309,6 +326,7 @@ const CardTest = () => {
       resetPlayers();
     } else if (playerVars.betSize === 0) {
       console.log("no chips, no play, no game today");
+      setWarning("No chips, no play, no game today");
     }
   }
 
@@ -395,7 +413,8 @@ const CardTest = () => {
       <PageContainer>
         <GameContainer>
           {/* <p>deckId: {deckId}</p> */}
-
+          {warning && <WarningMessage message={warning} />}
+          {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
       {/* ===================== BUTTONS ===================== */}  
           <div style={outerContainer}>
             <div style={buttonContainer}>
