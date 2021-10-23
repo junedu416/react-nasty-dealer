@@ -41,6 +41,10 @@ const CardTest = () => {
 
   // state for warning message e.g. "No bet, No deal"
   const [warning, setWarning] = useState("")
+  function closeWarning (e) {
+    e.preventDefault();
+    setWarning("")
+  }
 
   // state for game result message. reducer function defined in utils/ 
   const [resultMessage, resultMessageDispatch] = useReducer(resultMessageReducer, {result:"", winAmount: 0})
@@ -413,7 +417,7 @@ const CardTest = () => {
       <PageContainer>
         <GameContainer>
           {/* <p>deckId: {deckId}</p> */}
-          {warning && <WarningMessage message={warning} />}
+          {warning && <WarningMessage message={warning} closeWarning={closeWarning}/>}
           {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
       {/* ===================== BUTTONS ===================== */}  
           <div style={outerContainer}>
