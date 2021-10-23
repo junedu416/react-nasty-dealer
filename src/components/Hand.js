@@ -3,7 +3,7 @@ import faceDownCard from "./../images/face-down-card.jpeg";
 import { CenteredBox } from './styled-components';
 
 const Hand = (props) => {
-  const { dealer, cards, dealersTurn, score, bust, chips, betSize } = props;
+  const { dealer, cards, dealersTurn, score, bust, chips, betSize, activeHand } = props;
 
 // MOVED STYLING BACK INTO RETURN TO USE INDEX FOR SHIFTING.
   // const cardBack = {
@@ -34,7 +34,7 @@ const Hand = (props) => {
     <div>
       {/* Displays cards */}
       <div style={scoreStyling}>
-        <h2>
+        <h2 style={{color: activeHand ? "red" : "black"}}>
           {dealer ? "Dealer: " : "Player: "}
           {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1
         Dont show points if no cards */}
@@ -64,7 +64,7 @@ const Hand = (props) => {
                       right: `${(55 * index) + (40 * (index - 1))}px`,
                       backgroundClip: "content-box",
                       boxShadow: "inset 0 0 0 9px white",
-                    }}       
+                    }}
                   />
                 ) : (
                   <>
