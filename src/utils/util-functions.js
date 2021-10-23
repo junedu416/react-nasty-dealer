@@ -16,6 +16,14 @@ const playerBustResponse = [
 ];
 // const playerLoseResponse = ["You don't stand a chance against me", "I'd love to see you go broke"]
 
+const runningOutTimeResponse = [
+  "Can you be quick, you litte b******!",
+  "I swear by God, hurry up.. !!",
+  "Hurry up!!!",
+  "You are wasting my time!",
+  "What are you waiting, you gonna loose anyway!"
+];
+
 function decodeHtmlEntity(str) {
   str = str.replace(/&quot;/g, '"');
   str = str.replace(/&gt;/g, ">");
@@ -26,5 +34,6 @@ export {
   getRandomInteger,
   playerWinResponse,
   playerBustResponse,
+  runningOutTimeResponse,
   decodeHtmlEntity,
 };

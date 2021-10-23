@@ -4,9 +4,8 @@ import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
 
 function Timer() {
-  const secondsTotal = 30; // set time for player
+  const secondsTotal = 20; // set time for player
   const [seconds, setSeconds] = useState(secondsTotal);
-  const [color, setColor] = useState("#C70039");
 
   useEffect(() => {
     let playerInterval = setInterval(() => {
@@ -16,7 +15,6 @@ function Timer() {
       if (seconds === 0) {
         clearInterval(playerInterval);
       }
-      if (seconds <= 11) setColor("#FFC300");
     }, 1000);
     return () => {
       clearInterval(playerInterval);
@@ -25,21 +23,23 @@ function Timer() {
 
   const percentage = Math.round((seconds / secondsTotal) * 100);
   const style = buildStyles({
-    //TODO: styling - leave it here for later change to match game page styling
     rotation: 0,
     strokeLinecap: "round",
     textSize: "25px",
     pathTransitionDuration: 0.5,
-    pathColor: `${color}`,
+    pathColor: "#fff",
     textColor: "#f88",
-    trailColor: "#d6d6d6",
+    trailColor: "transparent",
+    backgroundColor: `${seconds <=6 ? "red":"#3e98c7"}`,
+    textColor: "#fff"
   });
 
   return (
-    <div>
-      <div style={{ maxWidth: 150 }}>
-        <CircularProgressbar styles={style} value={percentage} />
-      </div>
+    <div style ={{marginBottom:40}}>
+      {seconds !== 0 && 
+      (<div style={{ maxWidth: 90 }}>
+        <CircularProgressbar styles={style} value={percentage} background backgroundPadding={6} text={seconds <=6 ? "hurry!":null}/>
+      </div>)}
     </div>
   );
 }

@@ -13,6 +13,8 @@ import ChatBox from "./ChatBox";
 
 import { GameContainer, ChatContainer, CenteredBox, PageContainer } from "./styled-components";
 
+import Timer from "./Timer";
+
 import Chips from "./Chips";
 import useSound from "use-sound";
 import soundHit from "./sounds/card-flick.wav";
@@ -30,6 +32,9 @@ const CardTest = () => {
   const [standSound] = useSound(soundStand);
   const [splitSound] = useSound(soundSplit);
   const [betSound] = useSound(soundBet);
+
+  // set button clicked bool for timer use
+  const [timerMode, setTimerMode] = useState(false)
 
   //initState for dealer and player
   const initialHand = {
@@ -278,6 +283,8 @@ const CardTest = () => {
       dealSound();
     }, 1200);
 
+    setTimerMode(true)
+
     if (
       dealerVars.cards.length === 0 &&
       playerVars.cards.length === 0 &&
@@ -338,6 +345,7 @@ const CardTest = () => {
       }, 1000);
     }
     doubleSound();
+    setTimerMode(false);
   }
 
   function addToBet(event) {
@@ -347,6 +355,7 @@ const CardTest = () => {
         payload: Number(event.target.textContent),
       });
     }
+    betSound()
   }
 
   const cardContainer = {
@@ -385,10 +394,12 @@ const CardTest = () => {
                 buttonFunc={() => {
                   if (bettingMode) setBettingMode(false);         
                   else setBettingMode(true);
-                  betSound();
                 }}
               />
-              <Split buttonFunc={() => {splitSound();}} />
+              <Split buttonFunc={() => {
+              splitSound();
+              setTimerMode(false)
+              }} />
 
               <Stand
                 buttonFunc={() => {
@@ -397,6 +408,7 @@ const CardTest = () => {
                     dealerDispatch({ type: "setTurn" });
                   }
                   standSound();
+                  setTimerMode(false)
                 }}
               />
               <Hit
@@ -407,6 +419,7 @@ const CardTest = () => {
                   setTimeout(() => {
                     hitSound();
                   }, 1000);
+                  setTimerMode(true)
                 }}
               />
               <Double buttonFunc={double} />
@@ -434,10 +447,11 @@ const CardTest = () => {
               />
             </div>
           </div>
-          {bettingMode && <Chips buttonFunc={addToBet} />}
+          {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && <Timer />}
+          {bettingMode && <Chips buttonFunc={addToBet} />}  
         </GameContainer>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust} />
+          <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust} timerMode={timerMode} />
         </ChatContainer>
       </PageContainer>
     </>
