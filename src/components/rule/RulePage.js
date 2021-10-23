@@ -3,9 +3,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { palette } from "@mui/system";
+
 import {
-  title,
   generalRule,
   hit,
   stand,
@@ -13,6 +12,7 @@ import {
   split,
   bet,
   insurance,
+  cardValues
 } from "./rule.json";
 
 const style = {
@@ -20,11 +20,14 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: "60%",
-  bgcolor: "success.main",
-  boxShadow: 24,
+  width: "80%",
+  bgcolor: 'black',
+  boxShadow: 22,
   p: 6,
+  color: 'white'
 };
+
+const descriptorStyle = {display: 'inline-block', marginRight: 10, color: 'blue'}
 
 function RulePage() {
   const [open, setOpen] = React.useState(false);
@@ -40,24 +43,23 @@ function RulePage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {title}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 4 }}>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }} variant="body1">
             {generalRule}
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 4 }}>
-            HIT: {hit}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            STAND: {stand}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            DOUBLE: {double}
-          </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            SPLIT: {split}
-          </Typography>
+          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> CARD VALUES:  </Typography>
+          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {cardValues} </Typography>
+          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> HIT:  </Typography>
+            <Typography style={{display: 'inline-block', marginRight: 20}} > {hit} </Typography> 
+          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> STAND:  </Typography>
+          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {stand} </Typography> <br/>
+          <Typography style={{ marginRight: 10, color: 'blue'}} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> DOUBLE:  </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}> {double} </Typography>
+          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> SPLIT:  </Typography>
+          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {split} </Typography>
+          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> BET:  </Typography>
+          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {bet} </Typography><br/>
+          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> INSURANCE:  </Typography>
+          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {insurance} </Typography>
         </Box>
       </Modal>
     </div>
