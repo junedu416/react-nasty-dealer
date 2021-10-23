@@ -381,6 +381,8 @@ const CardTest = () => {
   function canPlayerSplit(card1, card2) {
     if (card1.value === card2.value) return true;
     if (isNaN(card1.value) && isNaN(card2.value)) return true;
+    if (isNaN(card1.value) && card2.value === 10) return true;
+    if (card1.value === 10 && isNaN(card2.value)) return true;
   }
 
   //draw 2 cards for player then for dealer
@@ -562,13 +564,15 @@ const CardTest = () => {
                 bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
                 chips={playerVars.chips}
                 betSize={playerVars.betSize}
+                activeHand={playerVars.split && playerVars.curHand === 0}
               />
               {playerVars.split && <Hand
                 cards={playerVars.cards[1]}
                 score={playerVars.score[1]}
                 bust={playerVars.bust[1]}
                 chips={playerVars.chips}
-                betSize={[playerVars.betSize]} />}
+                betSize={[playerVars.betSize]}
+                activeHand={playerVars.curHand === 1} />}
             </div>
           </div>
           {bettingMode && <Chips buttonFunc={addToBet} />}
