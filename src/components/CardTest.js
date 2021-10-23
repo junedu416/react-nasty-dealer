@@ -175,6 +175,13 @@ const CardTest = () => {
             result: { win: false, condition: action.payload }
           };
         }
+        case "loseToDealer": {
+          console.log("both player and dealer's hand under 21. player loses", state.betSize);
+          return {
+            ...state,
+            result: {win: false, condition: action.payload}
+          }
+        }
         default: {
           throw new Error("Invalid action for Player");
         }
@@ -244,6 +251,8 @@ const CardTest = () => {
         playerDispatch({ type: "changeResult", payload: "dealer_bust" });
       } else if (playerScore === dealerScore) {
         playerDispatch({type: "pushResult", payload: "push" });
+      } else if (playerScore < dealerScore) {
+        playerDispatch({type: "loseToDealer", payload: "lose_to_dealer"});
       }
     }
   }, [
@@ -437,7 +446,7 @@ const CardTest = () => {
           {bettingMode && <Chips buttonFunc={addToBet} />}
         </GameContainer>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust} />
+          <ChatBox playerBust={playerVars.bust} gameResult={playerVars.result} />
         </ChatContainer>
       </PageContainer>
     </>
