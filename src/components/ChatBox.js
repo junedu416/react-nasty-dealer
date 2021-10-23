@@ -90,6 +90,18 @@ const ChatBox = ({ playerBust, dealerBust }) => {
     }
   }, [playerBust, dealerBust]);
 
+    
+  useEffect(() => {
+    scrollToBottom()
+  }, [comments]);
+
+  const messagesEndRef = useRef(null)
+  // scroll message container back to bottom
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+
   return (
     <>
       <MessageContainer>
@@ -101,6 +113,7 @@ const ChatBox = ({ playerBust, dealerBust }) => {
               </p>
             </div>
           ))}
+           <div ref={messagesEndRef} />
         </MessageBox>
         <CommentBox>
           <ChatBoxForm addComment={addComment} />
