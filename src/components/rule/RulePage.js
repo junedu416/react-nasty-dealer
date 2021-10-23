@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
+import Grid from "@mui/material/Grid";
 
 import {
   push,
@@ -14,7 +15,7 @@ import {
   split,
   bet,
   insurance,
-  cardValues
+  cardValues,
 } from "./rule.json";
 
 const style = {
@@ -23,13 +24,17 @@ const style = {
   left: "50%",
   transform: "translate(-50%, -50%)",
   width: "80%",
-  bgcolor: 'black',
+  bgcolor: "black",
   boxShadow: 22,
   p: 6,
-  color: 'white'
+  color: "white",
 };
 
-const descriptorStyle = {display: 'inline-block', marginRight: 10, color: '#adf8ff'}
+const descriptorStyle = {
+  display: "inline-block",
+  marginRight: 10,
+  color: "#adf8ff",
+};
 
 function RulePage() {
   const [open, setOpen] = React.useState(false);
@@ -45,27 +50,169 @@ function RulePage() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }} variant="body1">
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            variant="body1"
+          >
             {generalRule}
           </Typography>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> CARD VALUES  </Typography>
-          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {cardValues} </Typography>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> BLACKJACK  </Typography>
-          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {blackjack} </Typography><br/>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> PUSH  </Typography>
-          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {push} </Typography><br/>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> DOUBLE  </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}> {double} </Typography>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> SPLIT  </Typography>
-          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {split} </Typography>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> BET  </Typography>
-          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {bet} </Typography><br/>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> INSURANCE  </Typography>
-          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {insurance} </Typography>
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> HIT  </Typography>
-            <Typography style={{display: 'inline-block', marginRight: 20}} > {hit} </Typography> 
-          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> STAND  </Typography>
-          <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {stand} </Typography> <br/>
+          <Typography
+            style={descriptorStyle}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            variant="h6"
+          >
+            {" "}
+            CARD VALUES{" "}
+          </Typography>
+          <Typography
+            style={{ display: "inline-block" }}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
+            {" "}
+            {cardValues}{" "}
+          </Typography>
+          <Typography
+            style={descriptorStyle}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            variant="h6"
+          >
+            {" "}
+            BLACKJACK{" "}
+          </Typography>
+          <Typography
+            style={{ display: "inline-block" }}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
+            {" "}
+            {blackjack}{" "}
+          </Typography>
+          <br />
+          <Typography
+            style={descriptorStyle}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            variant="h6"
+          >
+            {" "}
+            PUSH{" "}
+          </Typography>
+          <Typography
+            style={{ display: "inline-block" }}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
+            {" "}
+            {push}{" "}
+          </Typography>
+          <br />
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              {" "}
+              DOUBLE{" "}
+            </Typography>
+            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+              {" "}
+              {double}{" "}
+            </Typography>
+          </Grid>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              {" "}
+              SPLIT{" "}
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+            >
+              {" "}
+              {split}{" "}
+            </Typography>
+          </Grid>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              {" "}
+              BET{" "}
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+            >
+              {" "}
+              {bet}{" "}
+            </Typography>
+            <br />
+          </Grid>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              {" "}
+              INSURANCE{" "}
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+            >
+              {" "}
+              {insurance}{" "}
+            </Typography>
+          </Grid>
+          <Typography
+            style={descriptorStyle}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            variant="h6"
+          >
+            {" "}
+            HIT{" "}
+          </Typography>
+          <Typography style={{ display: "inline-block", marginRight: 20 }}>
+            {" "}
+            {hit}{" "}
+          </Typography>
+          <Typography
+            style={descriptorStyle}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+            variant="h6"
+          >
+            {" "}
+            STAND{" "}
+          </Typography>
+          <Typography
+            style={{ display: "inline-block" }}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
+            {" "}
+            {stand}{" "}
+          </Typography>
         </Box>
       </Modal>
     </div>
