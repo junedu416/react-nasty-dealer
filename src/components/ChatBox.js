@@ -98,7 +98,7 @@ const ChatBox = ({ playerBust, gameResult, timerMode }) => {
     } else if (timerMode){
       const message =
         runningOutTimeResponse[getRandomInteger(runningOutTimeResponse.length - 1)];
-        setTimeout(()=> {addComment(message, "Dealer")},10000);
+        setTimeout(()=> {addComment(message, "Dealer")},17000);
       return;
     }
   }, [playerBust, gameResult, timerMode]);
