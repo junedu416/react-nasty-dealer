@@ -27,7 +27,7 @@ const style = {
   color: 'white'
 };
 
-const descriptorStyle = {display: 'inline-block', marginRight: 10, color: 'blue'}
+const descriptorStyle = {display: 'inline-block', marginRight: 10, color: '#adf8ff'}
 
 function RulePage() {
   const [open, setOpen] = React.useState(false);
@@ -52,7 +52,7 @@ function RulePage() {
             <Typography style={{display: 'inline-block', marginRight: 20}} > {hit} </Typography> 
           <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> STAND:  </Typography>
           <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {stand} </Typography> <br/>
-          <Typography style={{ marginRight: 10, color: 'blue'}} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> DOUBLE:  </Typography>
+          <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> DOUBLE:  </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}> {double} </Typography>
           <Typography style={descriptorStyle} id="modal-modal-description" sx={{ mt: 2 }} variant="h6"> SPLIT:  </Typography>
           <Typography style={{display: 'inline-block'}}  id="modal-modal-description" sx={{ mt: 2 }}> {split} </Typography>
