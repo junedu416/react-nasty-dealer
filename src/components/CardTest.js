@@ -293,6 +293,7 @@ const CardTest = () => {
     }, 1200);
 
     setTimerMode(true)
+    // setTimeout(() => {setTimerMode(false)},22000)
 
     if (
       dealerVars.cards.length === 0 &&
@@ -428,7 +429,11 @@ const CardTest = () => {
                   setTimeout(() => {
                     hitSound();
                   }, 1000);
-                  setTimerMode(true)
+                  setTimerMode(false)
+                  setTimeout(() => {
+                    setTimerMode(true)
+                  }, 300);
+                  
                 }}
               />
               <Double buttonFunc={double} />
@@ -461,7 +466,6 @@ const CardTest = () => {
         </GameContainer>
         <ChatContainer>
           <ChatBox playerBust={playerVars.bust} gameResult={playerVars.result} timerMode={timerMode} />
-
         </ChatContainer>
       </PageContainer>
     </>
