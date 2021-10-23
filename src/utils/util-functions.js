@@ -4,7 +4,7 @@ function getRandomInteger(max) {
 
 const playerWinResponse = [
   "Fine, I guess you win",
-  "I'm still better than you",
+  "It's just one win. I'm still better than you",
   "How dare you win against me",
   "You're not worthy of winning",
 ];
@@ -14,7 +14,13 @@ const playerBustResponse = [
   "You went Bust, as you should",
   "You went Bust because you're dumb",
 ];
-// const playerLoseResponse = ["You don't stand a chance against me", "I'd love to see you go broke"]
+
+const playerLoseResponse = [
+    "Loser. You don't stand a chance against me", 
+    "You lost. I'd love to see you go broke",
+    "HA I WIN",
+    "And the winner is...ME😈"
+];
 
 function decodeHtmlEntity(str) {
   str = str.replace(/&quot;/g, '"');
@@ -26,5 +32,6 @@ export {
   getRandomInteger,
   playerWinResponse,
   playerBustResponse,
+  playerLoseResponse,
   decodeHtmlEntity,
 };
