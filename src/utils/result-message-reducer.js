@@ -35,6 +35,12 @@ export default function resultMessageReducer(state, action) {
                 winAmount: -action.data
             }
         }
+        case 'game_over': {
+            return {
+                ...state,
+                result: "GAME OVER. GO HOME"
+            }
+        }
         case "reset": {
             return {
                 result: "",

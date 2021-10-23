@@ -46,7 +46,7 @@ const CardTest = () => {
     setWarning("")
   }
 
-  // state for game result message. reducer function defined in utils/ 
+  // state used for GameResultMessage component. reducer function defined in utils/ 
   const [resultMessage, resultMessageDispatch] = useReducer(resultMessageReducer, {result:"", winAmount: 0})
 
   //initState for dealer and player
@@ -288,6 +288,12 @@ const CardTest = () => {
     dealerVars.score,
     playerVars.score,
   ]);
+
+  useEffect(() => {
+    if(playerVars.chips === 0 && playerVars.betSize === 0) {
+      resultMessageDispatch({type: 'game_over'});
+    }
+  }, [playerVars.chips, playerVars.betSize])
 
   function updateScore(value, curScore) {
     let newScore = { ...curScore };
