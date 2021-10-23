@@ -44,6 +44,8 @@ const CardTest = () => {
     betSize: 0,
     playerPaid: false,
     result: { win: false, condition: "" },
+    curHand: 0,
+    split: false,
   };
   const [deckId, setDeckId] = useState("");
 
@@ -62,8 +64,8 @@ const CardTest = () => {
               state.cards.length === 1 && !state.turn ? state.score : newScore,
             bust: newScore.lowTotal > 21 ? true : false,
             stand:
-              (newScore.highTotal >= 17 && newScore.lowTotal >= 17) ||
-              newScore.lowTotal >= 17
+            (newScore.highTotal >= 17 && newScore.highTotal <= 21) ||
+            newScore.lowTotal >= 17
                 ? true
                 : false,
           };
@@ -175,6 +177,23 @@ const CardTest = () => {
             result: { win: false, condition: action.payload }
           };
         }
+        case "splitCards": {
+          const emptyScore = {highTotal: 0, lowTotal: 0}
+          const newCards = [[state.cards[0]], [state.cards[1]]]
+          const newScore = [updateScore(newCards[0][0].value, emptyScore), updateScore(newCards[1][0].value, emptyScore)]
+          return {
+            ...state,
+            cards: newCards,
+            score: newScore,
+            split: true
+          }
+        }
+        case "addCardsOnSplit": {
+          return {
+            ...state,
+            cards: [[state.cards[0][0], action.payload[0]],[state.cards[1][0], action.payload[1]]],
+          }
+        }
         default: {
           throw new Error("Invalid action for Player");
         }
@@ -182,7 +201,12 @@ const CardTest = () => {
     },
     { ...initialHand }
   );
-
+  useEffect(() => {
+    if (playerVars.split && playerVars.cards[0].length === 1) {
+      drawCard(deckId, 2).then((cards) => addCardsOnSplit(cards));
+    }
+    console.log(playerVars.cards, playerVars.score)
+    },[playerVars.split, playerVars.cards, playerVars.score])
   //initialise a new 6 decks and set the id in state
   useEffect(() => {
     initialiseDeck(6).then(setDeckId);
@@ -201,7 +225,7 @@ const CardTest = () => {
       } else {
         playerDispatch({ type: "addChips", payload: playerVars.betSize * 2 });
       }
-    } 
+    }
   }, [
     playerVars.result,
     playerVars.score,
@@ -232,7 +256,7 @@ const CardTest = () => {
         return dealerVars.score.highTotal;
       return dealerVars.score.lowTotal;
     }
-    
+
     if (dealerVars.stand && playerVars.stand) {
       const playerScore = getPlayerFinalScore();
       const dealerScore = getDealerFinalScore();
@@ -314,6 +338,16 @@ const CardTest = () => {
     });
   }
 
+  function addCardsOnSplit(cards) {
+    console.log(cards);
+    const cardOne = new Card(cards[0].suit, cards[0].value, cards[0].image);
+    const cardTwo = new Card(cards[1].suit, cards[1].value, cards[1].image);
+    playerDispatch({
+      type: "addCardsOnSplit",
+      payload: [cardOne, cardTwo]
+    });
+  }
+
   function resetPlayers() {
     playerDispatch({
       type: "reset",
@@ -378,17 +412,19 @@ const CardTest = () => {
         <GameContainer>
           {/* <p>deckId: {deckId}</p> */}
 
-      {/* ===================== BUTTONS ===================== */}  
+      {/* ===================== BUTTONS ===================== */}
           <div style={outerContainer}>
             <div style={buttonContainer}>
               <Bet
                 buttonFunc={() => {
-                  if (bettingMode) setBettingMode(false);         
+                  if (bettingMode) setBettingMode(false);
                   else setBettingMode(true);
                   betSound();
                 }}
               />
-              <Split buttonFunc={() => {splitSound();}} />
+              <Split buttonFunc={() => {
+                playerDispatch({type:"splitCards"});
+                splitSound();}} />
 
               <Stand
                 buttonFunc={() => {
@@ -413,7 +449,7 @@ const CardTest = () => {
               <Deal buttonFunc={dealCards} />
             </div>
           </div>
-         
+
 
           {/* ===================== CARDS ===================== */}
           <div style={cardContainer}>
@@ -426,7 +462,7 @@ const CardTest = () => {
                 bust={dealerVars.bust}
               />
               <Hand
-                cards={playerVars.cards}
+                cards={playerVars.split ? playerVars.cards[playerVars.curHand] : playerVars.cards}
                 score={playerVars.score}
                 bust={playerVars.bust}
                 chips={playerVars.chips}
