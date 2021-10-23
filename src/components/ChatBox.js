@@ -12,7 +12,7 @@ import { applyCensorship } from "../utils/api-utils";
 import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
 
-const ChatBox = ({ playerBust, dealerBust, timerMode }) => {
+const ChatBox = ({ playerBust, gameResult, timerMode }) => {
 
   // each comment will be in the form {name: "", message: ""}
   const initialComments = [];
@@ -101,7 +101,7 @@ const ChatBox = ({ playerBust, dealerBust, timerMode }) => {
         setTimeout(()=> {addComment(message, "Dealer")},10000);
       return;
     }
-  }, [playerBust, dealerBust, timerMode]);
+  }, [playerBust, gameResult, timerMode]);
 
 
   // auto scroll messages container back to bottom    

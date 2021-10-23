@@ -460,7 +460,7 @@ const CardTest = () => {
           {bettingMode && <Chips buttonFunc={addToBet} />}  
         </GameContainer>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust} timerMode={timerMode} />
+          <ChatBox playerBust={playerVars.bust} gameResult={playerVars.result} timerMode={timerMode} />
 
         </ChatContainer>
       </PageContainer>
