@@ -29,7 +29,7 @@ function Home() {
   const homePage = {
     background: `url(${Background}) no-repeat center center`,
     backgroundSize: 'cover',
-    maxWidth: '1400px',
+    maxWidth: '1960px',
     margin: '0 auto',
   }
 
@@ -49,7 +49,7 @@ function Home() {
     whiteSpace: 'pre',
     textAlign: 'center',
     lineHeight: '2',
-    border: '5px solid #FFC200',
+    border: '5px solid #D4Af37',
   }
 
   const loggedIn = {
@@ -61,7 +61,7 @@ function Home() {
 
   return (
     <div style={homePage}>
-      <CenteredBox>
+      <CenteredBox style={{maxWidth: '1960px'}}>
           {login ? (
             <>
               <div style={loggedIn}>

@@ -9,10 +9,15 @@ import RulePage from "./components/rule/RulePage";
 function App() {
   const navStyling = {
     width: '100%',
-    maxWidth: '1400px',
-    height: '50px',
-    margin: '0 auto',
+    maxWidth: '1920px',
+    height: '60px',
     display: 'flex',
+    backgroundColor: 'black',
+    margin: '0',
+    padding: '0',
+    flexDirection: 'row',
+    alignItems: 'center',
+
   }
 
   return (

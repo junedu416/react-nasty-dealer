@@ -7,6 +7,7 @@ import {
   decodeHtmlEntity,
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
+import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
 const ChatBox = ({ playerBust, dealerBust }) => {
   // each comment will be in the form {name: "", message: ""}
@@ -90,16 +91,22 @@ const ChatBox = ({ playerBust, dealerBust }) => {
   }, [playerBust, dealerBust]);
 
   return (
-    <div>
-      {comments.map((comment, index) => (
-        <div key={index}>
-          <p>
-            {comment.name}: {comment.message}
-          </p>
-        </div>
-      ))}
-      <ChatBoxForm addComment={addComment} />
-    </div>
+    <>
+      <MessageContainer>
+        <MessageBox>
+          {comments.map((comment, index) => (
+            <div key={index}>
+              <p style={{fontFamily: 'sans-serif', lineHeight: '1.5', margin: '0 5px 10px 2px'}}>
+                <strong>{comment.name}:</strong> {comment.message}
+              </p>
+            </div>
+          ))}
+        </MessageBox>
+        <CommentBox>
+          <ChatBoxForm addComment={addComment} />
+        </CommentBox>
+      </MessageContainer>
+    </>
   );
 };
 
