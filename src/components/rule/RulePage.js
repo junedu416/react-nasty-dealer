@@ -66,11 +66,7 @@ function RulePage() {
             {" "}
             CARD VALUES{" "}
           </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-          >
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {" "}
             {cardValues}{" "}
           </Typography>
@@ -92,23 +88,25 @@ function RulePage() {
             {blackjack}{" "}
           </Typography>
           <br />
-          <Typography
-            style={descriptorStyle}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-            variant="h6"
-          >
-            {" "}
-            PUSH{" "}
-          </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-          >
-            {" "}
-            {push}{" "}
-          </Typography>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              {" "}
+              PUSH{" "}
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              id="modal-modal-description"
+              sx={{ mt: 2, ml: 8 }}
+            >
+              {" "}
+              {push}{" "}
+            </Typography>
+          </Grid>
           <br />
           <Grid container wrap="nowrap">
             <Typography
@@ -120,7 +118,7 @@ function RulePage() {
               {" "}
               DOUBLE{" "}
             </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            <Typography id="modal-modal-description" sx={{ mt: 2, ml: 5 }}>
               {" "}
               {double}{" "}
             </Typography>
@@ -138,7 +136,7 @@ function RulePage() {
             <Typography
               style={{ display: "inline-block" }}
               id="modal-modal-description"
-              sx={{ mt: 2 }}
+              sx={{ mt: 2, ml: 8 }}
             >
               {" "}
               {split}{" "}
@@ -157,7 +155,7 @@ function RulePage() {
             <Typography
               style={{ display: "inline-block" }}
               id="modal-modal-description"
-              sx={{ mt: 2 }}
+              sx={{ mt: 2, ml: 10 }}
             >
               {" "}
               {bet}{" "}
