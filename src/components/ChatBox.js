@@ -4,13 +4,16 @@ import {
   getRandomInteger,
   playerWinResponse,
   playerBustResponse,
+  runningOutTimeResponse,
   playerLoseResponse,
   decodeHtmlEntity,
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
 import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
-const ChatBox = ({ playerBust, gameResult }) => {
+
+const ChatBox = ({ playerBust, dealerBust, timerMode }) => {
+
   // each comment will be in the form {name: "", message: ""}
   const initialComments = [];
   const [comments, setComments] = useState(initialComments);
@@ -92,16 +95,22 @@ const ChatBox = ({ playerBust, gameResult }) => {
         console.log("player loses");
         const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
         getInsult(message, "Dealer");
+    } else if (timerMode){
+      const message =
+        runningOutTimeResponse[getRandomInteger(runningOutTimeResponse.length - 1)];
+        setTimeout(()=> {addComment(message, "Dealer")},10000);
+      return;
     }
-  }, [playerBust, gameResult]);
+  }, [playerBust, dealerBust, timerMode]);
 
-    
+
+  // auto scroll messages container back to bottom    
   useEffect(() => {
     scrollToBottom()
   }, [comments]);
 
   const messagesEndRef = useRef(null)
-  // scroll message container back to bottom
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
