@@ -9,9 +9,14 @@ import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import ChatBox from "./ChatBox";
+import WarningMessage from "./WarningMessage";
+import resultMessageReducer from "../utils/result-message-reducer";
+import GameResultMessage from "./GameResultMessage";
 
 
 import { GameContainer, ChatContainer, CenteredBox, PageContainer } from "./styled-components";
+
+import Timer from "./Timer";
 
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -30,6 +35,19 @@ const CardTest = () => {
   const [standSound] = useSound(soundStand);
   const [splitSound] = useSound(soundSplit);
   const [betSound] = useSound(soundBet);
+
+  // set button clicked bool for timer use
+  const [timerMode, setTimerMode] = useState(false)
+
+  // state for warning message e.g. "No bet, No deal"
+  const [warning, setWarning] = useState("")
+  function closeWarning (e) {
+    e.preventDefault();
+    setWarning("")
+  }
+
+  // state used for GameResultMessage component. reducer function defined in utils/ 
+  const [resultMessage, resultMessageDispatch] = useReducer(resultMessageReducer, {result:"", winAmount: 0})
 
   //initState for dealer and player
   const initialHand = {
@@ -131,7 +149,10 @@ const CardTest = () => {
             console.log("blackjack");
             dealerDispatch({ type: "stand" });
           }
-          if (bust) dealerDispatch({ type: "stand" });
+          if (bust) {
+            dealerDispatch({ type: "stand" });
+            resultMessageDispatch({type: 'player_bust', data: state.betSize});
+          }
           return {
             ...state,
             cards: [...state.cards, action.payload],
@@ -149,6 +170,7 @@ const CardTest = () => {
         }
         case "reset": {
           console.log("resetting");
+          resultMessageDispatch({type: 'reset'});
           return { ...initialHand, chips: state.chips };
         }
         case "addBet": {
@@ -207,12 +229,14 @@ const CardTest = () => {
             }
           }
           console.log("nobody wins, betSize", state.betSize, "added back to ", state.chips)
+          resultMessageDispatch({type: "push"})
           return {
             ...state,
             chips: state.chips + state.betSize,
             result: { win: false, condition: action.payload }
           };
         }
+
         case "splitCards": {
           const emptyScore = {highTotal: 0, lowTotal: 0}
           const newCards = [[state.cards[0]], [state.cards[1]]]
@@ -240,6 +264,14 @@ const CardTest = () => {
           return {
             ...state,
             curHand: state.curHand + 1
+          }
+        }
+        case "loseToDealer": {
+          console.log("both player and dealer's hand under 21. player loses", state.betSize);
+          resultMessageDispatch({type: "lose", data: state.betSize})
+          return {
+            ...state,
+            result: {win: false, condition: action.payload}
           }
         }
         default: {
@@ -294,8 +326,10 @@ const CardTest = () => {
       if (playerVars.result.win && !playerVars.paid) {
         if (playerVars.result.condition === "blackjack") {
           playerDispatch({ type: "addChips", payload: playerVars.betSize * 2.5 });
+          resultMessageDispatch({type: "blackjack", data: playerVars.betSize * 2.5})
         } else {
           playerDispatch({ type: "addChips", payload: playerVars.betSize * 2 });
+          resultMessageDispatch({type: "win", data: playerVars.betSize * 2});
         }
       }
     }
@@ -320,6 +354,7 @@ const CardTest = () => {
       return score.lowTotal;
     }
 
+
     if (playerVars.split) {
       if (dealerVars.stand && playerVars.stand) {
         const dealerScore = getFinalScore(dealerVars.score);
@@ -333,6 +368,8 @@ const CardTest = () => {
             playerDispatch({ type: "changeResult", payload: ["dealer_bust", index ]});
           } else if (playerScore === dealerScore) {
             playerDispatch({type: "pushResult", payload: ["push", index] });
+          } else if (playerScore < dealerScore) {
+            playerDispatch({type: "loseToDealer", payload: "lose_to_dealer"});
           }
         });
       }
@@ -348,6 +385,8 @@ const CardTest = () => {
           playerDispatch({ type: "changeResult", payload: "dealer_bust" });
         } else if (playerScore === dealerScore) {
           playerDispatch({type: "pushResult", payload: "push" });
+        } else if (playerScore < dealerScore) {
+        playerDispatch({type: "loseToDealer", payload: "lose_to_dealer"});
         }
       }
     }
@@ -359,6 +398,12 @@ const CardTest = () => {
     playerVars.score,
     playerVars.split
   ]);
+
+  useEffect(() => {
+    if(playerVars.chips === 0 && playerVars.betSize === 0) {
+      resultMessageDispatch({type: 'game_over'});
+    }
+  }, [playerVars.chips, playerVars.betSize])
 
   function updateScore(value, curScore) {
     let newScore = { ...curScore };
@@ -391,6 +436,9 @@ const CardTest = () => {
       dealSound();
     }, 1200);
 
+    setTimerMode(true)
+    // setTimeout(() => {setTimerMode(false)},22000)
+
     if (
       dealerVars.cards.length === 0 &&
       playerVars.cards.length === 0 &&
@@ -406,6 +454,7 @@ const CardTest = () => {
       resetPlayers();
     } else if (playerVars.betSize === 0) {
       console.log("no chips, no play, no game today");
+      setWarning("No chips, no play, no game today");
     }
   }
 
@@ -461,6 +510,7 @@ const CardTest = () => {
       }, 1000);
     }
     doubleSound();
+    setTimerMode(false);
   }
 
   function addToBet(event) {
@@ -470,6 +520,7 @@ const CardTest = () => {
         payload: Number(event.target.textContent),
       });
     }
+    betSound()
   }
 
   const cardContainer = {
@@ -501,20 +552,23 @@ const CardTest = () => {
         <GameContainer>
           {/* <p>deckId: {deckId}</p> */}
 
-      {/* ===================== BUTTONS ===================== */}
+          {warning && <WarningMessage message={warning} closeWarning={closeWarning}/>}
+          {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
+      {/* ===================== BUTTONS ===================== */}  
           <div style={outerContainer}>
             <div style={buttonContainer}>
               <Bet
                 buttonFunc={() => {
                   if (bettingMode) setBettingMode(false);
                   else setBettingMode(true);
-                  betSound();
                 }}
               />
               <Split buttonFunc={() => {
                 if (!playerVars.split && canPlayerSplit(...playerVars.cards)) { //remove this if statement to test split on any 2 cards
                   playerDispatch({type:"splitCards"});
-                  splitSound();}}} />
+                  splitSound();
+                  setTimerMode(false);
+                }}} />
 
               <Stand
                 buttonFunc={() => {
@@ -530,6 +584,7 @@ const CardTest = () => {
                     dealerDispatch({ type: "setTurn" });
                   }
                   standSound();
+                  setTimerMode(false)
                 }}
               />
               <Hit
@@ -540,6 +595,11 @@ const CardTest = () => {
                   setTimeout(() => {
                     hitSound();
                   }, 1000);
+                  setTimerMode(false)
+                  setTimeout(() => {
+                    setTimerMode(true)
+                  }, 300);
+                  
                 }}
               />
               <Double buttonFunc={double} />
@@ -575,10 +635,11 @@ const CardTest = () => {
                 activeHand={playerVars.curHand === 1} />}
             </div>
           </div>
-          {bettingMode && <Chips buttonFunc={addToBet} />}
+          {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && <Timer />}
+          {bettingMode && <Chips buttonFunc={addToBet} />}  
         </GameContainer>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} dealerBust={dealerVars.bust} />
+          <ChatBox playerBust={playerVars.bust} gameResult={playerVars.result} timerMode={timerMode} />
         </ChatContainer>
       </PageContainer>
     </>
