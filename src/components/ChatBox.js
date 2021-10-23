@@ -5,12 +5,15 @@ import {
   playerWinResponse,
   playerBustResponse,
   runningOutTimeResponse,
+  playerLoseResponse,
   decodeHtmlEntity,
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
 import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
+
 const ChatBox = ({ playerBust, dealerBust, timerMode }) => {
+
   // each comment will be in the form {name: "", message: ""}
   const initialComments = [];
   const [comments, setComments] = useState(initialComments);
@@ -82,19 +85,24 @@ const ChatBox = ({ playerBust, dealerBust, timerMode }) => {
         playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
       getInsult(message, "Dealer");
       return;
-    } else if (dealerBust) {
-      console.log("dealer's gone bust");
+    } else if (gameResult.win) {
+      console.log("player wins");
       const message =
         playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
       addComment(message, "Dealer");
       return;
-    }else if (timerMode){
+    } else if (gameResult.condition === "lose_to_dealer") {
+        console.log("player loses");
+        const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
+        getInsult(message, "Dealer");
+    } else if (timerMode){
       const message =
         runningOutTimeResponse[getRandomInteger(runningOutTimeResponse.length - 1)];
         setTimeout(()=> {addComment(message, "Dealer")},10000);
       return;
     }
   }, [playerBust, dealerBust, timerMode]);
+
 
   // auto scroll messages container back to bottom    
   useEffect(() => {
