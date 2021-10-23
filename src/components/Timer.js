@@ -38,7 +38,7 @@ function Timer() {
     <div style ={{marginBottom:40}}>
       {seconds !== 0 && 
       (<div style={{ maxWidth: 90 }}>
-        <CircularProgressbar styles={style} value={percentage} background backgroundPadding={6} text={ seconds <=5 ? "hurry!": seconds.toString()}/>
+        <CircularProgressbar styles={style} value={percentage} background backgroundPadding={6} text={ seconds <=5 ? "Hurry!": seconds.toString()}/>
       </div>)}
     </div>
   );

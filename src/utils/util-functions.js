@@ -27,7 +27,7 @@ const runningOutTimeResponse = [
   "I swear by God, hurry up.. !!",
   "Hurry up!!!",
   "Hurry up! You are wasting my time!",
-  "What are you waiting, you gonna loose anyway!"
+  "What are you waiting for, you're gonna loose anyway!"
 ];
 
 function decodeHtmlEntity(str) {
