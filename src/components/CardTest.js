@@ -106,6 +106,23 @@ const CardTest = () => {
     (state, action) => {
       switch (action.type) {
         case "addCard": {
+          if (state.split) {
+            const newCards = [...state.cards];
+            newCards[state.curHand] = [...state.cards[state.curHand], action.payload]
+            const newScore = [...state.score];
+            newScore[state.curHand] = updateScore(action.payload.value, state.score[state.curHand]);
+            const bust = [...state.bust]
+            bust[state.curHand] = newScore[state.curHand].lowTotal > 21;
+
+            return {
+              ...state,
+              cards: newCards,
+              score: newScore,
+              bust: bust
+
+            }
+          }
+
           const newScore = updateScore(action.payload.value, state.score);
           const bust = newScore.lowTotal > 21;
           let blackjack = false;
@@ -164,12 +181,31 @@ const CardTest = () => {
           };
         }
         case "changeResult": {
+          if (state.split) {
+            const result = [...state.result]
+            result[action.payload[1]] = {win: true, condition: action.payload[0]}
+            console.log(`hand ${action.payload[1]} wins with condition ${action.payload[0]}`)
+            return {
+              ...state,
+              result: result
+            }
+          }
           return {
             ...state,
             result: { win: true, condition: action.payload },
           };
         }
         case "pushResult": {
+          if (state.split) {
+            console.log("nobody wins hand", action.payload[1], "betSize", state.betSize, "added back to ", state.chips)
+            const result = [...state.result];
+            result[action.payload[1]] = {win: false, condition: action.payload}
+            return {
+              ...state,
+              chips: state.chips + state.betSize,
+              result: result
+            }
+          }
           console.log("nobody wins, betSize", state.betSize, "added back to ", state.chips)
           return {
             ...state,
@@ -185,13 +221,25 @@ const CardTest = () => {
             ...state,
             cards: newCards,
             score: newScore,
-            split: true
+            split: true,
+            bust: [false, false],
+            result: [{win: false, reason: ""}, {win: false, reason: ""}],
+            betSize: state.betSize * 2,
+            chips: state.chips - state.betSize
           }
         }
         case "addCardsOnSplit": {
           return {
             ...state,
             cards: [[state.cards[0][0], action.payload[0]],[state.cards[1][0], action.payload[1]]],
+            score: [updateScore(action.payload[0].value, state.score[0]),
+                    updateScore(action.payload[1].value, state.score[1])]
+          }
+        }
+        case "incrementHand": {
+          return {
+            ...state,
+            curHand: state.curHand + 1
           }
         }
         default: {
@@ -201,12 +249,25 @@ const CardTest = () => {
     },
     { ...initialHand }
   );
+  //fill players hands when split
   useEffect(() => {
     if (playerVars.split && playerVars.cards[0].length === 1) {
       drawCard(deckId, 2).then((cards) => addCardsOnSplit(cards));
     }
-    console.log(playerVars.cards, playerVars.score)
-    },[playerVars.split, playerVars.cards, playerVars.score])
+  },[playerVars.split, playerVars.cards, playerVars.score, deckId])
+
+  //move on to next hand or end game when bust
+  useEffect(() => {
+    if (playerVars.split) {
+      if (playerVars.bust[0] && playerVars.curHand === 0) {
+        playerDispatch({type: "incrementHand"});
+      } else if (playerVars.bust[1] && playerVars.curHand === 1) {
+        playerDispatch({type: "stand"})
+        if (!playerVars.bust[0]) dealerDispatch({type: "setTurn"})
+      }
+    }
+  }, [playerVars.bust, playerVars.split, playerVars.curHand])
+
   //initialise a new 6 decks and set the id in state
   useEffect(() => {
     initialiseDeck(6).then(setDeckId);
@@ -219,11 +280,23 @@ const CardTest = () => {
   }, [dealerVars.score, dealerVars.turn, dealerVars.stand, deckId]);
 
   useEffect(() => {
-    if (playerVars.result.win && !playerVars.paid) {
-      if (playerVars.result.condition === "blackjack") {
-        playerDispatch({ type: "addChips", payload: playerVars.betSize * 2.5 });
-      } else {
-        playerDispatch({ type: "addChips", payload: playerVars.betSize * 2 });
+    if (playerVars.split) {
+      playerVars.result.forEach(result => {
+        if (result.win) {
+          if (result.condition === "blackjack") {
+            playerDispatch({type: "addChips", payload: (playerVars.betSize / 2) * 2.5})
+          } else {
+            playerDispatch({type: "addChips", payload: (playerVars.betSize / 2) * 2})
+          }
+        }
+      })
+    } else {
+      if (playerVars.result.win && !playerVars.paid) {
+        if (playerVars.result.condition === "blackjack") {
+          playerDispatch({ type: "addChips", payload: playerVars.betSize * 2.5 });
+        } else {
+          playerDispatch({ type: "addChips", payload: playerVars.betSize * 2 });
+        }
       }
     }
   }, [
@@ -232,42 +305,50 @@ const CardTest = () => {
     playerVars.cards,
     playerVars.betSize,
     playerVars.paid,
+    playerVars.split
   ]);
 
   useEffect(() => {
-    function getPlayerFinalScore() {
-      if (playerVars.score.highTotal === 21 || playerVars.score.lowTotal === 21)
+    function getFinalScore(score) {
+      if (score.highTotal === 21 || score.lowTotal === 21)
         return 21;
       if (
-        playerVars.score.highTotal < 21 &&
-        playerVars.score.highTotal > playerVars.score.lowTotal
+        score.highTotal < 21 &&
+        score.highTotal > score.lowTotal
       )
-        return playerVars.score.highTotal;
-      return playerVars.score.lowTotal;
+        return score.highTotal;
+      return score.lowTotal;
     }
 
-    function getDealerFinalScore() {
-      if (dealerVars.score.highTotal === 21 || dealerVars.score.lowTotal === 21)
-        return 21;
-      if (
-        dealerVars.score.highTotal < 21 &&
-        dealerVars.score.highTotal > dealerVars.score.lowTotal
-      )
-        return dealerVars.score.highTotal;
-      return dealerVars.score.lowTotal;
-    }
-
-    if (dealerVars.stand && playerVars.stand) {
-      const playerScore = getPlayerFinalScore();
-      const dealerScore = getDealerFinalScore();
-      if (playerScore === 21 && playerVars.cards.length === 2) {
-        playerDispatch({ type: "changeResult", payload: "blackjack" });
-      } else if (playerScore > dealerScore && playerScore <= 21) {
-        playerDispatch({ type: "changeResult", payload: "beat_dealer" });
-      } else if (playerScore <= 21 && dealerScore > 21) {
-        playerDispatch({ type: "changeResult", payload: "dealer_bust" });
-      } else if (playerScore === dealerScore) {
-        playerDispatch({type: "pushResult", payload: "push" });
+    if (playerVars.split) {
+      if (dealerVars.stand && playerVars.stand) {
+        const dealerScore = getFinalScore(dealerVars.score);
+        playerVars.score.forEach((score, index) => {
+          const playerScore = getFinalScore(score);
+          if (playerScore === 21 && playerVars.cards[index].length === 2) {
+            playerDispatch({ type: "changeResult", payload: ["blackjack", index ]});
+          } else if (playerScore > dealerScore && playerScore <= 21) {
+            playerDispatch({ type: "changeResult", payload: ["beat_dealer", index] });
+          } else if (playerScore <= 21 && dealerScore > 21) {
+            playerDispatch({ type: "changeResult", payload: ["dealer_bust", index ]});
+          } else if (playerScore === dealerScore) {
+            playerDispatch({type: "pushResult", payload: ["push", index] });
+          }
+        });
+      }
+    } else {
+      if (dealerVars.stand && playerVars.stand) {
+        const playerScore = getFinalScore(playerVars.score);
+        const dealerScore = getFinalScore(dealerVars.score);
+        if (playerScore === 21 && playerVars.cards.length === 2) {
+          playerDispatch({ type: "changeResult", payload: "blackjack" });
+        } else if (playerScore > dealerScore && playerScore <= 21) {
+          playerDispatch({ type: "changeResult", payload: "beat_dealer" });
+        } else if (playerScore <= 21 && dealerScore > 21) {
+          playerDispatch({ type: "changeResult", payload: "dealer_bust" });
+        } else if (playerScore === dealerScore) {
+          playerDispatch({type: "pushResult", payload: "push" });
+        }
       }
     }
   }, [
@@ -276,6 +357,7 @@ const CardTest = () => {
     playerVars.cards.length,
     dealerVars.score,
     playerVars.score,
+    playerVars.split
   ]);
 
   function updateScore(value, curScore) {
@@ -294,6 +376,11 @@ const CardTest = () => {
       newScore.highTotal += value;
     }
     return newScore;
+  }
+
+  function canPlayerSplit(card1, card2) {
+    if (card1.value === card2.value) return true;
+    if (isNaN(card1.value) && isNaN(card2.value)) return true;
   }
 
   //draw 2 cards for player then for dealer
@@ -359,11 +446,11 @@ const CardTest = () => {
   //================
 
   function double() {
-    //double bet//then
     if (
       playerVars.cards.length >= 2 &&
       !playerVars.stand &&
-      playerVars.chips >= playerVars.betSize
+      playerVars.chips >= playerVars.betSize &&
+      !playerVars.split
     ) {
       drawCard(deckId, 1).then(addCardToPlayer);
       playerDispatch({ type: "double" });
@@ -423,12 +510,20 @@ const CardTest = () => {
                 }}
               />
               <Split buttonFunc={() => {
-                playerDispatch({type:"splitCards"});
-                splitSound();}} />
+                if (!playerVars.split && canPlayerSplit(...playerVars.cards)) { //remove this if statement to test split on any 2 cards
+                  playerDispatch({type:"splitCards"});
+                  splitSound();}}} />
 
               <Stand
                 buttonFunc={() => {
-                  if (playerVars.cards.length >= 2 && !playerVars.stand) {
+                  if (playerVars.split) {
+                    if (playerVars.curHand === 0) {
+                      playerDispatch({type: "incrementHand"})
+                    } else {
+                      playerDispatch({ type: "stand" });
+                      dealerDispatch({ type: "setTurn" });
+                    }
+                  } else if (playerVars.cards.length >= 2 && !playerVars.stand) {
                     playerDispatch({ type: "stand" });
                     dealerDispatch({ type: "setTurn" });
                   }
@@ -462,12 +557,18 @@ const CardTest = () => {
                 bust={dealerVars.bust}
               />
               <Hand
-                cards={playerVars.split ? playerVars.cards[playerVars.curHand] : playerVars.cards}
-                score={playerVars.score}
-                bust={playerVars.bust}
+                cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
+                score={playerVars.split ? playerVars.score[0] : playerVars.score}
+                bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
                 chips={playerVars.chips}
                 betSize={playerVars.betSize}
               />
+              {playerVars.split && <Hand
+                cards={playerVars.cards[1]}
+                score={playerVars.score[1]}
+                bust={playerVars.bust[1]}
+                chips={playerVars.chips}
+                betSize={[playerVars.betSize]} />}
             </div>
           </div>
           {bettingMode && <Chips buttonFunc={addToBet} />}
