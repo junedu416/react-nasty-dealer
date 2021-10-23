@@ -43,7 +43,6 @@ const CardTest = () => {
     chips: 1000,
     betSize: 0,
     playerPaid: false,
-    //clare: add win/lose status
     result: { win: false, condition: "" },
   };
   const [deckId, setDeckId] = useState("");
@@ -99,14 +98,6 @@ const CardTest = () => {
     },
     { ...initialHand }
   );
-
-  // // clare: change win status
-  // case "dealerWin": {
-  //   return({
-  //     ...state,
-  //     win: true
-  //   })
-  // }
 
   //state for playerVars
   const [playerVars, playerDispatch] = useReducer(
@@ -176,13 +167,14 @@ const CardTest = () => {
             result: { win: true, condition: action.payload },
           };
         }
-        // // clare: change win status
-        // case "playerWin": {
-        //   return({
-        //     ...state,
-        //     win: true
-        //   })
-        // }
+        case "pushResult": {
+          console.log("nobody wins, betSize", state.betSize, "added back to ", state.chips)
+          return {
+            ...state,
+            chips: state.chips + state.betSize,
+            result: { win: false, condition: action.payload }
+          };
+        }
         default: {
           throw new Error("Invalid action for Player");
         }
@@ -209,7 +201,7 @@ const CardTest = () => {
       } else {
         playerDispatch({ type: "addChips", payload: playerVars.betSize * 2 });
       }
-    }
+    } 
   }, [
     playerVars.result,
     playerVars.score,
@@ -240,7 +232,7 @@ const CardTest = () => {
         return dealerVars.score.highTotal;
       return dealerVars.score.lowTotal;
     }
-
+    
     if (dealerVars.stand && playerVars.stand) {
       const playerScore = getPlayerFinalScore();
       const dealerScore = getDealerFinalScore();
@@ -250,6 +242,8 @@ const CardTest = () => {
         playerDispatch({ type: "changeResult", payload: "beat_dealer" });
       } else if (playerScore <= 21 && dealerScore > 21) {
         playerDispatch({ type: "changeResult", payload: "dealer_bust" });
+      } else if (playerScore === dealerScore) {
+        playerDispatch({type: "pushResult", payload: "push" });
       }
     }
   }, [
