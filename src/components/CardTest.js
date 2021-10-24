@@ -48,7 +48,7 @@ const CardTest = () => {
     setWarning("")
   }
 
-  // state used for GameResultMessage component. reducer function defined in utils/ 
+  // state used for GameResultMessage component. reducer function defined in utils/
   const [resultMessage, resultMessageDispatch] = useReducer(resultMessageReducer, {result:"", winAmount: 0})
 
   //initState for dealer and player
@@ -269,6 +269,15 @@ const CardTest = () => {
           }
         }
         case "loseToDealer": {
+          if (state.split) {
+            console.log("both player and dealer's hand under 21 for hand", action.payload[1], "player loses", state.betSize);
+            const result = [...state.result];
+            result[action.payload[1]] = {win: false, condition: action.payload[0]}
+            return {
+              ...state,
+              result: result
+            }
+          }
           console.log("both player and dealer's hand under 21. player loses", state.betSize);
           resultMessageDispatch({type: "lose", data: state.betSize})
           return {
@@ -371,7 +380,7 @@ const CardTest = () => {
           } else if (playerScore === dealerScore) {
             playerDispatch({type: "pushResult", payload: ["push", index] });
           } else if (playerScore < dealerScore) {
-            playerDispatch({type: "loseToDealer", payload: "lose_to_dealer"});
+            playerDispatch({type: "loseToDealer", payload: ["lose_to_dealer", index]});
           }
         });
       }
@@ -444,7 +453,7 @@ const CardTest = () => {
       drawCard(deckId, 1).then(addCardToDealer);
       drawCard(deckId, 1).then(addCardToPlayer);
       drawCard(deckId, 1).then(addCardToDealer);
-      
+
       setTimeout(() => {
         dealSound();
       }, 1200);
@@ -510,7 +519,7 @@ const CardTest = () => {
       }, 1000);
       doubleSound();
       setTimerMode(false);
-    } 
+    }
   }
 
   function addToBet(event) {
@@ -520,7 +529,7 @@ const CardTest = () => {
         payload: Number(event.target.textContent),
       });
       betSound()
-    } 
+    }
   }
 
   const cardContainer = {
@@ -554,7 +563,7 @@ const CardTest = () => {
 
           {warning && <WarningMessage message={warning} closeWarning={closeWarning}/>}
           {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
-      {/* ===================== BUTTONS ===================== */}  
+      {/* ===================== BUTTONS ===================== */}
           <div style={outerContainer}>
             <div style={buttonContainer}>
               <Bet
@@ -584,14 +593,14 @@ const CardTest = () => {
                     standSound();
                     setTimerMode(false)
                   }
-                  
+
                 }}
               />
               <Hit
                 buttonFunc={() => {
                   if (playerVars.cards.length >= 2 && !playerVars.stand) {
                     drawCard(deckId, 1).then(addCardToPlayer);
-                    
+
                     setTimeout(() => {
                       hitSound();
                     }, 1000);
@@ -599,7 +608,7 @@ const CardTest = () => {
                     setTimeout(() => {
                       setTimerMode(true)
                     }, 300);
-                  }  
+                  }
                 }}
               />
               <Double buttonFunc={double} />
@@ -636,7 +645,7 @@ const CardTest = () => {
             </div>
           </div>
           {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
-          {bettingMode && <Chips buttonFunc={addToBet} />}  
+          {bettingMode && <Chips buttonFunc={addToBet} />}
         </GameContainer>
         <ChatContainer>
           <ChatBox playerBust={playerVars.bust} split={playerVars.split} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
