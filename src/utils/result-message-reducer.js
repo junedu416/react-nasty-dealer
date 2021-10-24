@@ -75,6 +75,7 @@ export default function resultMessageReducer(state, action) {
             return {
                 ...state,
                 result: "PUSH",
+                winAmount: 0;
             }
         }
         case "win": {
