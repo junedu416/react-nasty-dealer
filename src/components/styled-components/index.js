@@ -96,11 +96,13 @@ export const ChipButton = styled.button`
   background: transparent;
   border: 0px solid transparent;
   background: transparent;
+  transition: all .1s ease-in-out;
 
   &:hover {
     background: transparent;
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
+    transform: scale(1.3);
   }
 `;
 
