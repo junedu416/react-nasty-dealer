@@ -26,6 +26,9 @@ import soundSplit from "./sounds/split.mp3";
 import soundDeal from "./sounds/deal.wav";
 import soundStand from "./sounds/stand.wav";
 import soundBet from "./sounds/clinking-coins.wav";
+import soundLose from "./sounds/disappointment.wav";
+import soundWin from "./sounds/voice-cheer.wav";
+import soundBJ from "./sounds/victory.wav"
 import Player from './MusicPlayer'
 
 const CardTest = () => {
@@ -36,6 +39,9 @@ const CardTest = () => {
   const [standSound] = useSound(soundStand);
   const [splitSound] = useSound(soundSplit);
   const [betSound] = useSound(soundBet);
+  const [BlackJackSound] = useSound(soundBJ);
+  const [WinSound] = useSound(soundWin);
+  const [LoseSound] = useSound(soundLose);
 
   // destrcuter timer function/components
   const {renderTimer, seconds} = Timer();
@@ -556,6 +562,10 @@ const CardTest = () => {
     width: '100%',
   };
 
+// bring sound effects when player lose/win/get blackjack
+  if (resultMessage.result === "WIN") WinSound();
+  else if (resultMessage.result === "BLACKJACK") BlackJackSound();
+  else if (resultMessage.result === "LOSE")  LoseSound()
 
 
   return (

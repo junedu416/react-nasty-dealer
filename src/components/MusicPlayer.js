@@ -12,7 +12,7 @@ const Player = () => {
 
     return (
         <>
-            <button onClick={handleClick}>{musicPlaying ? "Stop":"Play" }</button>
+            <button onClick={handleClick}>{musicPlaying ? "Stop":"Play Background Music" }</button>
             {musicPlaying ? play():pause()}
         </>
     )
