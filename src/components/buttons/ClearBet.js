@@ -1,12 +1,12 @@
 import Button from "@mui/material/Button";
 
-const Stand = (props) => {
+const ClearBet = (props) => {
   const {buttonFunc} = props;
   return (
     <Button variant="contained" size="large" color="error" onClick={buttonFunc} style={{marginLeft: '10px'}}>
-      Stand
+      Clear Bet
     </Button>
   );
 };
 
-export default Stand;
+export default ClearBet;

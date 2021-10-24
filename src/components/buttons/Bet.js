@@ -4,7 +4,7 @@ const Bet = (props) => {
   const {buttonFunc} = props;
 
   return (
-    <Button variant="contained" size="large" color="success" onClick={buttonFunc}>
+    <Button variant="contained" size="large" color="success" onClick={buttonFunc} style={{marginLeft: '10px'}}>
       Bet
     </Button>
   );
