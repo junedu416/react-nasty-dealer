@@ -12,7 +12,7 @@ import { applyCensorship } from "../utils/api-utils";
 import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
 
-const ChatBox = ({ playerBust, gameResult, timerMode }) => {
+const ChatBox = ({ playerBust, gameResult,secondsLeft }) => {
 
   // each comment will be in the form {name: "", message: ""}
   const initialComments = [];
@@ -73,6 +73,7 @@ const ChatBox = ({ playerBust, gameResult, timerMode }) => {
       ]);
     }
   }
+
   // render insult after dealer win
   const firstUpdate = useRef(true);
   useEffect(() => {
@@ -95,13 +96,14 @@ const ChatBox = ({ playerBust, gameResult, timerMode }) => {
         console.log("player loses");
         const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
         getInsult(message, "Dealer");
-    } else if (timerMode){
+    } else if (secondsLeft === 5){
+      console.log(secondsLeft)
       const message =
         runningOutTimeResponse[getRandomInteger(runningOutTimeResponse.length - 1)];
-        setTimeout(()=> {addComment(message, "Dealer")},17000);
+        addComment(message, "Dealer")
       return;
     }
-  }, [playerBust, gameResult, timerMode]);
+  }, [playerBust, gameResult, secondsLeft]);
 
 
   // auto scroll messages container back to bottom    
