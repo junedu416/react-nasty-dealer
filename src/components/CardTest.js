@@ -29,6 +29,10 @@ import soundSplit from "./sounds/split.mp3";
 import soundDeal from "./sounds/deal.wav";
 import soundStand from "./sounds/stand.wav";
 import soundBet from "./sounds/clinking-coins.wav";
+import soundLose from "./sounds/disappointment.wav";
+import soundWin from "./sounds/voice-cheer.wav";
+import soundBJ from "./sounds/victory.wav"
+import Player from './MusicPlayer'
 
 const CardTest = () => {
   // useSound hook
@@ -38,6 +42,9 @@ const CardTest = () => {
   const [standSound] = useSound(soundStand);
   const [splitSound] = useSound(soundSplit);
   const [betSound] = useSound(soundBet);
+  const [BlackJackSound] = useSound(soundBJ);
+  const [WinSound] = useSound(soundWin);
+  const [LoseSound] = useSound(soundLose);
 
   // destrcuter timer function/components
   const {renderTimer, seconds} = Timer();
@@ -482,7 +489,7 @@ const CardTest = () => {
 
       setTimeout(() => {
         dealSound();
-      }, 1200);
+      }, 1400);
       setTimerMode(true)
     } else if (playerVars.stand || playerVars.bust) {
       console.log("no dealio");
@@ -581,6 +588,14 @@ const CardTest = () => {
     width: '100%',
   };
 
+// bring sound effects when player lose/win/get blackjack
+  if (resultMessage.result === "WIN") WinSound();
+  else if (resultMessage.result === "BLACKJACK") BlackJackSound();
+  else if (resultMessage.result === "LOSE")  LoseSound()
+  else if (resultMessage.result === "BUST")  LoseSound()
+  else if (resultMessage.result === "PUSH")  LoseSound()
+
+
   return (
     <>
       <PageContainer>
@@ -676,6 +691,7 @@ const CardTest = () => {
           {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           {bettingMode && <Chips buttonFunc={addToBet} />}
         </GameContainer>
+        <Player/>
         <ChatContainer>
           <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
         </ChatContainer>
