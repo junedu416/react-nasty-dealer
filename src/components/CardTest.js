@@ -36,6 +36,8 @@ const CardTest = () => {
   const [splitSound] = useSound(soundSplit);
   const [betSound] = useSound(soundBet);
 
+  // destrcuter timer function/components
+  const {renderTimer, seconds} = Timer();
   // set button clicked bool for timer use
   const [timerMode, setTimerMode] = useState(false)
 
@@ -432,13 +434,6 @@ const CardTest = () => {
 
   //draw 2 cards for player then for dealer
   function dealCards() {
-    setTimeout(() => {
-      dealSound();
-    }, 1200);
-
-    setTimerMode(true)
-    // setTimeout(() => {setTimerMode(false)},22000)
-
     if (
       dealerVars.cards.length === 0 &&
       playerVars.cards.length === 0 &&
@@ -449,6 +444,11 @@ const CardTest = () => {
       drawCard(deckId, 1).then(addCardToDealer);
       drawCard(deckId, 1).then(addCardToPlayer);
       drawCard(deckId, 1).then(addCardToDealer);
+      
+      setTimeout(() => {
+        dealSound();
+      }, 1200);
+      setTimerMode(true)
     } else if (playerVars.stand || playerVars.bust) {
       console.log("no dealio");
       resetPlayers();
@@ -508,9 +508,9 @@ const CardTest = () => {
       setTimeout(() => {
         dealerDispatch({ type: "setTurn" });
       }, 1000);
-    }
-    doubleSound();
-    setTimerMode(false);
+      doubleSound();
+      setTimerMode(false);
+    } 
   }
 
   function addToBet(event) {
@@ -519,8 +519,8 @@ const CardTest = () => {
         type: "addBet",
         payload: Number(event.target.textContent),
       });
-    }
-    betSound()
+      betSound()
+    } 
   }
 
   const cardContainer = {
@@ -582,24 +582,25 @@ const CardTest = () => {
                   } else if (playerVars.cards.length >= 2 && !playerVars.stand) {
                     playerDispatch({ type: "stand" });
                     dealerDispatch({ type: "setTurn" });
+                    standSound();
+                    setTimerMode(false)
                   }
-                  standSound();
-                  setTimerMode(false)
+                  
                 }}
               />
               <Hit
                 buttonFunc={() => {
                   if (playerVars.cards.length >= 2 && !playerVars.stand) {
                     drawCard(deckId, 1).then(addCardToPlayer);
-                  }
-                  setTimeout(() => {
-                    hitSound();
-                  }, 1000);
-                  setTimerMode(false)
-                  setTimeout(() => {
-                    setTimerMode(true)
-                  }, 300);
-                  
+                    
+                    setTimeout(() => {
+                      hitSound();
+                    }, 1000);
+                    setTimerMode(false)
+                    setTimeout(() => {
+                      setTimerMode(true)
+                    }, 300);
+                  }  
                 }}
               />
               <Double buttonFunc={double} />
@@ -635,11 +636,11 @@ const CardTest = () => {
                 activeHand={playerVars.curHand === 1} />}
             </div>
           </div>
-          {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && <Timer />}
+          {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           {bettingMode && <Chips buttonFunc={addToBet} />}  
         </GameContainer>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} gameResult={playerVars.result} timerMode={timerMode} />
+          <ChatBox playerBust={playerVars.bust} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
         </ChatContainer>
       </PageContainer>
     </>
