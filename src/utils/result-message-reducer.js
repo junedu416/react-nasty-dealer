@@ -1,18 +1,25 @@
 
 export default function resultMessageReducer(state, action) {
     switch(action.type) {
-        case "split_both_bust": {
-            return {
-                ...state,
-                result: "BOTH CARDS BUST",
-                winAmount: action.data
-            }
-        }
-        case "split_one_win": {
+        case "split_win_lose": {
             return {
                 ...state,
                 result: "WIN ONE LOSE ONE",
-                winAmount: action.data
+                winAmount: 0
+            }
+        }
+        case "split_win_push": {
+            return {
+                ...state,
+                result: "WIN ONE PUSH ONE",
+                winAmount: action.data / 2
+            }
+        }
+        case "split_lose_push": {
+            return {
+                ...state,
+                result: "LOSE ONE PUSH ONE",
+                winAmount: -action.data / 2
             }
         }
         case "split_both_lose": {
@@ -29,39 +36,39 @@ export default function resultMessageReducer(state, action) {
                 winAmount: action.data
             }
         }
-        case "one_blackjack_one_win": {
+        case "split_blackjack_win": {
             return {
                 ...state,
                 result: "ONE BLACKJACK ONE WIN",
-                winAmount: action.data
+                winAmount: ((action.data / 2) * 1.5) + (action.data / 2)
             }
         }
-        case "one_blackjack_one_lose": {
+        case "split_blackjack_lose": {
             return {
                 ...state,
                 result: "ONE BLACKJACK ONE LOSE",
-                winAmount: action.data
+                winAmount: ((action.data / 2) * 1.5) - (action.data / 2)
             }
         }
         case "both_blackjack": {
             return {
                 ...state,
                 result: "TWO BLACKJACKS",
-                winAmount: action.data
+                winAmount: action.data * 1.5
+            }
+        }
+        case "split_blackjack_push": {
+            return {
+                ...state,
+                result: "ONE BLACKJACK ONE PUSH",
+                winAmount: (action.data / 2) * 1.5
             }
         }
         case "blackjack": {
             return {
                 ...state,
                 result: "BLACKJACK",
-                winAmount: action.data
-            }
-        }
-        case "player_bust": {
-            return {
-                ...state,
-                result: "BUST",
-                winAmount: -action.data
+                winAmount: action.data * 1.5
             }
         }
         case "push": {
@@ -74,7 +81,7 @@ export default function resultMessageReducer(state, action) {
             return {
                 ...state,
                 result: "WIN",
-                winAmount: action.data
+                winAmount: action.data * 1
             }
         }
         case "lose": {

@@ -37,6 +37,27 @@ function decodeHtmlEntity(str) {
   return str;
 }
 
+function tallySplitResults(bust, result) {
+  let results = {
+      win: 0,
+      lose: 0,
+      push: 0,
+      blackJack: 0
+  }
+  bust.forEach((hand) => {
+      if (hand)  results.lose += 1;
+  })
+  result.forEach((hand) => {
+      if (hand.win) {
+        if (hand.condition === 'blackjack' ) {results.blackJack += 1 }
+        else {results.win += 1;}
+      }
+      else if(hand.condition === "lose_to_dealer") results.lose += 1;
+      else if(hand.condition === 'push') results.push += 1;
+  })
+  return results;
+}
+
 export {
   getRandomInteger,
   playerWinResponse,
@@ -44,4 +65,5 @@ export {
   runningOutTimeResponse,
   playerLoseResponse,
   decodeHtmlEntity,
+  tallySplitResults
 };
