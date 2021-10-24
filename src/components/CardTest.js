@@ -526,7 +526,7 @@ const CardTest = () => {
     if (playerVars.cards.length === 0) {
       playerDispatch({
         type: "addBet",
-        payload: Number(event.target.textContent),
+        payload: parseInt(event.target.alt),
       });
       betSound()
     }

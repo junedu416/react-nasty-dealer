@@ -11,7 +11,7 @@ export const PageContainer = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 100%;
-`
+`;
 
 export const CenteredBox = styled.div`
   display: flex;
@@ -25,7 +25,7 @@ export const CenteredBox = styled.div`
   align-items: center;
   margin: 0 auto;
   /* border: 5px solid black; */
-`
+`;
 
 export const GameContainer = styled.div`
   display: flex;
@@ -36,7 +36,7 @@ export const GameContainer = styled.div`
   max-height: 1080px;
   width: 75%;
   align-items: center;
-`
+`;
 
 export const ChatContainer = styled.div`
   display: flex;
@@ -44,7 +44,7 @@ export const ChatContainer = styled.div`
   width: 25%;
   height: 98%;
   padding: 10px;
-`
+`;
 
 // export const ButtonContainer = styled.div`
 //   display: flex;
@@ -57,8 +57,8 @@ export const MessageContainer = styled.div`
   flex-direction: column;
   width: 100%;
   height: 100%;
-  background-color: #CFEFEF;
-`
+  background-color: #cfefef;
+`;
 
 export const MessageBox = styled.div`
   display: flex;
@@ -70,12 +70,12 @@ export const MessageBox = styled.div`
   background-color: rgb(255, 255, 255, 0.5);
   margin: 5px 0px 10px 10px;
   padding: 5px 5px 0 5px;
-`
+`;
 
 export const CommentBox = styled.div`
   margin-left: 10px;
   margin-bottom: 10px;
-`
+`;
 
 export const CommentButton = styled.button`
   outline: none;
@@ -90,4 +90,22 @@ export const CommentButton = styled.button`
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
   }
-`
+`;
+
+export const ChipButton = styled.button`
+  background: transparent;
+  border: 0px solid transparent;
+  background: transparent;
+
+  &:hover {
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+  }
+`;
+
+export const ChipContainer = styled.div`
+  margin-left: 10px;
+  margin-bottom: 10px;
+  display: flex;
+`;
