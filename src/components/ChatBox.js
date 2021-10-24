@@ -12,7 +12,7 @@ import { applyCensorship } from "../utils/api-utils";
 import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
 
-const ChatBox = ({ playerBust, gameResult,secondsLeft }) => {
+const ChatBox = ({ playerBust, gameResult, secondsLeft, split }) => {
 
   // each comment will be in the form {name: "", message: ""}
   const initialComments = [];
@@ -80,7 +80,13 @@ const ChatBox = ({ playerBust, gameResult,secondsLeft }) => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
-    } else if (playerBust) {
+    } else if (split) {
+        if (playerBust[0] || playerBust[1]) {
+            const message = playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
+            addComment(message, "Dealer");
+            return;
+        }
+    } else if (!split && playerBust) {
       console.log("player's gone bust");
       const message =
         playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
@@ -96,8 +102,9 @@ const ChatBox = ({ playerBust, gameResult,secondsLeft }) => {
         console.log("player loses");
         const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
         getInsult(message, "Dealer");
-    }  
-  }, [playerBust, gameResult]);
+
+    } 
+  }, [playerBust, split, gameResult]);
 
   // render insult when timer has 5 seconds left
   useEffect(() => {
@@ -108,6 +115,7 @@ const ChatBox = ({ playerBust, gameResult,secondsLeft }) => {
       return;
     }
   }, [secondsLeft])
+
 
 
   // auto scroll messages container back to bottom    

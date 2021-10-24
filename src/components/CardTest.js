@@ -569,7 +569,6 @@ const CardTest = () => {
                   splitSound();
                   setTimerMode(false);
                 }}} />
-
               <Stand
                 buttonFunc={() => {
                   if (playerVars.split) {
@@ -640,7 +639,7 @@ const CardTest = () => {
           {bettingMode && <Chips buttonFunc={addToBet} />}  
         </GameContainer>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
+          <ChatBox playerBust={playerVars.bust} split={playerVars.split} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
         </ChatContainer>
       </PageContainer>
     </>
