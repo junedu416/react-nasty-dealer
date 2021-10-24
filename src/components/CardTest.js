@@ -589,12 +589,17 @@ const CardTest = () => {
       {/* ===================== BUTTONS ===================== */}
           <OuterContainer>
             <ButtonContainer>
-              <Split buttonFunc={() => {
-                if (!playerVars.split && canPlayerSplit(...playerVars.cards)) { //remove this if statement to test split on any 2 cards
+              {/*SPLIT*/}
+              {playerVars.cards.length === 2 &&
+               canPlayerSplit(...playerVars.cards) &&
+               !playerVars.split &&
+               <Split buttonFunc={() => {
                   playerDispatch({type:"splitCards"});
                   splitSound();
                   setTimerMode(false);
-                  }}} />
+                  }} />}
+              {/*STAND*/}
+             {!playerVars.stand && playerVars.cards.length > 0 &&
               <Stand
                 buttonFunc={() => {
                   if (playerVars.split) {
@@ -612,10 +617,12 @@ const CardTest = () => {
                   }
 
                 }}
-              />
+              />}
+              {/*HIT*/}
+              {!playerVars.stand && playerVars.cards.length > 0 &&
               <Hit
                 buttonFunc={() => {
-                  if (playerVars.cards.length >= 2 && !playerVars.stand) {
+                  if (playerVars.cards.length >= 2) {
                     drawCard(deckId, 1).then(addCardToPlayer);
 
                     setTimeout(() => {
@@ -627,21 +634,25 @@ const CardTest = () => {
                     }, 300);
                   }
                 }}
-              />
-              <Double buttonFunc={double} />
-
-              <ClearBet buttonFunc={() => {
-                if (playerVars.cards.length === 0)
+              />}
+              {/*DOUBLE*/}
+              {playerVars.cards.length === 2 && !playerVars.split &&
+              playerVars.score.highTotal !== 21 && !playerVars.stand &&
+               <Double buttonFunc={double} />}
+              {/*CLEARBET*/}
+              {playerVars.cards.length === 0 && <ClearBet buttonFunc={() => {
                   playerDispatch({type: "clearBet"})
-              }} />
-              <Bet
+              }} />}
+              {/*BET*/}
+              {playerVars.cards.length === 0 && <Bet
                 buttonFunc={() => {
                   if (bettingMode) setBettingMode(false);
                   else setBettingMode(true);
                 }}
-              />
-
-              <Deal buttonFunc={dealCards} />
+              />}
+              {/*DEAL*/}
+              {playerVars.cards.length === 0 && <Deal buttonFunc={dealCards} />}
+              {/*NEWGAME*/}
               {playerVars.stand && dealerVars.stand && <NewGame buttonFunc={dealCards} />}
             </ButtonContainer>
           </OuterContainer>
