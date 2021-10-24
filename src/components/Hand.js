@@ -1,6 +1,6 @@
 // import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
-import { CenteredBox } from './styled-components';
+import { CenteredBox, MoneyBox } from './styled-components';
 
 const Hand = (props) => {
   const { dealer, cards, dealersTurn, score, bust, chips, betSize, activeHand } = props;
@@ -48,6 +48,7 @@ const Hand = (props) => {
         <div style={{ display: "flex" }}>
           {cards.map((card, index) => {
             return (
+              // ====================== CARD STYLING ==========================
               <div key={index} style={{width: '100%'}}>
                 {dealer && !dealersTurn && cards.length === 2 && index === 1 ? (
                   <img
@@ -62,6 +63,7 @@ const Hand = (props) => {
                       position: "relative",
                       top: '-21px',
                       right: `${(55 * index) + (40 * (index - 1))}px`,
+                      backgroundClip: "content-box",
                       boxShadow: "inset 0 0 0 9px white",
                     }}
                   />
@@ -97,7 +99,10 @@ const Hand = (props) => {
         </div>
       </CenteredBox>
 
-      {!dealer && <h3>chips: ${chips} - bet: ${betSize}</h3>}
+      {!dealer && <MoneyBox>
+        <h3>Chips: ${chips}</h3>
+        <h3>Bet: ${betSize}</h3>
+      </MoneyBox>};
     </div>
   );
 };

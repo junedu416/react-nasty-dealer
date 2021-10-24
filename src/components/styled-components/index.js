@@ -107,9 +107,9 @@ export const CommentButton = styled.button`
 
 export const HideChat = styled.img`
   position: absolute;
-  right: 20px;
-  width: 36px;
-  top: 20px;
+  right: 10px;
+  top: 10px;
+  width: 25px;
   background: rgb(0, 0, 0, 0.4);
   /* background: red; */
   padding: 10px;
@@ -139,7 +139,7 @@ export const ChipContainer = styled.div`
   border-radius: 10px;
   background: rgb(0, 20, 25, 0.6);
   position: absolute;
-  bottom: 80px;
+  bottom: 10vh;
   border: 2px ridge gold;
 `;
 
@@ -205,7 +205,7 @@ export const OuterContainer = styled.div`
   display: flex;
   flex-direction: row;
   position: absolute;
-  bottom: 80px;
+  bottom: 4vh;
 `;
 
 export const ButtonContainer = styled.div`
@@ -214,4 +214,17 @@ export const ButtonContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+`;
+
+export const MoneyBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+  width: 200px;
+  position: absolute;
+  top: 70px;
+  left: 0px;
+  padding-left: 30px;
+  background-color: rgb(100, 200, 255, 0.4);
 `;
