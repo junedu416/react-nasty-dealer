@@ -226,7 +226,7 @@ const CardTest = () => {
           if (state.split) {
             console.log("nobody wins hand", action.payload[1], "betSize", state.betSize, "added back to ", state.chips)
             const result = [...state.result];
-            result[action.payload[1]] = {win: false, condition: action.payload}
+            result[action.payload[1]] = {win: false, condition: action.payload[0]}
             return {
               ...state,
               chips: state.chips + state.betSize,
@@ -444,10 +444,11 @@ const CardTest = () => {
     if(dealerVars.stand && playerVars.stand) {
       if (playerVars.split && playerVars.curHand === 1) {
           let resultTally = tallySplitResults(playerVars.bust, playerVars.result);
+          console.log(resultTally);
           if (resultTally.win === 2) {actionType = "split_both_win";}
           else if(resultTally.lose === 2) {actionType = "split_both_lose";}
-          else if(resultTally.blackJack === 2) {actionType = "both_blackjack"}
           else if(resultTally.push === 2) {actionType = "push"}
+          else if(resultTally.blackJack === 2) {actionType = "both_blackjack"}
           else if(resultTally.win === 1 && resultTally.lose === 1) {actionType = "split_win_lose"}
           else if(resultTally.win === 1 && resultTally.push === 1) {actionType = "split_win_push"}
           else if(resultTally.win === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_win"}
@@ -458,7 +459,7 @@ const CardTest = () => {
     }
     actionType && resultMessageDispatch({type: actionType, data: playerVars.betSize})
     return;
-}, [playerVars.betSize, playerVars.split, playerVars.result, playerVars.bust, dealerVars.stand, playerVars.stand])
+}, [playerVars.betSize, playerVars.split, playerVars.result, playerVars.bust, dealerVars.stand, playerVars.stand, playerVars.curHand])
 
   function canPlayerSplit(card1, card2) {
     if (card1.value === card2.value) return true;

@@ -51,9 +51,8 @@ function tallySplitResults(bust, result) {
       if (hand.win) {
         if (hand.condition === 'blackjack' ) {results.blackJack += 1 }
         else {results.win += 1;}
-      }
-      else if(hand.condition === "lose_to_dealer") results.lose += 1;
-      else if(hand.condition === 'push') results.push += 1;
+      } else if(hand.condition === 'push') {results.push += 1;}
+      else if(hand.condition === "lose_to_dealer") {results.lose += 1;}
   })
   return results;
 }
