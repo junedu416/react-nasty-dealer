@@ -76,6 +76,7 @@ const CardTest = () => {
     result: { win: false, condition: "" },
     curHand: 0,
     split: false,
+    double: false
   };
   const [deckId, setDeckId] = useState("");
 
@@ -183,7 +184,10 @@ const CardTest = () => {
         case "reset": {
           console.log("resetting");
           resultMessageDispatch({type: 'reset'});
-          return { ...initialHand, chips: state.chips };
+          let newBet = state.betSize;
+          if (state.split || state.double) newBet = newBet / 2;
+          if (state.chips - newBet < 0) newBet = 0
+          return { ...initialHand, chips: state.chips, betSize: newBet };
         }
         case "addBet": {
           return {
@@ -203,6 +207,7 @@ const CardTest = () => {
             stand: true,
             betSize: state.betSize * 2,
             chips: state.chips - state.betSize,
+            double: true
           };
         }
         case "addChips": {
@@ -213,6 +218,12 @@ const CardTest = () => {
             stand: true,
             playerPaid: true,
           };
+        }
+        case "clearBet": {
+          return {
+            ...state,
+            betSize: 0
+          }
         }
         case "changeResult": {
           if (state.split) {
@@ -462,7 +473,7 @@ const CardTest = () => {
           else if(resultTally.lose === 1 && resultTally.push === 1) {actionType = "split_lose_push"}
           else if(resultTally.lose === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_lose"}
           else if(resultTally.push === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_push"}
-      } 
+      }
     }
     actionType && resultMessageDispatch({type: actionType, data: playerVars.betSize})
     return;
@@ -649,7 +660,10 @@ const CardTest = () => {
               />
               <Double buttonFunc={double} />
 
-              <ClearBet buttonFunc={dealCards} />
+              <ClearBet buttonFunc={() => {
+                if (playerVars.cards.length === 0)
+                  playerDispatch({type: "clearBet"})
+              }} />
               <Bet
                 buttonFunc={() => {
                   if (bettingMode) setBettingMode(false);
