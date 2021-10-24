@@ -9,6 +9,7 @@ import {
   decodeHtmlEntity,
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
+import { tallySplitResults } from "../utils/util-functions";
 import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
 
@@ -78,29 +79,15 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   // Dealer adds custom comment and/or API insult according to game result
   const firstUpdate = useRef(true);
   useEffect(() => {
-    function tallySplitResults(bust, result) {
-        let results = {
-            win: 0,
-            lose: 0,
-            push: 0
-        }
-        bust.forEach((hand) => {
-            if (hand)  results.lose += 1;
-        })
-        result.forEach((hand) => {
-            if (hand.win) results.win += 1;
-            else if(hand.condition === "lose_to_dealer") results.lose += 1;
-            else if(hand.condition === 'push') results.push += 1;
-        })
-        return results;
-    }
 
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
     } else if (split && curHand === 1) {
         let results = tallySplitResults(playerBust, gameResult);
-        if (results.win === 2 || results.win === 1 ) {
+        results.win += results.blackJack;
+
+        if (results.win === 2 || results.win === 1) {
             console.log("two wins or or one win one push");
             const message =
               playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
