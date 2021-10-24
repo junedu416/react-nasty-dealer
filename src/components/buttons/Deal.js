@@ -4,7 +4,7 @@ const Deal = (props) => {
   const {buttonFunc} = props;
 
   return (
-    <Button variant="contained" size="large" onClick={buttonFunc}>
+    <Button variant="contained" size="large" onClick={buttonFunc} style={{marginLeft: '50px'}}>
       Deal
     </Button>
   );

@@ -8,10 +8,13 @@ import Double from "./buttons/Double";
 import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
+import NewGame from "./buttons/NewGame";
+import ClearBet from "./buttons/ClearBet";
 import ChatBox from "./ChatBox";
 import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
+import { tallySplitResults } from "../utils/util-functions";
 
 
 import { GameContainer, ChatContainer, CenteredBox, PageContainer } from "./styled-components";
@@ -159,8 +162,8 @@ const CardTest = () => {
             dealerDispatch({ type: "stand" });
           }
           if (bust) {
+            resultMessageDispatch({type: "lose", data: state.betSize})
             dealerDispatch({ type: "stand" });
-            resultMessageDispatch({type: 'player_bust', data: state.betSize});
           }
           return {
             ...state,
@@ -344,10 +347,10 @@ const CardTest = () => {
       if (playerVars.result.win && !playerVars.paid) {
         if (playerVars.result.condition === "blackjack") {
           playerDispatch({ type: "addChips", payload: playerVars.betSize * 2.5 });
-          resultMessageDispatch({type: "blackjack", data: playerVars.betSize * 2.5})
+          resultMessageDispatch({type: "blackjack", data: playerVars.betSize})
         } else {
           playerDispatch({ type: "addChips", payload: playerVars.betSize * 2 });
-          resultMessageDispatch({type: "win", data: playerVars.betSize * 2});
+          resultMessageDispatch({type: "win", data: playerVars.betSize});
         }
       }
     }
@@ -441,6 +444,29 @@ const CardTest = () => {
     return newScore;
   }
 
+
+  // set game Result state for GameResultMessage Comopent
+  useEffect(() => {
+    let actionType="";
+    if(dealerVars.stand && playerVars.stand) {
+      if (playerVars.split && playerVars.curHand === 1) {
+          let resultTally = tallySplitResults(playerVars.bust, playerVars.result);
+          if (resultTally.win === 2) {actionType = "split_both_win";}
+          else if(resultTally.lose === 2) {actionType = "split_both_lose";}
+          else if(resultTally.blackJack === 2) {actionType = "both_blackjack"}
+          else if(resultTally.push === 2) {actionType = "push"}
+          else if(resultTally.win === 1 && resultTally.lose === 1) {actionType = "split_win_lose"}
+          else if(resultTally.win === 1 && resultTally.push === 1) {actionType = "split_win_push"}
+          else if(resultTally.win === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_win"}
+          else if(resultTally.lose === 1 && resultTally.push === 1) {actionType = "split_lose_push"}
+          else if(resultTally.lose === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_lose"}
+          else if(resultTally.push === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_push"}
+      } 
+    }
+    actionType && resultMessageDispatch({type: actionType, data: playerVars.betSize})
+    return;
+}, [playerVars.betSize, playerVars.split, playerVars.result, playerVars.bust, dealerVars.stand, playerVars.stand])
+
   function canPlayerSplit(card1, card2) {
     if (card1.value === card2.value) return true;
     if (isNaN(card1.value) && isNaN(card2.value)) return true;
@@ -533,7 +559,7 @@ const CardTest = () => {
     if (playerVars.cards.length === 0) {
       playerDispatch({
         type: "addBet",
-        payload: Number(event.target.textContent),
+        payload: parseInt(event.target.alt),
       });
       betSound()
     }
@@ -581,18 +607,12 @@ const CardTest = () => {
       {/* ===================== BUTTONS ===================== */}
           <div style={outerContainer}>
             <div style={buttonContainer}>
-              <Bet
-                buttonFunc={() => {
-                  if (bettingMode) setBettingMode(false);
-                  else setBettingMode(true);
-                }}
-              />
               <Split buttonFunc={() => {
                 if (!playerVars.split && canPlayerSplit(...playerVars.cards)) { //remove this if statement to test split on any 2 cards
                   playerDispatch({type:"splitCards"});
                   splitSound();
                   setTimerMode(false);
-                }}} />
+                  }}} />
               <Stand
                 buttonFunc={() => {
                   if (playerVars.split) {
@@ -627,10 +647,19 @@ const CardTest = () => {
                 }}
               />
               <Double buttonFunc={double} />
+
+              <ClearBet buttonFunc={dealCards} />
+              <Bet
+                buttonFunc={() => {
+                  if (bettingMode) setBettingMode(false);
+                  else setBettingMode(true);
+                }}
+              />
+
               <Deal buttonFunc={dealCards} />
+              <NewGame buttonFunc={dealCards} />
             </div>
           </div>
-
 
           {/* ===================== CARDS ===================== */}
           <div style={cardContainer}>
@@ -664,7 +693,7 @@ const CardTest = () => {
         </GameContainer>
         <Player/>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} split={playerVars.split} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
+          <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
         </ChatContainer>
       </PageContainer>
     </>
