@@ -187,6 +187,12 @@ const CardTest = () => {
                 : state.betSize + action.payload,
           };
         }
+        case "resetBet": {
+          return {
+            ...state,
+            betSize: 0
+          }
+        }
         case "confirmBet": {
           return { ...state, chips: state.chips - state.betSize };
         }
@@ -454,7 +460,7 @@ const CardTest = () => {
           else if(resultTally.lose === 1 && resultTally.push === 1) {actionType = "split_lose_push"}
           else if(resultTally.lose === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_lose"}
           else if(resultTally.push === 1 && resultTally.blackJack === 1) {actionType = "split_blackjack_push"}
-      } 
+      }
     }
     actionType && resultMessageDispatch({type: actionType, data: playerVars.betSize})
     return;
@@ -633,7 +639,10 @@ const CardTest = () => {
               />
               <Double buttonFunc={double} />
 
-              <ClearBet buttonFunc={dealCards} />
+              <ClearBet buttonFunc={() => {
+                if (playerVars.cards.length === 0)
+                  playerDispatch({type: "resetBet"});
+              }} />
               <Bet
                 buttonFunc={() => {
                   if (bettingMode) setBettingMode(false);
