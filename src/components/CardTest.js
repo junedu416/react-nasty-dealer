@@ -662,6 +662,7 @@ const CardTest = () => {
               chips={playerVars.chips}
               betSize={playerVars.betSize}
               activeHand={playerVars.split && playerVars.curHand === 0}
+              winAmount={resultMessage.winAmount}
             />
             {playerVars.split && <Hand
               cards={playerVars.cards[1]}
