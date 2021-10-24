@@ -642,7 +642,7 @@ const CardTest = () => {
               />
 
               <Deal buttonFunc={dealCards} />
-              <NewGame buttonFunc={dealCards} />
+              {playerVars.stand && dealerVars.stand && <NewGame buttonFunc={dealCards} />}
             </ButtonContainer>
           </OuterContainer>
 
