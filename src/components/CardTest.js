@@ -26,6 +26,7 @@ import soundSplit from "./sounds/split.mp3";
 import soundDeal from "./sounds/deal.wav";
 import soundStand from "./sounds/stand.wav";
 import soundBet from "./sounds/clinking-coins.wav";
+import Player from './MusicPlayer'
 
 const CardTest = () => {
   // useSound hook
@@ -555,6 +556,8 @@ const CardTest = () => {
     width: '100%',
   };
 
+
+
   return (
     <>
       <PageContainer>
@@ -647,6 +650,7 @@ const CardTest = () => {
           {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           {bettingMode && <Chips buttonFunc={addToBet} />}
         </GameContainer>
+        <Player/>
         <ChatContainer>
           <ChatBox playerBust={playerVars.bust} split={playerVars.split} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
         </ChatContainer>
