@@ -463,7 +463,7 @@ const CardTest = () => {
 
       setTimeout(() => {
         dealSound();
-      }, 1200);
+      }, 1400);
       setTimerMode(true)
     } else if (playerVars.stand || playerVars.bust) {
       console.log("no dealio");
@@ -566,6 +566,8 @@ const CardTest = () => {
   if (resultMessage.result === "WIN") WinSound();
   else if (resultMessage.result === "BLACKJACK") BlackJackSound();
   else if (resultMessage.result === "LOSE")  LoseSound()
+  else if (resultMessage.result === "BUST")  LoseSound()
+  else if (resultMessage.result === "PUSH")  LoseSound()
 
 
   return (
