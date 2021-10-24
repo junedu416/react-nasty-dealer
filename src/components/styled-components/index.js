@@ -205,6 +205,7 @@ export const OuterContainer = styled.div`
   display: flex;
   flex-direction: row;
   position: absolute;
+  left: 10px;
   bottom: 4vh;
 `;
 
@@ -227,4 +228,12 @@ export const MoneyBox = styled.div`
   left: 0px;
   padding-left: 30px;
   background-color: rgb(100, 200, 255, 0.4);
+`;
+
+export const MessagingIcon = styled.img`
+   width: 150px;
+   height: 150px;
+   position: absolute;
+   bottom: 60px;
+   right: 20px;
 `;
