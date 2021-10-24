@@ -4,7 +4,7 @@ function getRandomInteger(max) {
 
 const playerWinResponse = [
   "Fine, I guess you win",
-  "It's just one win. I'm still better than you",
+  "You just got lucky. I'm still better than you",
   "How dare you win against me",
   "You're not worthy of winning",
 ];
@@ -12,12 +12,13 @@ const playerWinResponse = [
 const playerBustResponse = [
   "Haha you Busted",
   "You went Bust, as you should",
-  "You went Bust because you're dumb",
+  "You dumb child. That's why you go Bust",
 ];
 
 const playerLoseResponse = [
     "Loser. You don't stand a chance against me", 
     "You lost. I'd love to see you go broke",
+    "Get on your knees, peasant. I am the winner",
     "HA I WIN",
     "And the winner is...ME😈"
 ];

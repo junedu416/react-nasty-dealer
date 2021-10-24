@@ -648,7 +648,7 @@ const CardTest = () => {
           {bettingMode && <Chips buttonFunc={addToBet} />}
         </GameContainer>
         <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} split={playerVars.split} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
+          <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
         </ChatContainer>
       </PageContainer>
     </>
