@@ -176,7 +176,7 @@ const CardTest = () => {
         case "reset": {
           console.log("resetting");
           resultMessageDispatch({type: 'reset'});
-          return { ...initialHand, chips: state.chips };
+          return { ...initialHand, chips: state.chips, betSize: state.betSize };
         }
         case "addBet": {
           return {
