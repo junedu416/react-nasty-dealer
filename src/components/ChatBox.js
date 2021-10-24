@@ -12,13 +12,13 @@ import { applyCensorship } from "../utils/api-utils";
 import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
 
 
-const ChatBox = ({ playerBust, gameResult, secondsLeft, split }) => {
+const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
 
   // each comment will be in the form {name: "", message: ""}
   const initialComments = [];
   const [comments, setComments] = useState(initialComments);
 
-  // add new comment to the list of comments displayed in chat
+  // add new comment to the list of comments displayed in chat. if it is the player commenting dealer replies with an insult
   function addComment(comment, user) {
     applyCensorship(comment).then((censoredComment) => {
       setComments([
@@ -34,6 +34,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split }) => {
     });
   }
 
+    // adds custom comment + insult from dealer
   function getInsult(comment, user) {
     fetch(
       "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
@@ -74,37 +75,64 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split }) => {
     }
   }
 
-  // render insult after dealer win
+  // Dealer adds custom comment and/or API insult according to game result
   const firstUpdate = useRef(true);
   useEffect(() => {
+    function tallySplitResults(bust, result) {
+        let results = {
+            win: 0,
+            lose: 0,
+            push: 0
+        }
+        bust.forEach((hand) => {
+            if (hand)  results.lose += 1;
+        })
+        result.forEach((hand) => {
+            if (hand.win) results.win += 1;
+            else if(hand.condition === "lose_to_dealer") results.lose += 1;
+            else if(hand.condition === 'push') results.push += 1;
+        })
+        return results;
+    }
+
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
-    } else if (split) {
-        if (playerBust[0] || playerBust[1]) {
-            const message = playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
+    } else if (split && curHand === 1) {
+        let results = tallySplitResults(playerBust, gameResult);
+        if (results.win === 2 || results.win === 1 ) {
+            console.log("two wins or or one win one push");
+            const message =
+              playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
             addComment(message, "Dealer");
             return;
-        }
-    } else if (!split && playerBust) {
-      console.log("player's gone bust");
-      const message =
-        playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
-      getInsult(message, "Dealer");
-      return;
-    } else if (gameResult.win) {
-      console.log("player wins");
-      const message =
-        playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
-      addComment(message, "Dealer");
-      return;
-    } else if (gameResult.condition === "lose_to_dealer") {
-        console.log("player loses");
-        const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
-        getInsult(message, "Dealer");
-
+        } else if (results.lose === 2 || (results.lose === 1 && results.push === 1)) {
+            console.log("two losses or one loss one push"); 
+            const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
+            getInsult(message, "Dealer");
+            return;
+        } 
+    } else if (!split) {
+        if (playerBust){
+            console.log("player's gone bust");
+            const message =
+                playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
+            getInsult(message, "Dealer");
+            return;
+        }else if (gameResult.win) {
+            console.log("player wins");
+            const message =
+              playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
+            addComment(message, "Dealer");
+            return;
+          } else if (gameResult.condition === "lose_to_dealer") {
+              console.log("player loses");
+              const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
+              getInsult(message, "Dealer");
+              return;
+          } 
     } 
-  }, [playerBust, split, gameResult]);
+  }, [playerBust, split, curHand, gameResult]);
 
   // render insult when timer has 5 seconds left
   useEffect(() => {
