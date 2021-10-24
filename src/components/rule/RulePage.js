@@ -4,6 +4,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Grid from "@mui/material/Grid";
+import Info from "../../images/info.png";
+import { InfoButton } from "../styled-components";
 
 import {
   push,
@@ -42,7 +44,9 @@ function RulePage() {
   const handleClose = () => setOpen(false);
   return (
     <div>
-      <Button onClick={handleOpen}>How to Play? </Button>
+      <Button onClick={handleOpen}>
+        <InfoButton src={Info} alt='how to play icon' />
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
