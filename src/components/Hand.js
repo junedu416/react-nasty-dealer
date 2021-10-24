@@ -1,6 +1,6 @@
 // import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
-import { CenteredBox } from './styled-components';
+import { CenteredBox, MoneyBox } from './styled-components';
 
 const Hand = (props) => {
   const { dealer, cards, dealersTurn, score, bust, chips, betSize, activeHand } = props;
@@ -48,6 +48,7 @@ const Hand = (props) => {
         <div style={{ display: "flex" }}>
           {cards.map((card, index) => {
             return (
+              // ====================== CARD STYLING ==========================
               <div key={index} style={{width: '100%'}}>
                 {dealer && !dealersTurn && cards.length === 2 && index === 1 ? (
                   <img
@@ -76,6 +77,8 @@ const Hand = (props) => {
                         style={{
                           position: "relative",
                           right: `${(-20 * index) + (20 * (index - 1))}px`,
+                          // transform: [{ skewX: "20deg" }],      
+                          // trying to make card have perspective.
                         }}
                       />
                     ) : (
@@ -86,19 +89,23 @@ const Hand = (props) => {
                           width: "100px",
                           position: "relative",
                           right: `${(55 * index) + (20 * (index - 1))}px`,
-                          top: `${-22 - (22 * (index - 1))}px`
+                          top: `${-22 - (22 * (index - 1))}px`,
+                          // transform: [{ skewX: "20deg" }]
                         }}
                       />
                     )}
                   </>
                 )}
               </div>
-            );
+            )
           })}
         </div>
       </CenteredBox>
 
-      {!dealer && <h3>chips: ${chips} - bet: ${betSize}</h3>}
+      {!dealer && <MoneyBox>
+        <h3>Chips: ${chips}</h3>
+        <h3>Bet: ${betSize}</h3>
+      </MoneyBox>}
     </div>
   );
 };

@@ -10,7 +10,8 @@ import {
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
 import { tallySplitResults } from "../utils/util-functions";
-import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
+import { MessageBox, CommentBox, MessageContainer, HideChat } from "./styled-components";
+import Minimise from "../images/minimise.png";
 
 
 const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
@@ -144,10 +145,12 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const [hideChat, setHideChat] = useState(true);
+  const minimized = () => setHideChat(false);
 
   return (
     <>
-      <MessageContainer>
+      { hideChat ? <MessageContainer>
         <MessageBox>
           {comments.map((comment, index) => (
             <div key={index}>
@@ -161,7 +164,8 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
         <CommentBox>
           <ChatBoxForm addComment={addComment} />
         </CommentBox>
-      </MessageContainer>
+        <HideChat src={Minimise} onClick={ minimized } />
+      </MessageContainer> : null }
     </>
   );
 };

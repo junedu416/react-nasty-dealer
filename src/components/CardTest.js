@@ -15,12 +15,8 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-
-
-import { GameContainer, ChatContainer, CenteredBox, PageContainer } from "./styled-components";
-
+import { GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox } from "./styled-components";
 import Timer from "./Timer";
-
 import Chips from "./Chips";
 import useSound from "use-sound";
 import soundHit from "./sounds/card-flick.wav";
@@ -574,29 +570,6 @@ const CardTest = () => {
     }
   }
 
-  const cardContainer = {
-    width: "100%",
-    height: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  };
-
-  const outerContainer = {
-    display: "flex",
-    flexDirection: "row",
-    position: 'absolute',
-    bottom: '30px',
-  };
-
-  const buttonContainer = {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-    width: '100%',
-  };
-
 // bring sound effects when player lose/win/get blackjack
   if (resultMessage.result === "WIN") WinSound();
   else if (resultMessage.result === "BLACKJACK") BlackJackSound();
@@ -614,8 +587,8 @@ const CardTest = () => {
           {warning && <WarningMessage message={warning} closeWarning={closeWarning}/>}
           {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
       {/* ===================== BUTTONS ===================== */}
-          <div style={outerContainer}>
-            <div style={buttonContainer}>
+          <OuterContainer>
+            <ButtonContainer>
               <Split buttonFunc={() => {
                 if (!playerVars.split && canPlayerSplit(...playerVars.cards)) { //remove this if statement to test split on any 2 cards
                   playerDispatch({type:"splitCards"});
@@ -670,42 +643,42 @@ const CardTest = () => {
 
               <Deal buttonFunc={dealCards} />
               <NewGame buttonFunc={dealCards} />
-            </div>
-          </div>
+            </ButtonContainer>
+          </OuterContainer>
 
           {/* ===================== CARDS ===================== */}
-          <div style={cardContainer}>
-            <div>
-              <Hand
-                dealer
-                dealersTurn={dealerVars.turn}
-                cards={dealerVars.cards}
-                score={dealerVars.score}
-                bust={dealerVars.bust}
-              />
-              <Hand
-                cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
-                score={playerVars.split ? playerVars.score[0] : playerVars.score}
-                bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
-                chips={playerVars.chips}
-                betSize={playerVars.betSize}
-                activeHand={playerVars.split && playerVars.curHand === 0}
-              />
-              {playerVars.split && <Hand
-                cards={playerVars.cards[1]}
-                score={playerVars.score[1]}
-                bust={playerVars.bust[1]}
-                chips={playerVars.chips}
-                betSize={[playerVars.betSize]}
-                activeHand={playerVars.curHand === 1} />}
-            </div>
+          <CardContainer>
+            <Hand
+              dealer
+              dealersTurn={dealerVars.turn}
+              cards={dealerVars.cards}
+              score={dealerVars.score}
+              bust={dealerVars.bust}
+            />
+            <Hand
+              cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
+              score={playerVars.split ? playerVars.score[0] : playerVars.score}
+              bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
+              chips={playerVars.chips}
+              betSize={playerVars.betSize}
+              activeHand={playerVars.split && playerVars.curHand === 0}
+            />
+            {playerVars.split && <Hand
+              cards={playerVars.cards[1]}
+              score={playerVars.score[1]}
+              bust={playerVars.bust[1]}
+              chips={playerVars.chips}
+              betSize={[playerVars.betSize]}
+              activeHand={playerVars.curHand === 1} />}
+          </CardContainer>
+          <div>
+            {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           </div>
-          {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           {bettingMode && <Chips buttonFunc={addToBet} />}
+          <ChatContainer>
+            <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
+          </ChatContainer>
         </GameContainer>
-        <ChatContainer>
-          <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
-        </ChatContainer>
       </PageContainer>
     </>
   );

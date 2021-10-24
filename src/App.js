@@ -4,6 +4,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import { Lobby } from "./components/buttons/Lobby";
 import RulePage from "./components/rule/RulePage";
 import Player from './components/MusicPlayer'
+// import { AppBodyContainer } from './components/styled-components';
 
 function App() {
   const navStyling = {

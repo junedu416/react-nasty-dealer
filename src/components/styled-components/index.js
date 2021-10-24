@@ -1,4 +1,13 @@
 import styled from "styled-components";
+import Table from "../../images/table.jpg";
+
+export const AppBodyContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  max-height: 1080px;
+  max-width: 1920px;
+  overflow: hidden;
+`;
 
 export const PageContainer = styled.div`
   display: flex;
@@ -11,6 +20,9 @@ export const PageContainer = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 100%;
+  background-image: url(${Table});
+  /* background: url(${Table}) no-repeat center center fixed; */
+  background-size: cover;
 `;
 
 export const CenteredBox = styled.div`
@@ -34,23 +46,22 @@ export const GameContainer = styled.div`
   justify-content: center;
   height: 100%;
   max-height: 1080px;
-  width: 75%;
+  width: 100vw;
   align-items: center;
 `;
 
 export const ChatContainer = styled.div`
+  position: absolute;
+  right: 0;
   display: flex;
   flex-direction: column;
   width: 25%;
-  height: 98%;
+  height: 90vh;
+  bottom: 20px;
+  right: -8px;
   padding: 10px;
+  opacity: 1;
 `;
-
-// export const ButtonContainer = styled.div`
-//   display: flex;
-//   width: 100%;
-//   border: 3px solid blue;
-// `;
 
 export const MessageContainer = styled.div`
   display: flex;
@@ -58,6 +69,7 @@ export const MessageContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: #cfefef;
+  border-radius: 10px;
 `;
 
 export const MessageBox = styled.div`
@@ -67,9 +79,10 @@ export const MessageBox = styled.div`
   height: 90vh;
   overscroll-behavior-y: contain;
   scroll-snap-type: y-proximity;
-  background-color: rgb(255, 255, 255, 0.5);
-  margin: 5px 0px 10px 10px;
-  padding: 5px 5px 0 5px;
+  background-color: rgb(255, 255, 255, 0.25);
+  margin: 10px 10px 10px 10px;
+  padding: 10px 10px 0 10px;
+  border-radius: 5px;
 `;
 
 export const CommentBox = styled.div`
@@ -92,6 +105,18 @@ export const CommentButton = styled.button`
   }
 `;
 
+export const HideChat = styled.img`
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 25px;
+  background: rgb(0, 0, 0, 0.4);
+  /* background: red; */
+  padding: 10px;
+  border-radius: 8px;
+
+`
+
 export const ChipButton = styled.button`
   background: transparent;
   border: 0px solid transparent;
@@ -108,14 +133,14 @@ export const ChipButton = styled.button`
 
 export const ChipContainer = styled.div`
   margin-left: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   display: flex;
-  border: 2px solid black;
-  padding: 10px;
+  padding: 4px 10px;
   border-radius: 10px;
-  background: rgb(20, 180, 190, 0.4);
+  background: rgb(0, 20, 25, 0.6);
   position: absolute;
-  bottom: 80px;
+  bottom: 10vh;
+  border: 2px ridge gold;
 `;
 
 export const ChipImage = styled.img`
@@ -166,4 +191,40 @@ export const SoundButton = styled.button`
 export const SoundIcon = styled.img`
   width: 46px;
   height: 46px;
+`;
+
+export const CardContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
+export const OuterContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  bottom: 4vh;
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+`;
+
+export const MoneyBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  /* justify-content: flex-start; */
+  /* align-items: center; */
+  width: 200px;
+  position: absolute;
+  top: 70px;
+  left: 0px;
+  padding-left: 30px;
+  background-color: rgb(100, 200, 255, 0.4);
 `;
