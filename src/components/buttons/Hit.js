@@ -3,7 +3,7 @@ import Button from "@mui/material/Button";
 const Hit = (props) => {
   const {buttonFunc} = props;
   return (
-    <Button variant="contained" size="large" onClick={buttonFunc}>
+    <Button variant="contained" size="large" onClick={buttonFunc} style={{marginLeft: '10px'}}>
       Hit
     </Button>
   );

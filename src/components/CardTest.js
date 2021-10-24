@@ -8,6 +8,7 @@ import Double from "./buttons/Double";
 import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
+import NewGame from "./buttons/NewGame";
 import ChatBox from "./ChatBox";
 import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
@@ -613,6 +614,7 @@ const CardTest = () => {
               />
               <Double buttonFunc={double} />
               <Deal buttonFunc={dealCards} />
+              <NewGame buttonFunc={dealCards} />
             </div>
           </div>
 
