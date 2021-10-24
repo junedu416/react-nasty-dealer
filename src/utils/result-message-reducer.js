@@ -5,14 +5,14 @@ export default function resultMessageReducer(state, action) {
             return {
                 ...state,
                 result: "WIN ONE LOSE ONE",
-                winAmount: 0
+                winAmount: action.data / 2
             }
         }
         case "split_win_push": {
             return {
                 ...state,
                 result: "WIN ONE PUSH ONE",
-                winAmount: action.data / 2
+                winAmount: action.data + (action.data / 2)
             }
         }
         case "split_lose_push": {
@@ -47,28 +47,28 @@ export default function resultMessageReducer(state, action) {
             return {
                 ...state,
                 result: "ONE BLACKJACK ONE LOSE",
-                winAmount: ((action.data / 2) * 1.5) - (action.data / 2)
+                winAmount: ((action.data / 2) * 2.5) 
             }
         }
         case "both_blackjack": {
             return {
                 ...state,
                 result: "TWO BLACKJACKS",
-                winAmount: action.data * 1.5
+                winAmount: action.data * 2.5
             }
         }
         case "split_blackjack_push": {
             return {
                 ...state,
                 result: "ONE BLACKJACK ONE PUSH",
-                winAmount: (action.data / 2) * 1.5
+                winAmount: (action.data / 2) * 2.5
             }
         }
         case "blackjack": {
             return {
                 ...state,
                 result: "BLACKJACK",
-                winAmount: action.data * 1.5
+                winAmount: action.data * 2.5
             }
         }
         case "push": {
@@ -82,7 +82,7 @@ export default function resultMessageReducer(state, action) {
             return {
                 ...state,
                 result: "WIN",
-                winAmount: action.data * 1
+                winAmount: action.data * 2
             }
         }
         case "lose": {
