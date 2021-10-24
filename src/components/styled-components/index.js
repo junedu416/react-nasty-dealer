@@ -96,7 +96,7 @@ export const ChipButton = styled.button`
   background: transparent;
   border: 0px solid transparent;
   background: transparent;
-  transition: all .1s ease-in-out;
+  transition: all 0.1s ease-in-out;
 
   &:hover {
     background: transparent;
@@ -121,4 +121,26 @@ export const ChipContainer = styled.div`
 export const ChipImage = styled.img`
   width: 50px;
   height: 50px;
-`
+`;
+
+export const InfoButton = styled.img`
+  width: 46px;
+  height: 46px;
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+export const HomeIcon = styled.img`
+  width: 45px;
+  height: 45px;
+  margin-left: 15px;
+  margin-right: 15px;
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+  }
+`;

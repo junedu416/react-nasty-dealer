@@ -1,9 +1,10 @@
 import Home from "../../images/Home.png";
+import { HomeIcon } from '../styled-components';
 
 const Lobby = () => {
   return (
     <>
-      <img src={Home} alt="Home button" style={{ width: "45px", height: "45px", marginLeft: "15px", marginRight: '15px'}} />
+      <HomeIcon src={Home} alt="Home button" />
     </>
   );
 };
