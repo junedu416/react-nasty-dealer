@@ -77,6 +77,8 @@ const Hand = (props) => {
                         style={{
                           position: "relative",
                           right: `${(-20 * index) + (20 * (index - 1))}px`,
+                          // transform: [{ skewX: "20deg" }],      
+                          // trying to make card have perspective.
                         }}
                       />
                     ) : (
@@ -87,14 +89,15 @@ const Hand = (props) => {
                           width: "100px",
                           position: "relative",
                           right: `${(55 * index) + (20 * (index - 1))}px`,
-                          top: `${-22 - (22 * (index - 1))}px`
+                          top: `${-22 - (22 * (index - 1))}px`,
+                          // transform: [{ skewX: "20deg" }]
                         }}
                       />
                     )}
                   </>
                 )}
               </div>
-            );
+            )
           })}
         </div>
       </CenteredBox>
@@ -102,7 +105,7 @@ const Hand = (props) => {
       {!dealer && <MoneyBox>
         <h3>Chips: ${chips}</h3>
         <h3>Bet: ${betSize}</h3>
-      </MoneyBox>};
+      </MoneyBox>}
     </div>
   );
 };

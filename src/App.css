@@ -1,7 +1,18 @@
-body {
+/* body {
   overflow: hidden;
   display: none;
   min-height: 100vh;
-  /* min-width: 100vw; */
+  min-width: 100vw;
   max-width: 50vw;
+} */
+
+*{
+    -ms-overflow-style: none;
 }
+::-webkit-scrollbar {
+    display: none;
+}
+
+/* .scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+} */

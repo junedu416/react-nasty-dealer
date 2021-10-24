@@ -145,10 +145,12 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
 
+  const [hideChat, setHideChat] = useState(true);
+  const minimized = () => setHideChat(false);
 
   return (
     <>
-      <MessageContainer>
+      { hideChat ? <MessageContainer>
         <MessageBox>
           {comments.map((comment, index) => (
             <div key={index}>
@@ -162,8 +164,8 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
         <CommentBox>
           <ChatBoxForm addComment={addComment} />
         </CommentBox>
-        <HideChat src={Minimise} />
-      </MessageContainer>
+        <HideChat src={Minimise} onClick={ minimized } />
+      </MessageContainer> : null }
     </>
   );
 };
