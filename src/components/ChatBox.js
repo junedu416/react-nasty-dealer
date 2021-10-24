@@ -96,14 +96,18 @@ const ChatBox = ({ playerBust, gameResult,secondsLeft }) => {
         console.log("player loses");
         const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
         getInsult(message, "Dealer");
-    } else if (secondsLeft === 5){
-      console.log(secondsLeft)
+    }  
+  }, [playerBust, gameResult]);
+
+  // render insult when timer has 5 seconds left
+  useEffect(() => {
+    if (secondsLeft === 5){
       const message =
         runningOutTimeResponse[getRandomInteger(runningOutTimeResponse.length - 1)];
         addComment(message, "Dealer")
       return;
     }
-  }, [playerBust, gameResult, secondsLeft]);
+  }, [secondsLeft])
 
 
   // auto scroll messages container back to bottom    
