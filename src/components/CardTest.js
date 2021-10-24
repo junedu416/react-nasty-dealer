@@ -559,9 +559,7 @@ const CardTest = () => {
     ) {
       drawCard(deckId, 1).then(addCardToPlayer);
       playerDispatch({ type: "double" });
-      setTimeout(() => {
         dealerDispatch({ type: "setTurn" });
-      }, 1000);
       doubleSound();
       setTimerMode(false);
     }
