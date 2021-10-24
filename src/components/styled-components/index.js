@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Table from "../../images/table.jpg";
 
 export const PageContainer = styled.div`
   display: flex;
@@ -11,6 +12,7 @@ export const PageContainer = styled.div`
   align-items: center;
   margin: 0 auto;
   width: 100%;
+  background-image: url(${Table});
 `;
 
 export const CenteredBox = styled.div`
