@@ -3,6 +3,7 @@ import Home from "./components/Home";
 import { Link, Switch, Route } from "react-router-dom";
 import { Lobby } from "./components/buttons/Lobby";
 import RulePage from "./components/rule/RulePage";
+import Player from './components/MusicPlayer'
 
 function App() {
   const navStyling = {
@@ -25,6 +26,7 @@ function App() {
           <Lobby />
         </Link>
         <RulePage />
+        <Player/>
       </nav>
 
       <Switch>

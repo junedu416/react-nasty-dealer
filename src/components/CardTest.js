@@ -32,7 +32,6 @@ import soundBet from "./sounds/clinking-coins.wav";
 import soundLose from "./sounds/disappointment.wav";
 import soundWin from "./sounds/voice-cheer.wav";
 import soundBJ from "./sounds/victory.wav"
-import Player from './MusicPlayer'
 
 const CardTest = () => {
   // useSound hook
@@ -706,7 +705,6 @@ const CardTest = () => {
           {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           {bettingMode && <Chips buttonFunc={addToBet} />}
         </GameContainer>
-        <Player/>
         <ChatContainer>
           <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
         </ChatContainer>

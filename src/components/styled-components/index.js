@@ -144,3 +144,27 @@ export const HomeIcon = styled.img`
     opacity: 1;
   }
 `;
+
+export const SoundButton = styled.button`
+  background: transparent;
+  border: 0px solid transparent;
+  background: transparent;
+  width: 45px;
+  height: 45px;
+  margin-left: 10px;
+  margin-right: 15px;
+  opacity: 0.85;
+  color: white;
+
+  &:hover {
+    opacity: 1;
+    background: transparent;
+    box-shadow: 0px 0px 0px transparent;
+    border: 0px solid transparent;
+  }
+`;
+
+export const SoundIcon = styled.img`
+  width: 46px;
+  height: 46px;
+`;
