@@ -9,6 +9,7 @@ import Hit from "./buttons/Hit";
 import Split from "./buttons/Split";
 import Stand from "./buttons/Stand";
 import NewGame from "./buttons/NewGame";
+import ClearBet from "./buttons/ClearBet";
 import ChatBox from "./ChatBox";
 import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
@@ -567,12 +568,6 @@ const CardTest = () => {
       {/* ===================== BUTTONS ===================== */}
           <div style={outerContainer}>
             <div style={buttonContainer}>
-              <Bet
-                buttonFunc={() => {
-                  if (bettingMode) setBettingMode(false);
-                  else setBettingMode(true);
-                }}
-              />
               <Split buttonFunc={() => {
                 if (!playerVars.split && canPlayerSplit(...playerVars.cards)) { //remove this if statement to test split on any 2 cards
                   playerDispatch({type:"splitCards"});
@@ -613,6 +608,15 @@ const CardTest = () => {
                 }}
               />
               <Double buttonFunc={double} />
+
+              <ClearBet buttonFunc={dealCards} />
+              <Bet
+                buttonFunc={() => {
+                  if (bettingMode) setBettingMode(false);
+                  else setBettingMode(true);
+                }}
+              />
+
               <Deal buttonFunc={dealCards} />
               <NewGame buttonFunc={dealCards} />
             </div>
