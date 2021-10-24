@@ -102,7 +102,7 @@ export const ChipButton = styled.button`
     background: transparent;
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
-    transform: scale(1.3);
+    transform: scale(1.4);
   }
 `;
 
@@ -110,4 +110,15 @@ export const ChipContainer = styled.div`
   margin-left: 10px;
   margin-bottom: 10px;
   display: flex;
+  border: 2px solid black;
+  padding: 10px;
+  border-radius: 10px;
+  background: rgb(20, 180, 190, 0.4);
+  position: absolute;
+  bottom: 80px;
 `;
+
+export const ChipImage = styled.img`
+  width: 50px;
+  height: 50px;
+`
