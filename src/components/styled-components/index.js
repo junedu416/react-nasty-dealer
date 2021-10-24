@@ -149,11 +149,10 @@ export const SoundButton = styled.button`
   background: transparent;
   border: 0px solid transparent;
   background: transparent;
-  width: 45px;
-  height: 45px;
-  margin-left: 10px;
-  margin-right: 15px;
-  opacity: 0.85;
+  width: 46px;
+  height: 46px;
+  margin: 0 15px 0 10px;
+  opacity: 0.9;
   color: white;
 
   &:hover {
