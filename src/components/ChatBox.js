@@ -12,6 +12,7 @@ import { applyCensorship } from "../utils/api-utils";
 import { tallySplitResults } from "../utils/util-functions";
 import { MessageBox, CommentBox, MessageContainer, HideChat } from "./styled-components";
 import Minimise from "../images/minimise.png";
+import ChatIcon from "../images/chat.png";
 
 
 const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
@@ -147,6 +148,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
 
   const [hideChat, setHideChat] = useState(true);
   const minimized = () => setHideChat(false);
+  const expanded = () => setHideChat(true);
 
   return (
     <>
@@ -165,7 +167,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
           <ChatBoxForm addComment={addComment} />
         </CommentBox>
         <HideChat src={Minimise} onClick={ minimized } />
-      </MessageContainer> : null }
+      </MessageContainer> : <img src={ChatIcon} onClick={expanded} alt="chat box" style={{width: '150px', height: '150px', position: 'absolute', bottom: '20px', right: '20px',}}/> }
     </>
   );
 };
