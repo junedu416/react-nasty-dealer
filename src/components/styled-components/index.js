@@ -69,6 +69,7 @@ export const MessageContainer = styled.div`
   width: 100%;
   height: 100%;
   background-color: #cfefef;
+  border-radius: 10px;
 `;
 
 export const MessageBox = styled.div`
@@ -81,6 +82,7 @@ export const MessageBox = styled.div`
   background-color: rgb(255, 255, 255, 0.25);
   margin: 10px 10px 10px 10px;
   padding: 10px 10px 0 10px;
+  border-radius: 5px;
 `;
 
 export const CommentBox = styled.div`
@@ -102,6 +104,18 @@ export const CommentButton = styled.button`
     border: 0px solid transparent;
   }
 `;
+
+export const HideChat = styled.img`
+  position: absolute;
+  right: 20px;
+  width: 36px;
+  top: 20px;
+  background: rgb(0, 0, 0, 0.4);
+  /* background: red; */
+  padding: 10px;
+  border-radius: 8px;
+
+`
 
 export const ChipButton = styled.button`
   background: transparent;

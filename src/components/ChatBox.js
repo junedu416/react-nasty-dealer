@@ -10,7 +10,8 @@ import {
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
 import { tallySplitResults } from "../utils/util-functions";
-import { MessageBox, CommentBox, MessageContainer } from "./styled-components";
+import { MessageBox, CommentBox, MessageContainer, HideChat } from "./styled-components";
+import Minimise from "../images/minimise.png";
 
 
 const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
@@ -161,6 +162,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
         <CommentBox>
           <ChatBoxForm addComment={addComment} />
         </CommentBox>
+        <HideChat src={Minimise} />
       </MessageContainer>
     </>
   );
