@@ -10,10 +10,9 @@ import {
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
 import { tallySplitResults } from "../utils/util-functions";
-import { MessageBox, CommentBox, MessageContainer, HideChat } from "./styled-components";
+import { MessageBox, CommentBox, MessageContainer, HideChat, MessagingIcon } from "./styled-components";
 import Minimise from "../images/minimise.png";
 import ChatIcon from "../images/chat.png";
-
 
 const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
 
@@ -152,7 +151,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
 
   return (
     <>
-      { hideChat ? <MessageContainer>
+      { hideChat ? (<MessageContainer>
         <MessageBox>
           {comments.map((comment, index) => (
             <div key={index}>
@@ -167,7 +166,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
           <ChatBoxForm addComment={addComment} />
         </CommentBox>
         <HideChat src={Minimise} onClick={ minimized } />
-      </MessageContainer> : <img src={ChatIcon} onClick={expanded} alt="chat box" style={{width: '150px', height: '150px', position: 'absolute', bottom: '20px', right: '20px',}}/> }
+      </MessageContainer>) : <MessagingIcon src={ChatIcon} onClick={expanded} alt="chat box" /> }
     </>
   );
 };
