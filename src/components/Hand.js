@@ -62,7 +62,6 @@ const Hand = (props) => {
                       position: "relative",
                       top: '-21px',
                       right: `${(55 * index) + (40 * (index - 1))}px`,
-                      backgroundClip: "content-box",
                       boxShadow: "inset 0 0 0 9px white",
                     }}
                   />
