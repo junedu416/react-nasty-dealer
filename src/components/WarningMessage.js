@@ -1,11 +1,11 @@
 import React from 'react';
+import Alert from '@mui/material/Alert';
 
 const WarningMessage = ({message, closeWarning}) => {
    
     return(
         <div>
-        <h3>{message}</h3>
-        <button onClick={closeWarning}>Close</button>
+            <Alert severity="warning" onClose={closeWarning}>{message}</Alert>
         </div>
     )
 }

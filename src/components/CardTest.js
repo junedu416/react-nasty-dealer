@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { InfoButton, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -435,7 +435,7 @@ const CardTest = () => {
   }, [
     playerVars.stand,
     dealerVars.stand,
-    playerVars.cards.length,
+    playerVars.cards,
     dealerVars.score,
     playerVars.score,
     playerVars.split
@@ -734,7 +734,6 @@ useEffect(() => {
           <ChatContainer>
             <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
           </ChatContainer>
-          <GoldText>hello</GoldText>
         </GameContainer>
       </PageContainer>
     </>
