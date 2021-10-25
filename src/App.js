@@ -34,7 +34,7 @@ function App() {
         <Route exact path="/">
           <Home />
         </Route>
-        <Route exact path="/blackjack">
+        <Route exact path="/nastydealer">
           <CardTest />
         </Route>
       </Switch>
