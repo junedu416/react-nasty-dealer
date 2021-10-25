@@ -1,6 +1,6 @@
 // import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
-import { CenteredBox } from "./styled-components";
+import { CenteredBox, ScorePositioning } from "./styled-components";
 
 const Hand = (props) => {
   const { dealer, cards, dealersTurn, score, bust, activeHand, splitHand } =
@@ -38,7 +38,11 @@ const Hand = (props) => {
           {cards.length > 0 && bust && <h2>BUST!</h2>}
         </p>
       </div>
-
+      {/* {dealer ? "Dealer: " : splitHand ? `${playerName}(Hand 2): ` : `${playerName}: `}
+      (<ScorePositioning>
+        {score.highTotal >= 1 &&
+            (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
+      </ScorePositioning>) */}
       <CenteredBox height="100%">
         <div style={{ display: "flex" }}>
           {cards.map((card, index) => {

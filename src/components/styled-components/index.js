@@ -392,12 +392,19 @@ export const Notification = styled.div`
   color: white;
   background-color: red;
   border-radius: 100%;
-  bottom: 60px;
-  right: 40px;
-  border: 1px solid rgb(220, 0, 40, 0.8);
+  bottom: 160px;
+  right: 120px;
+  border: 22px solid rgb(240, 0, 0, 1);
+  box-shadow: 2px 2px 7px black;
 `
 export const TimerPositioning = styled.div`
   position: absolute;
   bottom: 150px;
-  right: 35vw;
+  right: 30vw;
+`
+
+export const ScorePositioning = styled.div`
+  position: absolute;
+  bottom: 150px;
+  right: 30vw;
 `
