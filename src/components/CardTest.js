@@ -583,7 +583,7 @@ const CardTest = () => {
     if (playerVars.cards.length === 0) {
       playerDispatch({
         type: "addBet",
-        payload: parseInt(event.target.alt),
+        payload: event.target.nodeName === "IMG" ? parseInt(event.target.alt) : parseInt(event.target.value),
       });
       betSound()
     }
@@ -613,7 +613,7 @@ useEffect(() => {
               {playerVars.cards.length === 2 &&
                canPlayerSplit(...playerVars.cards) &&
                !playerVars.split && !playerVars.stand &&
-               !playerVars.split && 
+               !playerVars.split &&
                <Split buttonFunc={() => {
                   playerDispatch({type:"splitCards"});
                   splitSound();
