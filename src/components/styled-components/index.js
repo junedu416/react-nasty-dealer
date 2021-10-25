@@ -396,4 +396,8 @@ export const Notification = styled.div`
   right: 40px;
   border: 1px solid rgb(220, 0, 40, 0.8);
 `
-
+export const TimerPositioning = styled.div`
+  position: absolute;
+  bottom: 150px;
+  right: 35vw;
+`
