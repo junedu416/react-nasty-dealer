@@ -55,7 +55,7 @@ export const ChatContainer = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
-  width: 21%;
+  width: 26%;
   height: 90vh;
   bottom: 0px;
   right: -8px;
@@ -214,6 +214,7 @@ export const ButtonContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  z-index:2;
 `;
 
 export const MoneyBox = styled.div`
