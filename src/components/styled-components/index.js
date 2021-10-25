@@ -237,3 +237,30 @@ export const MessagingIcon = styled.img`
    bottom: 60px;
    right: 20px;
 `;
+
+export const MessageAlert = styled.h1`
+  font-size: 6rem;
+  color: ${props => props.color ? props.color : 'white'};
+  position: absolute;
+  top: 38%;
+  /* left: 36%; */
+  margin: 0 auto;
+  /* transform: translate(-50%, -50%); */
+  background-color: rgb(0, 0, 0, 0.7);
+  /* box-shadow: 0 1px 30px rgb(0 0 0 / 0.6); */
+  font-family: helvetica;
+  padding: 30px;
+  border-radius: 20px;
+`
+
+export const AlertParent = styled.div`
+  /* background: radial-gradient(#444, #000); */
+  background: rgb(0 0 0 / 0.85);
+  width: 100%;
+  height: 91vh;
+  position: absolute;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+`
