@@ -142,10 +142,10 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   useEffect(() => {
     if(!hideChat){
       unreadMessagesDispatch({type: "increment"});
-      console.log(unreadMessages.count, "unread messages")
+      // console.log(unreadMessages.count, "unread messages")
     }else {
       unreadMessagesDispatch({type: "reset"});
-      console.log(unreadMessages.count, "unread messages")
+      // console.log(unreadMessages.count, "unread messages")
     }
   }, [comments, hideChat])
 
