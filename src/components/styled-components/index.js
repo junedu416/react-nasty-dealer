@@ -298,12 +298,12 @@ export const MoneyHeading = styled.h2`
   padding-bottom: 0;
   padding-left: 12px;
   border-radius: 4px;
-  line-height:40px;
+  line-height: 40px;
   vertical-align: center;
   color: #282013;
   clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 100%);
   height: 40px;
-  width: 150px;
+  width: 145px;
   background: linear-gradient(
     #9c6f0f 0,
     #bea11b 7%,
@@ -331,10 +331,25 @@ export const DollarDisplay = styled.p`
   border: 2px ridge #ffc319;
   border-radius: 5px;
   /* margin-top: 20px; */
-  
+
   /* Gold filling, nice */
-  /* background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
-                radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%); */
+  /* background: radial-gradient(
+      ellipse farthest-corner at right bottom,
+      #fedb37 0%,
+      #fdb931 8%,
+      #9f7928 30%,
+      #8a6e2f 40%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse farthest-corner at left top,
+      #ffffff 0%,
+      #ffffac 8%,
+      #d1b464 25%,
+      #5d4a1f 62.5%,
+      #5d4a1f 100%
+    ); */
+
   /* background: linear-gradient(
     to right bottom  
     #ffed98, 
@@ -343,17 +358,17 @@ export const DollarDisplay = styled.p`
 `;
 
 export const Balance = styled.div`
-   position: absolute;
-   right: 0px;
-   transform: translate(-50%, 0%);
-   left: 50%;
-   top: 0px;
-   margin: 0 auto;
-   display: flex;
-   flex-direction: row;
-`
+  position: absolute;
+  right: 0px;
+  transform: translate(-50%, 0%);
+  left: 50%;
+  top: 0px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+`;
 
 export const CoinStyle = styled.img`
   width: 70px;
   height: 70px;
-`
+`;
