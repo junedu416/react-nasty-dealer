@@ -114,8 +114,7 @@ export const HideChat = styled.img`
   /* background: red; */
   padding: 10px;
   border-radius: 8px;
-
-`
+`;
 
 export const ChipButton = styled.button`
   background: transparent;
@@ -224,18 +223,18 @@ export const MoneyBox = styled.div`
   /* align-items: center; */
   width: 200px;
   position: absolute;
-  top: 70px;
+  top: 80px;
   left: 0px;
-  padding-left: 30px;
-  background-color: rgb(100, 200, 255, 0.4);
+  padding-left: 15px;
+  /* background-color: rgb(100, 200, 255, 0.4); */
 `;
 
 export const MessagingIcon = styled.img`
-   width: 150px;
-   height: 150px;
-   position: absolute;
-   bottom: 60px;
-   right: 20px;
+  width: 150px;
+  height: 150px;
+  position: absolute;
+  bottom: 60px;
+  right: 20px;
 `;
 
 export const GoldText = styled.div`
@@ -253,21 +252,21 @@ export const GoldText = styled.div`
   letter-spacing: 5px;
   font-weight: bold;
   background: linear-gradient(
-    #462523 0, 
-    #cb9b51 22%, 
-    #f6e27a 45%, 
-    #f6f2c0 50%, 
+    #462523 0,
+    #cb9b51 22%,
+    #f6e27a 45%,
+    #f6f2c0 50%,
     #cb9b51 78%,
     #462523 100%
   );
-  background-clip:text;
+  background-clip: text;
   -webkit-background-clip: text;
-  z-index:1;
-`
+  z-index: 10;
+`;
 
 export const MessageAlert = styled.h1`
   font-size: 6rem;
-  color: ${props => props.color ? props.color : 'white'};
+  color: ${(props) => (props.color ? props.color : "white")};
   position: absolute;
   top: 50%;
   left: 50%;
@@ -283,8 +282,9 @@ export const MessageAlert = styled.h1`
   font-family: helvetica;
   padding: 30px;
   border-radius: 20px;
-  z-index:1;
-`
+  z-index: 10;
+`;
+
 
 export const AlertParent = styled.div`
   /* background: radial-gradient(#444, #000); */
@@ -296,4 +296,100 @@ export const AlertParent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
-`
+`;
+
+export const MoneyHeading = styled.h2`
+  font-family: Helvetica, sans-serif;
+  text-align: left;
+  margin-left: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  padding-left: 12px;
+  border-radius: 4px;
+  line-height: 40px;
+  vertical-align: center;
+  color: #282013;
+  clip-path: polygon(0% 0%, 90% 0%, 100% 100%, 0% 100%);
+  height: 40px;
+  width: 145px;
+  background: linear-gradient(
+    #9c6f0f 0,
+    #bea11b 7%,
+    #fce291 20%,
+    #ffed98 40%,
+    #ffd429 50%,
+    #9c6f0f 62%,
+    #bea11b 95%,
+    #e0ba22 100%
+  );
+  border: 1px solid #9c6f0f;
+`;
+
+export const DollarDisplay = styled.p`
+  font-family: Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-align: right;
+  padding: 10px 10px 10px;
+  padding-right: 10px;
+  margin: 0px;
+  color: white;
+  box-sizing: content-box;
+  background: linear-gradient(#4f3009 0, #110a04 100%);
+  border: 2px ridge #ffc319;
+  border-radius: 5px;
+  /* margin-top: 20px; */
+
+  /* Gold filling, nice */
+  /* background: radial-gradient(
+      ellipse farthest-corner at right bottom,
+      #fedb37 0%,
+      #fdb931 8%,
+      #9f7928 30%,
+      #8a6e2f 40%,
+      transparent 80%
+    ),
+    radial-gradient(
+      ellipse farthest-corner at left top,
+      #ffffff 0%,
+      #ffffac 8%,
+      #d1b464 25%,
+      #5d4a1f 62.5%,
+      #5d4a1f 100%
+    ); */
+
+  /* background: linear-gradient(
+    to right bottom  
+    #ffed98, 
+    #9c6f0f,
+    ) 1 100%; */
+`;
+
+export const Balance = styled.div`
+  /* position: absolute; */
+  /* right: 0px; */
+  /* transform: translate(-50%, 0%); */
+  /* left: 50%; */
+  /* top: 0px; */
+  /* margin: 0 auto; */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 250px;
+`;
+
+export const CoinStyle = styled.img`
+  width: 70px;
+  height: 70px;
+`;
+
+// export const ChipBalance = styled.div`
+//   width: 250px;
+//   height: 70px;
+// `;
+
+export const CoinPosition = styled.div`
+  position: absolute;
+
+
+`;

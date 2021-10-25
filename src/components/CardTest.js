@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { InfoButton, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { InfoButton, CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -31,6 +31,7 @@ import soundBJ from "./sounds/victory.wav"
 import gameOver from "./sounds/game_over.mp3"
 import soundPush from "./sounds/disappointment.wav"
 import WinAmount from "./WinAmount";
+import Coin from "../images/coin.png";
 
 const CardTest = () => {
   // useSound hook
@@ -700,9 +701,15 @@ useEffect(() => {
           {/* ===================== CARDS ===================== */}
           <CardContainer>
           <MoneyBox>
-            <h3>Chips: ${playerVars.chips}</h3>
-            <h3>Bet: ${playerVars.betSize}</h3>
-            <WinAmount amount={resultMessage.winAmount}/>
+            <Balance>
+              <DollarDisplay style={{borderRadius: '50px', textAlign: 'center', color: '#ffff00', fontSize:'1.7rem', marginLeft: '20px', width: '250px'}}>${playerVars.chips}</DollarDisplay>
+              <CoinPosition><CoinStyle src={Coin} alt="chip balance icon" /></CoinPosition>
+            </Balance>
+            <MoneyHeading>BET: </MoneyHeading>
+            <DollarDisplay>${playerVars.betSize}</DollarDisplay>
+            <MoneyHeading>{resultMessage.winAmount >= 0 ? "WIN:":"LOSE:"}</MoneyHeading>
+            <DollarDisplay><WinAmount amount={resultMessage.winAmount}/></DollarDisplay>
+            
           </MoneyBox>
             <Hand
               dealer
