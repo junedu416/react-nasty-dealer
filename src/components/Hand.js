@@ -63,7 +63,7 @@ const Hand = (props) => {
                       border: "1px solid black",
                       borderRadius: "9px",
                       position: "relative",
-                      top: '-21px',
+                      top: '62px',
                       right: `${(55 * index) + (40 * (index - 1))}px`,
                       backgroundClip: "content-box",
                       boxShadow: "inset 0 0 0 9px white",
@@ -79,7 +79,10 @@ const Hand = (props) => {
                         style={{
                           position: "relative",
                           right: `${(-20 * index) + (20 * (index - 1))}px`,
+
                           // transform: [{ skewX: "20deg" }],
+                          top: "70px",
+
                           // trying to make card have perspective.
                         }}
                       />
@@ -91,7 +94,7 @@ const Hand = (props) => {
                           width: "100px",
                           position: "relative",
                           right: `${(55 * index) + (20 * (index - 1))}px`,
-                          top: `${-22 - (22 * (index - 1))}px`,
+                          top: `${60 - (22 * (index - 1))}px`,
                           // transform: [{ skewX: "20deg" }]
                         }}
                       />

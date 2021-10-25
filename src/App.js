@@ -4,7 +4,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import { Lobby } from "./components/buttons/Lobby";
 import RulePage from "./components/rule/RulePage";
 import Player from './components/MusicPlayer'
-// import { AppBodyContainer } from './components/styled-components';
+import { AlertParent, MessageAlert, CenteredBox } from './components/styled-components';
 
 function App() {
   const navStyling = {
@@ -17,11 +17,18 @@ function App() {
     padding: '0',
     flexDirection: 'row',
     alignItems: 'center',
-
   }
 
   return (
     <>
+    {/* ============= JUNE ============ TAKE THIS CODE, and move to CardTest. */}
+      {/* <AlertParent>
+        <CenteredBox>
+          <MessageAlert>
+            BLACKJACK!
+          </MessageAlert>
+        </CenteredBox>
+      </AlertParent> */}
       <nav style={navStyling}>
         <Link to="/">
           <Lobby />
