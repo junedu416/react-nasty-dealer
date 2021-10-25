@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -701,6 +701,10 @@ useEffect(() => {
           {/* ===================== CARDS ===================== */}
           <CardContainer>
           <MoneyBox>
+            <Balance>
+              <DollarDisplay style={{borderRadius: '50px', textAlign: 'center', color: '#ffff00', fontSize:'1.7rem', marginLeft: '20px', width: '250px'}}>${playerVars.chips}</DollarDisplay>
+              <CoinPosition><CoinStyle src={Coin} alt="chip balance icon" /></CoinPosition>
+            </Balance>
             <MoneyHeading>BET: </MoneyHeading>
             <DollarDisplay>${playerVars.betSize}</DollarDisplay>
             <MoneyHeading>{resultMessage.winAmount >= 0 ? "WIN:":"LOSE:"}</MoneyHeading>
@@ -737,10 +741,6 @@ useEffect(() => {
           <ChatContainer>
             <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
           </ChatContainer>
-          <Balance>
-            <CoinStyle src={Coin} alt="chip balance icon" />
-            <DollarDisplay style={{borderRadius: '50px', textAlign: 'center', color: '#ffff00', fontSize:'1.7rem'}}>${playerVars.chips}</DollarDisplay>
-          </Balance>
         </GameContainer>
       </PageContainer>
     </>

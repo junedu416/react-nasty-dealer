@@ -223,9 +223,9 @@ export const MoneyBox = styled.div`
   /* align-items: center; */
   width: 200px;
   position: absolute;
-  top: 70px;
+  top: 80px;
   left: 0px;
-  padding-left: 12px;
+  padding-left: 15px;
   /* background-color: rgb(100, 200, 255, 0.4); */
 `;
 
@@ -358,17 +358,30 @@ export const DollarDisplay = styled.p`
 `;
 
 export const Balance = styled.div`
-  position: absolute;
-  right: 0px;
-  transform: translate(-50%, 0%);
-  left: 50%;
-  top: 0px;
-  margin: 0 auto;
+  /* position: absolute; */
+  /* right: 0px; */
+  /* transform: translate(-50%, 0%); */
+  /* left: 50%; */
+  /* top: 0px; */
+  /* margin: 0 auto; */
   display: flex;
   flex-direction: row;
+  align-items: center;
+  width: 250px;
 `;
 
 export const CoinStyle = styled.img`
   width: 70px;
   height: 70px;
+`;
+
+// export const ChipBalance = styled.div`
+//   width: 250px;
+//   height: 70px;
+// `;
+
+export const CoinPosition = styled.div`
+  position: absolute;
+
+
 `;
