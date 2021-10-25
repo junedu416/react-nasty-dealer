@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useRef, useReducer } from "react";
 import ChatBoxForm from "./ChatBoxForm";
 import {
   getRandomInteger,
@@ -6,141 +6,60 @@ import {
   playerBustResponse,
   runningOutTimeResponse,
   playerLoseResponse,
-  decodeHtmlEntity,
+  decodeHtmlEntity
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
 import { tallySplitResults } from "../utils/util-functions";
 import { MessageBox, CommentBox, MessageContainer, HideChat, MessagingIcon } from "./styled-components";
 import Minimise from "../images/minimise.png";
 import ChatIcon from "../images/chat.png";
+import { commentsReducer } from "../utils/comments-reducer";
 
 const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
 
   // each comment will be in the form {name: "", message: ""}
-  const initialComments = [];
-  const [comments, setComments] = useState(initialComments);
-
-  // // add new comment to the list of comments displayed in chat. if it is the player commenting dealer replies with an insult
-  // function addComment(comment, user) {
-  //   applyCensorship(comment).then((censoredComment) => {
-  //     setComments([
-  //       ...comments,
-  //       {
-  //         name: user,
-  //         message: censoredComment,
-  //       },
-  //     ]);
-  //     if (user !== "Dealer") {
-  //       getInsult(censoredComment, user);
-  //     }
-  //   });
-  // }
-
-  const addDealerComment = useCallback((insult, comment, user) => {
-    if (comment && user) {
-      setComments([
-        ...comments,
-        {
-          name: user,
-          message: comment,
-        },
-        {
-          name: "Dealer",
-          message: insult,
-        },
-      ]);
-    } else {
-      setComments([
-        ...comments,
-        {
-          name: "Dealer",
-          message: insult,
-        },
-      ]);
-    }
-  }, [comments])
-
-  const getInsult = useCallback((comment, user) => {
-    fetch(
-      "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => decodeHtmlEntity(data.insult))
-      .then((insult) => applyCensorship(insult))
-      .then((filteredInsult) => addDealerComment(filteredInsult, comment, user))
-      .catch((error) => console.error(error));
-  }, [addDealerComment])
-
-  const addComment = useCallback((comment, user) => {
-    applyCensorship(comment).then((censoredComment) => {
-      setComments([
-        ...comments,
-        {
-          name: user,
-          message: censoredComment,
-        },
-      ]);
-      if (user !== "Dealer") {
-        getInsult(censoredComment, user);
-      }
-    });
-  }, [comments, getInsult])
-
-    // adds custom comment + insult from dealer
-  // function getInsult(comment, user) {
-  //   fetch(
-  //     "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
-  //     {
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //     }
-  //   )
-  //     .then((response) => response.json())
-  //     .then((data) => decodeHtmlEntity(data.insult))
-  //     .then((insult) => applyCensorship(insult))
-  //     .then((filteredInsult) => addDealerComment(filteredInsult, comment, user))
-  //     .catch((error) => console.error(error));
-  // }
-
-
-  // function addDealerComment(insult, comment, user) {
-  //   if (comment && user) {
-  //     setComments([
-  //       ...comments,
-  //       {
-  //         name: user,
-  //         message: comment,
-  //       },
-  //       {
-  //         name: "Dealer",
-  //         message: insult,
-  //       },
-  //     ]);
-  //   } else {
-  //     setComments([
-  //       ...comments,
-  //       {
-  //         name: "Dealer",
-  //         message: insult,
-  //       },
-  //     ]);
-  //   }
-  // }
+  const initialComments = {posts: []};
+  const [comments, commentsDispatch] = useReducer(commentsReducer, initialComments)
   
+  // add new comment to the list of comments displayed in chat. if it is the player commenting dealer replies with an insult
+  function addComment(comment, user) {
+    applyCensorship(comment).then((censoredComment) => {
+      commentsDispatch({type: "add_user_comment", data: {name: user, message: censoredComment}})
+    })
+  }
 
-  // Dealer adds custom comment and/or API insult according to game result
+  // returns insult that is censored 
+  async function getInsult() {
+    const response = await fetch("https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+    const insult = await response.json();
+    const decodedInsult = decodeHtmlEntity(insult.insult);
+    const censoredInsult = await applyCensorship(decodedInsult);
+    return censoredInsult;
+  }
+  
   const firstUpdate = useRef(true);
   useEffect(() => {
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
-    } else if (split && curHand === 1) {
+    }
+    if(comments.posts[comments.posts.length - 1].name !== "Dealer") {
+      getInsult().then((insult) => {
+        commentsDispatch({type: 'add_dealer_comment', data: insult})
+      })
+      return;
+    }
+  }, [comments])
+
+  useEffect(() => {
+
+    if (split && curHand === 1) {
         let results = tallySplitResults(playerBust, gameResult);
         results.win += results.blackJack;
 
@@ -148,12 +67,18 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
             console.log("two wins or or one win one push");
             const message =
               playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
-            addComment(message, "Dealer");
+            commentsDispatch({type: "add_dealer_comment", data: message})
             return;
         } else if (results.lose === 2 || (results.lose === 1 && results.push === 1)) {
             console.log("two losses or one loss one push"); 
             const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
-            getInsult(message, "Dealer");
+            getInsult().then(insult => {
+              commentsDispatch(
+                {
+                  type: "add_message_and_comment",
+                  data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
+              })
+            })
             return;
         } 
     } else if (!split) {
@@ -161,34 +86,46 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
             console.log("player's gone bust");
             const message =
                 playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
-            getInsult(message, "Dealer");
+            getInsult().then(insult => {
+              commentsDispatch(
+                {
+                  type: "add_message_and_comment",
+                  data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
+              })
+            })
             return;
-        }else if (gameResult.win) {
+        }
+        if (gameResult.win) {
             console.log("player wins");
             const message =
               playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
-            addComment(message, "Dealer");
+              commentsDispatch({type: "add_dealer_comment", data: message})
             return;
-          } else if (gameResult.condition === "lose_to_dealer") {
+          } else if (!playerBust && gameResult.condition === "lose_to_dealer") {
               console.log("player loses");
               const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
-              getInsult(message, "Dealer");
+              getInsult().then(insult => {
+                commentsDispatch(
+                  {
+                    type: "add_message_and_comment",
+                    data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
+                })
+              })
               return;
           } 
-    } 
-  }, [playerBust, split, curHand, gameResult, addComment, getInsult]);
+    }
+  }, [playerBust, split, curHand, gameResult]);
+
 
   // render insult when timer has 5 seconds left
   useEffect(() => {
-
     if (secondsLeft === 5){
       const message =
         runningOutTimeResponse[getRandomInteger(runningOutTimeResponse.length - 1)];
-        addComment(message, "Dealer")
+        commentsDispatch({type: "add_dealer_comment", data: message})
       return;
     }
-    
-  }, [secondsLeft, comments])
+  }, [secondsLeft])
 
 
 
@@ -211,7 +148,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
     <>
       { hideChat ? (<MessageContainer>
         <MessageBox>
-          {comments.map((comment, index) => (
+          {comments.posts.map((comment, index) => (
             <div key={index}>
               <p style={{fontFamily: 'sans-serif', lineHeight: '1.5', margin: '0 5px 10px 2px'}}>
                 <strong>{comment.name}:</strong> {comment.message}
