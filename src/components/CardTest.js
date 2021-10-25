@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -31,6 +31,7 @@ import soundBJ from "./sounds/victory.wav"
 import gameOver from "./sounds/game_over.mp3"
 import soundPush from "./sounds/disappointment.wav"
 import WinAmount from "./WinAmount";
+import Coin from "../images/coin.png";
 
 const CardTest = () => {
   // useSound hook
@@ -700,8 +701,6 @@ useEffect(() => {
           {/* ===================== CARDS ===================== */}
           <CardContainer>
           <MoneyBox>
-            <MoneyHeading>CHIPS: </MoneyHeading>
-            <DollarDisplay>${playerVars.chips}</DollarDisplay>
             <MoneyHeading>BET: </MoneyHeading>
             <DollarDisplay>${playerVars.betSize}</DollarDisplay>
             <MoneyHeading>{resultMessage.winAmount >= 0 ? "WIN:":"LOSE:"}</MoneyHeading>
@@ -738,7 +737,10 @@ useEffect(() => {
           <ChatContainer>
             <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
           </ChatContainer>
-          <GoldText>hello</GoldText>
+          <Balance>
+            <CoinStyle src={Coin} alt="chip balance icon" />
+            <DollarDisplay style={{borderRadius: '50px', textAlign: 'center', color: '#ffff00', fontSize:'1.7rem'}}>${playerVars.chips}</DollarDisplay>
+          </Balance>
         </GameContainer>
       </PageContainer>
     </>

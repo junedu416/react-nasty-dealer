@@ -322,35 +322,38 @@ export const DollarDisplay = styled.p`
   font-size: 1.2rem;
   font-weight: 800;
   text-align: right;
-  padding: 10px 10px 5px;
+  padding: 10px 10px 10px;
   padding-right: 10px;
   margin: 0px;
   color: white;
   box-sizing: content-box;
   background: linear-gradient(#4f3009 0, #110a04 100%);
-  border-width: 3px;
-  border-style: solid;
-  margin-top: 20px;
+  border: 2px ridge #ffc319;
+  border-radius: 5px;
+  /* margin-top: 20px; */
   
   /* Gold filling, nice */
   /* background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
                 radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%); */
-    background: linear-gradient(
-      to bottom  
-      #ffed98, 
-      #9c6f0f,
-      to right,
-      #ffed98, 
-      #9c6f0f,
-    ) 1 100%;
-  /* -webkit-border-image: -webkit-gradient(
-      linear,
-      left top,
-      left bottom,
-      from(#00abeb),
-      to(#fff),
-      color-stop(0.5, #fff),
-      color-stop(0.5, #66cc00)
-    )
-    21 30 30 21 repeat repeat; */
+  /* background: linear-gradient(
+    to right bottom  
+    #ffed98, 
+    #9c6f0f,
+    ) 1 100%; */
 `;
+
+export const Balance = styled.div`
+   position: absolute;
+   right: 0px;
+   transform: translate(-50%, 0%);
+   left: 50%;
+   top: 0px;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: row;
+`
+
+export const CoinStyle = styled.img`
+  width: 70px;
+  height: 70px;
+`
