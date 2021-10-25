@@ -1,12 +1,15 @@
 import Button from "@mui/material/Button";
+import { Tooltip } from "@mui/material";
 
 const Bet = (props) => {
   const {buttonFunc} = props;
-
+  const tooltipText = "Toggle the chips display"
   return (
-    <Button variant="contained" size="large" color="success" onClick={buttonFunc} style={{marginLeft: '10px'}}>
+    <Tooltip title={tooltipText} enterDelay={1000}>
+      <Button variant="contained" size="large" color="success" onClick={buttonFunc} style={{marginLeft: '10px'}}>
       Bet
-    </Button>
+      </Button>
+    </Tooltip>
   );
 };
 
