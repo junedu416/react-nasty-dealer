@@ -321,7 +321,7 @@ export const DollarDisplay = styled.p`
   text-align: right;
   padding: 10px 10px 5px;
   padding-right: 10px;
-  margin: 10px;
+  margin: 0px;
   color: white;
   background: linear-gradient(
     #4F3009 0,
