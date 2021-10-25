@@ -392,4 +392,6 @@ export const Notification = styled.div`
   border-radius: 100%;
   bottom: 60px;
   right: 40px;
+  border: 1px solid rgb(220, 0, 40, 0.8);
 `
+
