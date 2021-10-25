@@ -1,10 +1,12 @@
 import React from 'react';
+import {GoldText, MessageAlert} from './styled-components/index'
 
 const GameResultMessage = ({resultMessage}) => {
 
     return (
         <>
-        <h3>{resultMessage.result}</h3>
+        {resultMessage.result === "BLACKJACK" ? (<GoldText> BLACKJACK </GoldText>) : <MessageAlert>{resultMessage.result}</MessageAlert>}
+        
         </>
     )
 }
