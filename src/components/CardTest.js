@@ -428,7 +428,7 @@ const CardTest = () => {
   }, [
     playerVars.stand,
     dealerVars.stand,
-    playerVars.cards.length,
+    playerVars.cards,
     dealerVars.score,
     playerVars.score,
     playerVars.split

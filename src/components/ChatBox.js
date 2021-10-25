@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import ChatBoxForm from "./ChatBoxForm";
 import {
   getRandomInteger,
@@ -20,40 +20,23 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   const initialComments = [];
   const [comments, setComments] = useState(initialComments);
 
-  // add new comment to the list of comments displayed in chat. if it is the player commenting dealer replies with an insult
-  function addComment(comment, user) {
-    applyCensorship(comment).then((censoredComment) => {
-      setComments([
-        ...comments,
-        {
-          name: user,
-          message: censoredComment,
-        },
-      ]);
-      if (user !== "Dealer") {
-        getInsult(censoredComment, user);
-      }
-    });
-  }
+  // // add new comment to the list of comments displayed in chat. if it is the player commenting dealer replies with an insult
+  // function addComment(comment, user) {
+  //   applyCensorship(comment).then((censoredComment) => {
+  //     setComments([
+  //       ...comments,
+  //       {
+  //         name: user,
+  //         message: censoredComment,
+  //       },
+  //     ]);
+  //     if (user !== "Dealer") {
+  //       getInsult(censoredComment, user);
+  //     }
+  //   });
+  // }
 
-    // adds custom comment + insult from dealer
-  function getInsult(comment, user) {
-    fetch(
-      "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => decodeHtmlEntity(data.insult))
-      .then((insult) => applyCensorship(insult))
-      .then((filteredInsult) => addDealerComment(filteredInsult, comment, user))
-      .catch((error) => console.error(error));
-  }
-
-  function addDealerComment(insult, comment, user) {
+  const addDealerComment = useCallback((insult, comment, user) => {
     if (comment && user) {
       setComments([
         ...comments,
@@ -75,12 +58,85 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
         },
       ]);
     }
-  }
+  }, [comments])
+
+  const getInsult = useCallback((comment, user) => {
+    fetch(
+      "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => decodeHtmlEntity(data.insult))
+      .then((insult) => applyCensorship(insult))
+      .then((filteredInsult) => addDealerComment(filteredInsult, comment, user))
+      .catch((error) => console.error(error));
+  }, [addDealerComment])
+
+  const addComment = useCallback((comment, user) => {
+    applyCensorship(comment).then((censoredComment) => {
+      setComments([
+        ...comments,
+        {
+          name: user,
+          message: censoredComment,
+        },
+      ]);
+      if (user !== "Dealer") {
+        getInsult(censoredComment, user);
+      }
+    });
+  }, [comments, getInsult])
+
+    // adds custom comment + insult from dealer
+  // function getInsult(comment, user) {
+  //   fetch(
+  //     "https://clare-cors-server.herokuapp.com/https://evilinsult.com/generate_insult.php?lang=en&type=json",
+  //     {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     }
+  //   )
+  //     .then((response) => response.json())
+  //     .then((data) => decodeHtmlEntity(data.insult))
+  //     .then((insult) => applyCensorship(insult))
+  //     .then((filteredInsult) => addDealerComment(filteredInsult, comment, user))
+  //     .catch((error) => console.error(error));
+  // }
+
+
+  // function addDealerComment(insult, comment, user) {
+  //   if (comment && user) {
+  //     setComments([
+  //       ...comments,
+  //       {
+  //         name: user,
+  //         message: comment,
+  //       },
+  //       {
+  //         name: "Dealer",
+  //         message: insult,
+  //       },
+  //     ]);
+  //   } else {
+  //     setComments([
+  //       ...comments,
+  //       {
+  //         name: "Dealer",
+  //         message: insult,
+  //       },
+  //     ]);
+  //   }
+  // }
+  
 
   // Dealer adds custom comment and/or API insult according to game result
   const firstUpdate = useRef(true);
   useEffect(() => {
-
     if (firstUpdate.current) {
       firstUpdate.current = false;
       return;
@@ -120,19 +176,19 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
               return;
           } 
     } 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [playerBust, split, curHand, gameResult]);
+  }, [playerBust, split, curHand, gameResult, addComment, getInsult]);
 
   // render insult when timer has 5 seconds left
   useEffect(() => {
+
     if (secondsLeft === 5){
       const message =
         runningOutTimeResponse[getRandomInteger(runningOutTimeResponse.length - 1)];
         addComment(message, "Dealer")
       return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [secondsLeft])
+    
+  }, [secondsLeft, comments])
 
 
 
