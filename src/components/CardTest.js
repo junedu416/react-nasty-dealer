@@ -704,7 +704,7 @@ useEffect(() => {
             <DollarDisplay>${playerVars.chips}</DollarDisplay>
             <MoneyHeading>BET: </MoneyHeading>
             <DollarDisplay>${playerVars.betSize}</DollarDisplay>
-            <MoneyHeading>WIN: </MoneyHeading>
+            <MoneyHeading>{resultMessage.winAmount >= 0 ? "WIN:":"LOSE:"}</MoneyHeading>
             <DollarDisplay><WinAmount amount={resultMessage.winAmount}/></DollarDisplay>
             
           </MoneyBox>
