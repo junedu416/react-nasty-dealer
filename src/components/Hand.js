@@ -12,7 +12,7 @@ const Hand = (props) => {
     fontFamily: "helvetica",
     position: "relative",
     left: "20px",
-    top: "-15px",
+    // top: "-15px",
   };
 
   const scoreStyling = {
@@ -35,7 +35,7 @@ const Hand = (props) => {
             (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
         </h2>
         <h2 style={bustedStyling}>
-          {cards.length > 0 && bust && "BUST!"}
+          {cards.length > 0 && bust && `BUST!`}
         </h2>
       </div>
       {/* {dealer ? "Dealer: " : splitHand ? `${playerName}(Hand 2): ` : `${playerName}: `}
