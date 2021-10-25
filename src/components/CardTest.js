@@ -187,8 +187,9 @@ const CardTest = () => {
           let newBet = state.betSize;
           if (state.split || state.double) newBet = newBet / 2;
           if (state.chips - newBet < 0) newBet = 0
-          localStorage.setItem("chips", state.chips);
-          return { ...initialHand, chips: state.chips, betSize: newBet };
+          if (!action.payload)
+            localStorage.setItem("chips", action.payload ? 1000 : state.chips);
+          return { ...initialHand, betSize: newBet };
         }
         case "addBet": {
           return {
@@ -451,7 +452,7 @@ const CardTest = () => {
 
   function retrieveChips() {
     const chips = Number(localStorage.getItem("chips"));
-    return chips || 1000;
+    return isNaN(chips) ? 1000 : chips;
   }
 
   function updateScore(value, curScore) {
@@ -611,6 +612,11 @@ useEffect(() => {
 
           {warning && <WarningMessage message={warning} closeWarning={closeWarning}/>}
           {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
+          {resultMessage.result && resultMessage.result === "GAME OVER. GO HOME" &&
+          <button onClick={() => {
+            localStorage.setItem("chips", 1000);
+            playerDispatch({type: "reset", payload: true});
+          }}>Give me a small loan</button>}
       {/* ===================== BUTTONS ===================== */}
           <OuterContainer>
             <ButtonContainer>
