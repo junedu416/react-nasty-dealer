@@ -722,6 +722,7 @@ useEffect(() => {
               score={playerVars.score[1]}
               bust={playerVars.bust[1]}
               activeHand={playerVars.curHand === 1}
+              splitHand
             />}
           </CardContainer>
 
