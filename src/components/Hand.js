@@ -4,7 +4,8 @@ import { CenteredBox } from './styled-components';
 
 
 const Hand = (props) => {
-  const { dealer, cards, dealersTurn, score, bust, activeHand } = props;
+  const { dealer, cards, dealersTurn, score, bust, activeHand, splitHand } = props;
+  const playerName = localStorage.getItem("username") || "Player"
 
 // MOVED STYLING BACK INTO RETURN TO USE INDEX FOR SHIFTING.
   // const cardBack = {
@@ -36,7 +37,7 @@ const Hand = (props) => {
       {/* Displays cards */}
       <div style={scoreStyling}>
         <h2 style={{color: activeHand ? "red" : "black"}}>
-          {dealer ? "Dealer: " : "Player: "}
+          {dealer ? "Dealer: " : (splitHand ? `${playerName}(Hand 2): ` : `${playerName}: `)}
           {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1
         Dont show points if no cards */}
           {score.highTotal >= 1 &&
@@ -78,7 +79,7 @@ const Hand = (props) => {
                         style={{
                           position: "relative",
                           right: `${(-20 * index) + (20 * (index - 1))}px`,
-                          // transform: [{ skewX: "20deg" }],      
+                          // transform: [{ skewX: "20deg" }],
                           // trying to make card have perspective.
                         }}
                       />
