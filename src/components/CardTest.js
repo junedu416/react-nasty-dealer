@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox } from "./styled-components";
+import { GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -30,6 +30,7 @@ import soundWin from "./sounds/voice-cheer.wav";
 import soundBJ from "./sounds/victory.wav"
 import gameOver from "./sounds/game_over.mp3"
 import soundPush from "./sounds/disappointment.wav"
+import WinAmount from "./WinAmount";
 
 const CardTest = () => {
   // useSound hook
@@ -260,6 +261,7 @@ const CardTest = () => {
         }
 
         case "splitCards": {
+          console.log(resultMessage)
           const emptyScore = {highTotal: 0, lowTotal: 0}
           const newCards = [[state.cards[0]], [state.cards[1]]]
           const newScore = [updateScore(newCards[0][0].value, emptyScore), updateScore(newCards[1][0].value, emptyScore)]
@@ -610,6 +612,7 @@ useEffect(() => {
               {playerVars.cards.length === 2 &&
                canPlayerSplit(...playerVars.cards) &&
                !playerVars.split && !playerVars.stand &&
+               !playerVars.split && 
                <Split buttonFunc={() => {
                   playerDispatch({type:"splitCards"});
                   splitSound();
@@ -679,6 +682,11 @@ useEffect(() => {
 
           {/* ===================== CARDS ===================== */}
           <CardContainer>
+          <MoneyBox>
+            <h3>Chips: ${playerVars.chips}</h3>
+            <h3>Bet: ${playerVars.betSize}</h3>
+            <WinAmount amount={resultMessage.winAmount}/>
+          </MoneyBox>
             <Hand
               dealer
               dealersTurn={dealerVars.turn}
@@ -690,18 +698,14 @@ useEffect(() => {
               cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
               score={playerVars.split ? playerVars.score[0] : playerVars.score}
               bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
-              chips={playerVars.chips}
-              betSize={playerVars.betSize}
               activeHand={playerVars.split && playerVars.curHand === 0}
-              winAmount={resultMessage.winAmount}
             />
             {playerVars.split && <Hand
               cards={playerVars.cards[1]}
               score={playerVars.score[1]}
               bust={playerVars.bust[1]}
-              chips={playerVars.chips}
-              betSize={[playerVars.betSize]}
-              activeHand={playerVars.curHand === 1} />}
+              activeHand={playerVars.curHand === 1}
+            />}
           </CardContainer>
           <div>
             {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
