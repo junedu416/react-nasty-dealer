@@ -62,6 +62,13 @@ const CardTest = () => {
   // state used for GameResultMessage component. reducer function defined in utils/
   const [resultMessage, resultMessageDispatch] = useReducer(resultMessageReducer, {result:"", winAmount: 0})
 
+  //style for the inactive hand
+  const inactiveStyle = {
+    position: 'absolute',
+    bottom: '100px',
+    left: '-200px'
+  }
+
   //initState for dealer and player
   const initialHand = {
     cards: [],
@@ -620,7 +627,7 @@ useEffect(() => {
 
   const activeHandStyling = {
     border: '8px solid red',
-  } 
+  }
 
   return (
     <>
@@ -719,7 +726,7 @@ useEffect(() => {
             <DollarDisplay>${playerVars.betSize}</DollarDisplay>
             <MoneyHeading>{resultMessage.winAmount >= 0 ? "WIN:":"LOSE:"}</MoneyHeading>
             <DollarDisplay><WinAmount amount={resultMessage.winAmount}/></DollarDisplay>
-            
+
           </MoneyBox>
             <Hand
               dealer
@@ -727,15 +734,17 @@ useEffect(() => {
               cards={dealerVars.cards}
               score={dealerVars.score}
               bust={dealerVars.bust}
-            />    
-            <Hand
-              cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
-              score={playerVars.split ? playerVars.score[0] : playerVars.score}
-              bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
-              activeHand={playerVars.split && playerVars.curHand === 0}
             />
+            <div style={playerVars.curHand === 0 ? {} : inactiveStyle}>
+              <Hand
+                cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
+                score={playerVars.split ? playerVars.score[0] : playerVars.score}
+                bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
+                activeHand={playerVars.split && playerVars.curHand === 0}
+              />
+            </div>
             {playerVars.split && (
-              <div style={{position: 'absolute', bottom: '50px', left: '200px'}} >
+              <div style={playerVars.curHand === 1 ? {} : inactiveStyle} >
                 <Hand
                   cards={playerVars.cards[1]}
                   score={playerVars.score[1]}
@@ -744,7 +753,7 @@ useEffect(() => {
                   splitHand
                 />
               </div>
-             
+
             )}
              {/* style={activeHand ? {activeHandStyling} : {inactiveHandStyling}} */}
           </CardContainer>
