@@ -82,26 +82,14 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
             return;
         } 
     } else if (!split) {
-        if (playerBust){
-            console.log("player's gone bust");
-            const message =
-                playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
-            getInsult().then(insult => {
-              commentsDispatch(
-                {
-                  type: "add_message_and_comment",
-                  data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
-              })
-            })
-            return;
-        }
         if (gameResult.win) {
             console.log("player wins");
             const message =
               playerWinResponse[getRandomInteger(playerWinResponse.length - 1)];
               commentsDispatch({type: "add_dealer_comment", data: message})
             return;
-          } else if (!playerBust && gameResult.condition === "lose_to_dealer") {
+          } else if (gameResult.condition === "lose_to_dealer") {
+            if (!playerBust){
               console.log("player loses");
               const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
               getInsult().then(insult => {
@@ -112,6 +100,20 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
                 })
               })
               return;
+            } else {
+              console.log("player's gone bust");
+              const message =
+                  playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
+              getInsult().then(insult => {
+              commentsDispatch(
+                  {
+                    type: "add_message_and_comment",
+                    data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
+                })
+              })
+              return;
+            }
+              
           } 
     }
   }, [playerBust, split, curHand, gameResult]);
