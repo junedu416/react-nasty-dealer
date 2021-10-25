@@ -20,7 +20,7 @@ import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
 import soundHit from "./sounds/deal-card.wav";
-import soundDouble from "./sounds/bonus.wav";
+import soundDouble from "./sounds/bet-sound.mp3";
 import soundSplit from "./sounds/split.mp3";
 import soundDeal from "./sounds/deal.wav";
 import soundStand from "./sounds/stand.wav";
