@@ -1,6 +1,6 @@
 import CardTest from "./components/CardTest";
 import Home from "./components/Home";
-import { Link, Switch, Route } from "react-router-dom";
+import { Link, Switch, Route, Redirect} from "react-router-dom";
 import { Lobby } from "./components/buttons/Lobby";
 import RulePage from "./components/rule/RulePage";
 import Player from './components/MusicPlayer'
@@ -30,14 +30,6 @@ function App() {
 
   return (
     <>
-    {/* ============= JUNE ============ TAKE THIS CODE, and move to CardTest. */}
-      {/* <AlertParent>
-        <CenteredBox>
-          <MessageAlert>
-            BLACKJACK!
-          </MessageAlert>
-        </CenteredBox>
-      </AlertParent> */}
       <nav style={navStyling}>
         <div>
           <Link to="/">
@@ -57,6 +49,10 @@ function App() {
         <Route exact path="/nastydealer">
           <CardTest />
         </Route>
+        <Route path="*">
+          <CardTest />
+        </Route>
+
       </Switch>
     </>
   );
