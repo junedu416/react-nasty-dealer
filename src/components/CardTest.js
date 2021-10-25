@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { InfoButton, CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { Notification, TimerPositioning, InfoButton, CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -612,6 +612,16 @@ useEffect(() => {
   else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
 },[resultMessage.result])
 
+  const inactiveHandStyling = {
+    position: "absolute",
+    display: "flex",
+    flexDirection: "column",
+  };
+
+  const activeHandStyling = {
+    border: '8px solid red',
+  } 
+
   return (
     <>
       <PageContainer>
@@ -717,30 +727,37 @@ useEffect(() => {
               cards={dealerVars.cards}
               score={dealerVars.score}
               bust={dealerVars.bust}
-            />
+            />    
             <Hand
               cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
               score={playerVars.split ? playerVars.score[0] : playerVars.score}
               bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
               activeHand={playerVars.split && playerVars.curHand === 0}
             />
-            {playerVars.split && <Hand
-              cards={playerVars.cards[1]}
-              score={playerVars.score[1]}
-              bust={playerVars.bust[1]}
-              activeHand={playerVars.curHand === 1}
-              splitHand
-            />}
+            {playerVars.split && (
+              <div style={{position: 'absolute', bottom: '50px', left: '200px'}} >
+                <Hand
+                  cards={playerVars.cards[1]}
+                  score={playerVars.score[1]}
+                  bust={playerVars.bust[1]}
+                  activeHand={playerVars.curHand === 1}
+                  splitHand
+                />
+              </div>
+             
+            )}
+             {/* style={activeHand ? {activeHandStyling} : {inactiveHandStyling}} */}
           </CardContainer>
 
            {/* rendering timer */}
-          <div>
-            {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
-          </div>
+          <TimerPositioning>
+            {timerMode && !playerVars.bust && !dealerVars.bust && renderTimer}
+          </TimerPositioning>
           {bettingMode && <Chips buttonFunc={addToBet} />}
           <ChatContainer>
             <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
           </ChatContainer>
+          <Notification />
         </GameContainer>
       </PageContainer>
     </>

@@ -55,7 +55,7 @@ export const ChatContainer = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
-  width: 21%;
+  width: 26%;
   height: 90vh;
   bottom: 0px;
   right: -8px;
@@ -214,6 +214,7 @@ export const ButtonContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
+  z-index:2;
 `;
 
 export const MoneyBox = styled.div`
@@ -338,6 +339,8 @@ export const DollarDisplay = styled.p`
   background: linear-gradient(#4f3009 0, #110a04 100%);
   border: 2px ridge #ffc319;
   border-radius: 5px;
+  box-shadow: 3px 3px 10px black;
+
   /* margin-top: 20px; */
 
   /* Gold filling, nice */
@@ -390,6 +393,26 @@ export const CoinStyle = styled.img`
 
 export const CoinPosition = styled.div`
   position: absolute;
-
-
 `;
+
+export const Notification = styled.div`
+  position: absolute;
+  color: white;
+  background-color: red;
+  border-radius: 100%;
+  bottom: 160px;
+  right: 120px;
+  border: 22px solid rgb(240, 0, 0, 1);
+  box-shadow: 2px 2px 7px black;
+`
+export const TimerPositioning = styled.div`
+  position: absolute;
+  bottom: 150px;
+  right: 30vw;
+`
+
+export const ScorePositioning = styled.div`
+  position: absolute;
+  bottom: 150px;
+  right: 30vw;
+`

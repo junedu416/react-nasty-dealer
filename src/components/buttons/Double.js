@@ -1,5 +1,7 @@
 import Button from "@mui/material/Button";
+import DoubleIcon from "../../images/double.png";
 import { Tooltip } from "@mui/material";
+
 
 const Double = (props) => {
   const {buttonFunc} = props;
@@ -7,7 +9,7 @@ const Double = (props) => {
   return (
     <Tooltip title={tooltipText} enterDelay={1000}>
        <Button variant="contained" size="large" color="secondary" onClick={buttonFunc} style={{marginLeft: '10px'}}>
-        Double
+         Double <img src={DoubleIcon} style={{width: '30px', marginLeft:'10px'}} alt="double button" />
       </Button>
     </Tooltip>
   );
