@@ -46,7 +46,7 @@ const CardTest = () => {
   const [gameOverSound] = useSound(gameOver)
 
   // destrcuter timer function/components
-  const {renderTimer, seconds} = Timer();
+  const {renderTimer, seconds, resetTimer} = Timer()
   // set button clicked bool for timer use
   const [timerMode, setTimerMode] = useState(false)
 
@@ -513,6 +513,7 @@ const CardTest = () => {
         dealSound();
       }, 1400);
       setTimerMode(true)
+      resetTimer();
     } else if (playerVars.stand || playerVars.bust) {
       console.log("no dealio");
       resetPlayers();
@@ -645,10 +646,8 @@ useEffect(() => {
                     setTimeout(() => {
                       hitSound();
                     }, 1000);
-                    setTimerMode(false)
-                    setTimeout(() => {
-                      setTimerMode(true)
-                    }, 300);
+                    resetTimer();
+                    setTimerMode(true)
                   }
                 }}
               />}
@@ -700,6 +699,8 @@ useEffect(() => {
               betSize={[playerVars.betSize]}
               activeHand={playerVars.curHand === 1} />}
           </CardContainer>
+
+           {/* rendering timer */}
           <div>
             {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           </div>
