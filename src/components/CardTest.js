@@ -609,7 +609,7 @@ useEffect(() => {
               {/*SPLIT*/}
               {playerVars.cards.length === 2 &&
                canPlayerSplit(...playerVars.cards) &&
-               !playerVars.split &&
+               !playerVars.split && !playerVars.stand &&
                <Split buttonFunc={() => {
                   playerDispatch({type:"splitCards"});
                   splitSound();
@@ -670,7 +670,10 @@ useEffect(() => {
               {/*DEAL*/}
               {playerVars.cards.length === 0 && <Deal buttonFunc={dealCards} />}
               {/*NEWGAME*/}
-              {playerVars.stand && dealerVars.stand && <NewGame buttonFunc={dealCards} />}
+              {((playerVars.stand && dealerVars.stand) ||
+              (!playerVars.split && playerVars.stand && playerVars.cards.length === 2 && playerVars.score.highTotal === 21) ||
+              (playerVars.split && playerVars.stand)) &&
+              <NewGame buttonFunc={dealCards} />}
             </ButtonContainer>
           </OuterContainer>
 
