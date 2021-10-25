@@ -88,17 +88,22 @@ const CardTest = () => {
       switch (action.type) {
         case "addCard": {
           const newScore = updateScore(action.payload.value, state.score);
+          let newStand;
+          if (state.cards.length === 1 && !state.turn) {
+            newStand = false;
+          } else {
+            newStand = (newScore.highTotal >= 17 && newScore.highTotal <= 21) ||
+            newScore.lowTotal >= 17
+                ? true
+                : false
+          }
           return {
             ...state,
             cards: [...state.cards, action.payload],
             score:
               state.cards.length === 1 && !state.turn ? state.score : newScore,
             bust: newScore.lowTotal > 21 ? true : false,
-            stand:
-            (newScore.highTotal >= 17 && newScore.highTotal <= 21) ||
-            newScore.lowTotal >= 17
-                ? true
-                : false,
+            stand: newStand
           };
         }
         case "setTurn": {
