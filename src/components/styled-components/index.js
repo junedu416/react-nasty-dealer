@@ -331,6 +331,8 @@ export const DollarDisplay = styled.p`
   background: linear-gradient(#4f3009 0, #110a04 100%);
   border: 2px ridge #ffc319;
   border-radius: 5px;
+  box-shadow: 3px 3px 10px black;
+
   /* margin-top: 20px; */
 
   /* Gold filling, nice */
