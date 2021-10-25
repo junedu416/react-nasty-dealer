@@ -56,11 +56,13 @@ const Hand = (props) => {
                       border: "1px solid black",
                       borderRadius: "9px",
                       position: "relative",
-                      transform: "translate(-60px, 60px) rotate(-2deg) skewX(-12deg) skewY(3deg)",
+                      transform: "translate(-60px, 60px) rotateX(-48deg) rotateY(3deg) rotate(-4deg) skewX(-9deg) skewY(7deg)",
+        
                       // top: '62px',
                       // right: `${(55 * index) + (40 * (index - 1))}px`,
                       backgroundClip: "content-box",
-                      boxShadow: "inset 0 0 0 9px white",
+                      // boxShadow: "-1px 3px 6px black", 
+                      boxShadow: "inset 0 0 0 9px white, -1px 3px 6px black",
                     }}
                   />
                 ) : (
@@ -73,7 +75,8 @@ const Hand = (props) => {
                         style={{
                           position: "relative",
                           // transform: "translate(20px, 0px)",
-                          transform: "skewX(-12deg) skewY(3deg) rotate(-2deg) translate(20px, 12px)",
+                          transform: "skewX(-13deg) skewY(6deg) rotateX(-48deg) rotateY(3deg) rotate(-4deg) translate(20px, 12px)",
+                          boxShadow: "-1px 3px 6px black",
                           // right: `${(-20 * index) + (20 * (index - 1))}px`,
                           // transform: [{ skewX: "20deg" }],
                           top: "70px",
@@ -92,7 +95,8 @@ const Hand = (props) => {
                           //   -55 * index - 20 * (index - 1)
                           // }px, ${50 + -20 * (index - 1)}px)`,
 
-                          transform: `skewX(-12deg) skewY(3deg) rotate(-2deg)`,
+                          transform: `skewX(-13deg) skewY(6deg) rotateX(-48deg) rotateY(3deg) rotate(-4deg)`,
+                          boxShadow: "-1px 3px 6px black", 
 
                           right: `${(55 * index) + (20 * (index - 1))}px`,
                           top: `${60 - (22 * (index - 1))}px`,
