@@ -25,9 +25,11 @@ import soundSplit from "./sounds/split.mp3";
 import soundDeal from "./sounds/deal.wav";
 import soundStand from "./sounds/stand.wav";
 import soundBet from "./sounds/clinking-coins.wav";
-import soundLose from "./sounds/disappointment.wav";
+import soundLose from "./sounds/dealer-laugh.wav";
 import soundWin from "./sounds/voice-cheer.wav";
 import soundBJ from "./sounds/victory.wav"
+import gameOver from "./sounds/game_over.mp3"
+import soundPush from "./sounds/disappointment.wav"
 
 const CardTest = () => {
   // useSound hook
@@ -40,6 +42,8 @@ const CardTest = () => {
   const [BlackJackSound] = useSound(soundBJ);
   const [WinSound] = useSound(soundWin);
   const [LoseSound] = useSound(soundLose);
+  const [PushSound] = useSound(soundPush);
+  const [gameOverSound] = useSound(gameOver)
 
   // destrcuter timer function/components
   const {renderTimer, seconds} = Timer();
@@ -571,13 +575,14 @@ const CardTest = () => {
   }
 
 // bring sound effects when player lose/win/get blackjack
+useEffect(() => {
   if (resultMessage.result === "WIN") WinSound();
-  else if (resultMessage.result === "BLACKJACK") BlackJackSound();
-  else if (resultMessage.result === "LOSE")  LoseSound()
-  else if (resultMessage.result === "BUST")  LoseSound()
-  else if (resultMessage.result === "PUSH")  LoseSound()
-
-
+  else if (resultMessage.result === "BLACKJACK") BlackJackSound()
+  else if (resultMessage.result === "LOSE") LoseSound();
+  else if (resultMessage.result === "PUSH")  PushSound();
+  else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
+},[resultMessage.result])
+ 
   return (
     <>
       <PageContainer>
