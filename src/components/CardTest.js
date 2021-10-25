@@ -451,8 +451,10 @@ const CardTest = () => {
   }, [playerVars.chips, playerVars.betSize])
 
   function retrieveChips() {
-    const chips = Number(localStorage.getItem("chips"));
-    return isNaN(chips) ? 1000 : chips;
+    const chips = (localStorage.getItem("chips"));
+    if (!chips) return 1000;
+    return Number(chips);
+    //return isNaN(chips) ? 1000 : chips;
   }
 
   function updateScore(value, curScore) {
