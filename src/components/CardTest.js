@@ -19,12 +19,12 @@ import { GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardCont
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
-import soundHit from "./sounds/card-flick.wav";
-import soundDouble from "./sounds/bonus.wav";
+import soundHit from "./sounds/deal-card.wav";
+import soundDouble from "./sounds/bet-sound.mp3";
 import soundSplit from "./sounds/split.mp3";
 import soundDeal from "./sounds/deal.wav";
 import soundStand from "./sounds/stand.wav";
-import soundBet from "./sounds/clinking-coins.wav";
+import soundBet from "./sounds/bet-sound.mp3";
 import soundLose from "./sounds/dealer-laugh.wav";
 import soundWin from "./sounds/voice-cheer.wav";
 import soundBJ from "./sounds/victory.wav"
