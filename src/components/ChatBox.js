@@ -14,6 +14,7 @@ import { MessageBox, CommentBox, MessageContainer, HideChat, MessagingIcon } fro
 import Minimise from "../images/minimise.png";
 import ChatIcon from "../images/chat.png";
 import { commentsReducer } from "../utils/comments-reducer";
+import { unreadMessageReducer } from "../utils/unread-message-reducer";
 
 const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
 
@@ -73,11 +74,8 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
             console.log("two losses or one loss one push"); 
             const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
             getInsult().then(insult => {
-              commentsDispatch(
-                {
-                  type: "add_message_and_comment",
-                  data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
-              })
+              commentsDispatch({type: "add_dealer_comment", data: message})
+              commentsDispatch({type: "add_dealer_comment", data: insult})
             })
             return;
         } 
@@ -93,11 +91,8 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
               console.log("player loses");
               const message = playerLoseResponse[getRandomInteger(playerLoseResponse.length - 1)];
               getInsult().then(insult => {
-                commentsDispatch(
-                  {
-                    type: "add_message_and_comment",
-                    data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
-                })
+                commentsDispatch({type: "add_dealer_comment", data: message})
+                commentsDispatch({type: "add_dealer_comment", data: insult})
               })
               return;
             } else {
@@ -105,12 +100,8 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
               const message =
                   playerBustResponse[getRandomInteger(playerBustResponse.length - 1)];
               getInsult().then(insult => {
-              commentsDispatch(
-                  {
-                    type: "add_message_and_comment",
-                    data: [{name: "Dealer", message: message}, {name: "Dealer", message: insult}]
-                })
-              })
+                commentsDispatch({type: "add_dealer_comment", data: message})
+                commentsDispatch({type: "add_dealer_comment", data: insult})})
               return;
             }
               
@@ -130,7 +121,6 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   }, [secondsLeft])
 
 
-
   // auto scroll messages container back to bottom    
   useEffect(() => {
     scrollToBottom()
@@ -141,10 +131,21 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }
-
+  
+  // use unreadMessage.count for number of unread messages
+  const [unreadMessages, unreadMessagesDispatch] = useReducer(unreadMessageReducer, {count: 0})
   const [hideChat, setHideChat] = useState(true);
   const minimized = () => setHideChat(false);
   const expanded = () => setHideChat(true);
+
+  // counts number of unread messages. resets when you hide chat and start counting from 0
+  useEffect(() => {
+    if(!hideChat){
+      unreadMessagesDispatch({type: "increment"});
+    }else {
+      unreadMessagesDispatch({type: "reset"});
+    }
+  }, [comments, hideChat])
 
   return (
     <>
