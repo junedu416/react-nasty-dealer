@@ -70,7 +70,7 @@ const CardTest = () => {
     },
     bust: false,
     stand: false,
-    chips: 1000,
+    chips: retrieveChips(),
     betSize: 0,
     playerPaid: false,
     result: { win: false, condition: "" },
@@ -187,6 +187,7 @@ const CardTest = () => {
           let newBet = state.betSize;
           if (state.split || state.double) newBet = newBet / 2;
           if (state.chips - newBet < 0) newBet = 0
+          localStorage.setItem("chips", state.chips);
           return { ...initialHand, chips: state.chips, betSize: newBet };
         }
         case "addBet": {
@@ -448,6 +449,10 @@ const CardTest = () => {
     }
   }, [playerVars.chips, playerVars.betSize])
 
+  function retrieveChips() {
+    const chips = Number(localStorage.getItem("chips"));
+    return chips || 1000;
+  }
 
   function updateScore(value, curScore) {
     let newScore = { ...curScore };
