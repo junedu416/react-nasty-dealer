@@ -248,7 +248,7 @@ export const GoldText = styled.div`
   justify-content: center;
   flex-direction: column;
   color: transparent;
-  font-size: 30px;
+  font-size: 6rem;
   font-family: serif;
   letter-spacing: 5px;
   font-weight: bold;
@@ -262,13 +262,19 @@ export const GoldText = styled.div`
   );
   background-clip: text;
   -webkit-background-clip: text;
+  z-index: 10;
 `;
 
 export const MessageAlert = styled.h1`
   font-size: 6rem;
   color: ${(props) => (props.color ? props.color : "white")};
   position: absolute;
-  top: 38%;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   /* left: 36%; */
   margin: 0 auto;
   /* transform: translate(-50%, -50%); */
@@ -277,7 +283,9 @@ export const MessageAlert = styled.h1`
   font-family: helvetica;
   padding: 30px;
   border-radius: 20px;
+  z-index: 10;
 `;
+
 
 export const AlertParent = styled.div`
   /* background: radial-gradient(#444, #000); */

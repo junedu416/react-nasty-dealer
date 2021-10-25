@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { Notification, TimerPositioning, CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { Notification, TimerPositioning, InfoButton, CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -436,7 +436,7 @@ const CardTest = () => {
   }, [
     playerVars.stand,
     dealerVars.stand,
-    playerVars.cards.length,
+    playerVars.cards,
     dealerVars.score,
     playerVars.score,
     playerVars.split
