@@ -757,7 +757,6 @@ useEffect(() => {
           <ChatContainer>
             <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
           </ChatContainer>
-          <Notification />
         </GameContainer>
       </PageContainer>
     </>

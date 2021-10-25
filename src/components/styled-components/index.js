@@ -397,7 +397,11 @@ export const CoinPosition = styled.div`
 
 export const Notification = styled.div`
   position: absolute;
+  font-family: Helvetica, sans-serif;
+  font-size: 1.4rem;
   color: white;
+  line-height: 50%;
+  text-align: center;
   background-color: red;
   border-radius: 100%;
   bottom: 160px;
