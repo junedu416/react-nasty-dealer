@@ -55,9 +55,9 @@ export const ChatContainer = styled.div`
   right: 0;
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 21%;
   height: 90vh;
-  bottom: 20px;
+  bottom: 0px;
   right: -8px;
   padding: 10px;
   opacity: 1;
@@ -205,7 +205,7 @@ export const OuterContainer = styled.div`
   display: flex;
   flex-direction: row;
   position: absolute;
-  left: 10px;
+  /* left: 10px; */
   bottom: 4vh;
 `;
 
