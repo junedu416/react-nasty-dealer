@@ -238,6 +238,32 @@ export const MessagingIcon = styled.img`
    right: 20px;
 `;
 
+export const GoldText = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: transparent;
+  font-size: 30px;
+  font-family: serif;
+  letter-spacing: 5px;
+  font-weight: bold;
+  background: linear-gradient(
+    #462523 0, 
+    #cb9b51 22%, 
+    #f6e27a 45%, 
+    #f6f2c0 50%, 
+    #cb9b51 78%,
+    #462523 100%
+  );
+  background-clip:text;
+  -webkit-background-clip: text;
+`
+
 export const MessageAlert = styled.h1`
   font-size: 6rem;
   color: ${props => props.color ? props.color : 'white'};
