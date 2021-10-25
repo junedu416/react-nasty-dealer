@@ -10,7 +10,7 @@ import {
 } from "../utils/util-functions";
 import { applyCensorship } from "../utils/api-utils";
 import { tallySplitResults } from "../utils/util-functions";
-import { MessageBox, CommentBox, MessageContainer, HideChat, MessagingIcon } from "./styled-components";
+import { MessageBox, CommentBox, MessageContainer, HideChat, MessagingIcon, Notification } from "./styled-components";
 import Minimise from "../images/minimise.png";
 import ChatIcon from "../images/chat.png";
 import { commentsReducer } from "../utils/comments-reducer";
@@ -138,12 +138,14 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   const minimized = () => setHideChat(false);
   const expanded = () => setHideChat(true);
 
-  // counts number of unread messages. resets when you hide chat and start counting from 0
+  // counts number of unread messages. resets when you hide chat and start re-counting from 0
   useEffect(() => {
     if(!hideChat){
       unreadMessagesDispatch({type: "increment"});
+      console.log(unreadMessages.count, "unread messages")
     }else {
       unreadMessagesDispatch({type: "reset"});
+      console.log(unreadMessages.count, "unread messages")
     }
   }, [comments, hideChat])
 
@@ -165,6 +167,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
         </CommentBox>
         <HideChat src={Minimise} onClick={ minimized } />
       </MessageContainer>) : <MessagingIcon src={ChatIcon} onClick={expanded} alt="chat box" /> }
+      {(!hideChat && (unreadMessages.count -1) > 0) && <Notification>{unreadMessages.count - 1}</Notification>}
     </>
   );
 };
