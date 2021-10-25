@@ -406,7 +406,9 @@ const CardTest = () => {
         const dealerScore = getFinalScore(dealerVars.score);
         if (playerScore === 21 && playerVars.cards.length === 2) {
           playerDispatch({ type: "changeResult", payload: "blackjack" });
-        } else if (playerScore > dealerScore && playerScore <= 21) {
+        } else if(playerScore > 21) {
+          playerDispatch({type: 'loseToDealer', payload: "lose_to_dealer"});
+        }else if (playerScore > dealerScore && playerScore <= 21) {
           playerDispatch({ type: "changeResult", payload: "beat_dealer" });
         } else if (playerScore <= 21 && dealerScore > 21) {
           playerDispatch({ type: "changeResult", payload: "dealer_bust" });
@@ -426,11 +428,20 @@ const CardTest = () => {
     playerVars.split
   ]);
 
+  //========prevent dealer's turn when double + bust=======
+  useEffect(() => {
+    if (playerVars.double && !playerVars.bust && playerVars.cards.length === 3) {
+      dealerDispatch({type: "setTurn"})
+    }
+  }, [playerVars.double, playerVars.cards, playerVars.bust])
+ 
+  // game over when no more chips left
   useEffect(() => {
     if(playerVars.chips === 0 && playerVars.betSize === 0) {
       resultMessageDispatch({type: 'game_over'});
     }
   }, [playerVars.chips, playerVars.betSize])
+
 
   function updateScore(value, curScore) {
     let newScore = { ...curScore };
@@ -545,6 +556,8 @@ const CardTest = () => {
   }
   //================
 
+  
+
   function double() {
     if (
       playerVars.cards.length >= 2 &&
@@ -554,7 +567,6 @@ const CardTest = () => {
     ) {
       drawCard(deckId, 1).then(addCardToPlayer);
       playerDispatch({ type: "double" });
-        dealerDispatch({ type: "setTurn" });
       doubleSound();
       setTimerMode(false);
     }
