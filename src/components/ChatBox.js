@@ -120,6 +120,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
               return;
           } 
     } 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [playerBust, split, curHand, gameResult]);
 
   // render insult when timer has 5 seconds left
@@ -130,6 +131,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
         addComment(message, "Dealer")
       return;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [secondsLeft])
 
 

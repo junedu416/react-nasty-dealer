@@ -1,10 +1,10 @@
 // import { AbsoluteCenter } from "@chakra-ui/layout";
 import faceDownCard from "./../images/face-down-card.jpeg";
-import { CenteredBox, MoneyBox } from './styled-components';
-import WinAmount from "./WinAmount";
+import { CenteredBox } from './styled-components';
+
 
 const Hand = (props) => {
-  const { dealer, cards, dealersTurn, score, bust, chips, betSize, activeHand, winAmount } = props;
+  const { dealer, cards, dealersTurn, score, bust, activeHand } = props;
 
 // MOVED STYLING BACK INTO RETURN TO USE INDEX FOR SHIFTING.
   // const cardBack = {
@@ -103,12 +103,6 @@ const Hand = (props) => {
           })}
         </div>
       </CenteredBox>
-
-      {!dealer && <MoneyBox>
-        <h3>Chips: ${chips}</h3>
-        <h3>Bet: ${betSize}</h3>
-        <WinAmount amount={winAmount}/>
-      </MoneyBox>}
     </div>
   );
 };

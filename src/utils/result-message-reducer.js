@@ -25,7 +25,7 @@ export default function resultMessageReducer(state, action) {
         case "split_both_lose": {
             return {
                 ...state,
-                result: "BOTH CARDS LOST",
+                result: "BOTH CARDS LOSE",
                 winAmount: -action.data
             }
         }

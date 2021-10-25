@@ -15,21 +15,22 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox } from "./styled-components";
+import { GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
-import soundHit from "./sounds/card-flick.wav";
-import soundDouble from "./sounds/bonus.wav";
+import soundHit from "./sounds/deal-card.wav";
+import soundDouble from "./sounds/bet-sound.mp3";
 import soundSplit from "./sounds/split.mp3";
 import soundDeal from "./sounds/deal.wav";
 import soundStand from "./sounds/stand.wav";
-import soundBet from "./sounds/clinking-coins.wav";
+import soundBet from "./sounds/bet-sound.mp3";
 import soundLose from "./sounds/dealer-laugh.wav";
 import soundWin from "./sounds/voice-cheer.wav";
 import soundBJ from "./sounds/victory.wav"
 import gameOver from "./sounds/game_over.mp3"
 import soundPush from "./sounds/disappointment.wav"
+import WinAmount from "./WinAmount";
 
 const CardTest = () => {
   // useSound hook
@@ -46,7 +47,7 @@ const CardTest = () => {
   const [gameOverSound] = useSound(gameOver)
 
   // destrcuter timer function/components
-  const {renderTimer, seconds} = Timer();
+  const {renderTimer, seconds, resetTimer} = Timer()
   // set button clicked bool for timer use
   const [timerMode, setTimerMode] = useState(false)
 
@@ -260,6 +261,7 @@ const CardTest = () => {
         }
 
         case "splitCards": {
+          console.log(resultMessage)
           const emptyScore = {highTotal: 0, lowTotal: 0}
           const newCards = [[state.cards[0]], [state.cards[1]]]
           const newScore = [updateScore(newCards[0][0].value, emptyScore), updateScore(newCards[1][0].value, emptyScore)]
@@ -438,7 +440,7 @@ const CardTest = () => {
       dealerDispatch({type: "setTurn"})
     }
   }, [playerVars.double, playerVars.cards, playerVars.bust])
- 
+
   // game over when no more chips left
   useEffect(() => {
     if(playerVars.chips === 0 && playerVars.betSize === 0) {
@@ -492,8 +494,8 @@ const CardTest = () => {
   function canPlayerSplit(card1, card2) {
     if (card1.value === card2.value) return true;
     if (isNaN(card1.value) && isNaN(card2.value)) return true;
-    if (isNaN(card1.value) && card2.value === 10) return true;
-    if (card1.value === 10 && isNaN(card2.value)) return true;
+    if (isNaN(card1.value) && card2.value === "10") return true;
+    if (card1.value === "10" && isNaN(card2.value)) return true;
   }
 
   //draw 2 cards for player then for dealer
@@ -513,6 +515,7 @@ const CardTest = () => {
         dealSound();
       }, 1400);
       setTimerMode(true)
+      resetTimer();
     } else if (playerVars.stand || playerVars.bust) {
       console.log("no dealio");
       resetPlayers();
@@ -560,7 +563,7 @@ const CardTest = () => {
   }
   //================
 
-  
+
 
   function double() {
     if (
@@ -580,7 +583,7 @@ const CardTest = () => {
     if (playerVars.cards.length === 0) {
       playerDispatch({
         type: "addBet",
-        payload: parseInt(event.target.alt),
+        payload: event.target.nodeName === "IMG" ? parseInt(event.target.alt) : parseInt(event.target.value),
       });
       betSound()
     }
@@ -594,7 +597,7 @@ useEffect(() => {
   else if (resultMessage.result === "PUSH")  PushSound();
   else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
 },[resultMessage.result])
- 
+
   return (
     <>
       <PageContainer>
@@ -609,6 +612,7 @@ useEffect(() => {
               {/*SPLIT*/}
               {playerVars.cards.length === 2 &&
                canPlayerSplit(...playerVars.cards) &&
+               !playerVars.split && !playerVars.stand &&
                !playerVars.split &&
                <Split buttonFunc={() => {
                   playerDispatch({type:"splitCards"});
@@ -645,10 +649,8 @@ useEffect(() => {
                     setTimeout(() => {
                       hitSound();
                     }, 1000);
-                    setTimerMode(false)
-                    setTimeout(() => {
-                      setTimerMode(true)
-                    }, 300);
+                    resetTimer();
+                    setTimerMode(true)
                   }
                 }}
               />}
@@ -670,12 +672,20 @@ useEffect(() => {
               {/*DEAL*/}
               {playerVars.cards.length === 0 && <Deal buttonFunc={dealCards} />}
               {/*NEWGAME*/}
-              {playerVars.stand && dealerVars.stand && <NewGame buttonFunc={dealCards} />}
+              {((playerVars.stand && dealerVars.stand) ||
+              (!playerVars.split && playerVars.stand && playerVars.cards.length === 2 && playerVars.score.highTotal === 21) ||
+              (playerVars.split && playerVars.stand)) &&
+              <NewGame buttonFunc={dealCards} />}
             </ButtonContainer>
           </OuterContainer>
 
           {/* ===================== CARDS ===================== */}
           <CardContainer>
+          <MoneyBox>
+            <h3>Chips: ${playerVars.chips}</h3>
+            <h3>Bet: ${playerVars.betSize}</h3>
+            <WinAmount amount={resultMessage.winAmount}/>
+          </MoneyBox>
             <Hand
               dealer
               dealersTurn={dealerVars.turn}
@@ -687,19 +697,17 @@ useEffect(() => {
               cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
               score={playerVars.split ? playerVars.score[0] : playerVars.score}
               bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
-              chips={playerVars.chips}
-              betSize={playerVars.betSize}
               activeHand={playerVars.split && playerVars.curHand === 0}
-              winAmount={resultMessage.winAmount}
             />
             {playerVars.split && <Hand
               cards={playerVars.cards[1]}
               score={playerVars.score[1]}
               bust={playerVars.bust[1]}
-              chips={playerVars.chips}
-              betSize={[playerVars.betSize]}
-              activeHand={playerVars.curHand === 1} />}
+              activeHand={playerVars.curHand === 1}
+            />}
           </CardContainer>
+
+           {/* rendering timer */}
           <div>
             {timerMode && bettingMode && !playerVars.bust && !dealerVars.bust && renderTimer}
           </div>
