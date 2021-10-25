@@ -383,6 +383,13 @@ export const CoinStyle = styled.img`
 
 export const CoinPosition = styled.div`
   position: absolute;
-
-
 `;
+
+export const Notification = styled.div`
+  position: absolute;
+  color: white;
+  background-color: red;
+  border-radius: 100%;
+  bottom: 60px;
+  right: 40px;
+`
