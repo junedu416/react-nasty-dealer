@@ -326,7 +326,7 @@ export const MoneyHeading = styled.h2`
   border: 1px solid #9c6f0f;
 `;
 
-export const DollarDisplay = styled.p`
+export const DollarDisplay = styled.div`
   font-family: Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: 800;
