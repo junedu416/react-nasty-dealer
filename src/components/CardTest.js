@@ -440,7 +440,7 @@ const CardTest = () => {
       dealerDispatch({type: "setTurn"})
     }
   }, [playerVars.double, playerVars.cards, playerVars.bust])
- 
+
   // game over when no more chips left
   useEffect(() => {
     if(playerVars.chips === 0 && playerVars.betSize === 0) {
@@ -494,8 +494,8 @@ const CardTest = () => {
   function canPlayerSplit(card1, card2) {
     if (card1.value === card2.value) return true;
     if (isNaN(card1.value) && isNaN(card2.value)) return true;
-    if (isNaN(card1.value) && card2.value === 10) return true;
-    if (card1.value === 10 && isNaN(card2.value)) return true;
+    if (isNaN(card1.value) && card2.value === "10") return true;
+    if (card1.value === "10" && isNaN(card2.value)) return true;
   }
 
   //draw 2 cards for player then for dealer
@@ -562,7 +562,7 @@ const CardTest = () => {
   }
   //================
 
-  
+
 
   function double() {
     if (
@@ -596,7 +596,7 @@ useEffect(() => {
   else if (resultMessage.result === "PUSH")  PushSound();
   else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
 },[resultMessage.result])
- 
+
   return (
     <>
       <PageContainer>
@@ -609,14 +609,15 @@ useEffect(() => {
           <OuterContainer>
             <ButtonContainer>
               {/*SPLIT*/}
-              {/* {playerVars.cards.length === 2 &&
+              {playerVars.cards.length === 2 &&
                canPlayerSplit(...playerVars.cards) &&
-               !playerVars.split && */}
+               !playerVars.split && !playerVars.stand &&
+               !playerVars.split && 
                <Split buttonFunc={() => {
                   playerDispatch({type:"splitCards"});
                   splitSound();
                   setTimerMode(false);
-                  }} />
+                  }} />}
               {/*STAND*/}
              {!playerVars.stand && playerVars.cards.length > 0 &&
               <Stand
@@ -672,7 +673,10 @@ useEffect(() => {
               {/*DEAL*/}
               {playerVars.cards.length === 0 && <Deal buttonFunc={dealCards} />}
               {/*NEWGAME*/}
-              {playerVars.stand && dealerVars.stand && <NewGame buttonFunc={dealCards} />}
+              {((playerVars.stand && dealerVars.stand) ||
+              (!playerVars.split && playerVars.stand && playerVars.cards.length === 2 && playerVars.score.highTotal === 21) ||
+              (playerVars.split && playerVars.stand)) &&
+              <NewGame buttonFunc={dealCards} />}
             </ButtonContainer>
           </OuterContainer>
 
