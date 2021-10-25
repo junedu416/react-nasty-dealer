@@ -226,8 +226,8 @@ export const MoneyBox = styled.div`
   position: absolute;
   top: 70px;
   left: 0px;
-  padding-left: 30px;
-  background-color: rgb(100, 200, 255, 0.4);
+  padding-left: 12px;
+  /* background-color: rgb(100, 200, 255, 0.4); */
 `;
 
 export const MessagingIcon = styled.img`
@@ -289,4 +289,42 @@ export const AlertParent = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1;
+`
+
+export const MoneyHeading = styled.h2`
+  font-family: Helvetica, sans-serif;
+  text-align: left;
+  margin-left: 0px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  padding-left: 12px;
+  border-radius: 3px;
+  color: #282013;
+  background: linear-gradient(
+    #9C6F0F 0,
+    #BEA11B 7%,
+    #FCE291 20%,
+    #FFED98 40%,
+    #FFD429 50%,
+    #9C6F0F 62%,
+    #BEA11B 95%,
+    #E0BA22 100%
+  );
+  border: 1px solid #9C6F0F;
+`
+
+
+export const DollarDisplay = styled.p`
+  font-family: Helvetica, sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  text-align: right;
+  padding: 10px 10px 5px;
+  padding-right: 10px;
+  margin: 10px;
+  color: white;
+  background: linear-gradient(
+    #4F3009 0,
+    #110A04 100%
+  );
 `

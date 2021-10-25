@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -700,9 +700,13 @@ useEffect(() => {
           {/* ===================== CARDS ===================== */}
           <CardContainer>
           <MoneyBox>
-            <h3>Chips: ${playerVars.chips}</h3>
-            <h3>Bet: ${playerVars.betSize}</h3>
-            <WinAmount amount={resultMessage.winAmount}/>
+            <MoneyHeading>CHIPS: </MoneyHeading>
+            <DollarDisplay>${playerVars.chips}</DollarDisplay>
+            <MoneyHeading>BET: </MoneyHeading>
+            <DollarDisplay>${playerVars.betSize}</DollarDisplay>
+            <MoneyHeading>WIN: </MoneyHeading>
+            <DollarDisplay><WinAmount amount={resultMessage.winAmount}/></DollarDisplay>
+            
           </MoneyBox>
             <Hand
               dealer
