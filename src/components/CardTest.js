@@ -741,7 +741,7 @@ useEffect(() => {
                 cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
                 score={playerVars.split ? playerVars.score[0] : playerVars.score}
                 bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
-                activeHand={playerVars.split && playerVars.curHand === 0}
+                activeHand={playerVars.curHand === 0}
               />
             </div>
             {playerVars.split && (
