@@ -40,14 +40,14 @@ export default function resultMessageReducer(state, action) {
             return {
                 ...state,
                 result: "ONE BLACKJACK ONE WIN",
-                winAmount: ((action.data / 2) * 1.5) + (action.data / 2)
+                winAmount: ((action.data / 2) * 2.5) + (action.data)
             }
         }
         case "split_blackjack_lose": {
             return {
                 ...state,
                 result: "ONE BLACKJACK ONE LOSE",
-                winAmount: ((action.data / 2) * 2.5) 
+                winAmount: ((action.data / 2) * 2.5) - (action.data / 2)
             }
         }
         case "both_blackjack": {
