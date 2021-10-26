@@ -362,8 +362,8 @@ export const DollarDisplay = styled.div`
     ); */
 
   /* background: linear-gradient(
-    to right bottom  
-    #ffed98, 
+    to right bottom
+    #ffed98,
     #9c6f0f,
     ) 1 100%; */
 `;
@@ -416,9 +416,21 @@ export const TimerPositioning = styled.div`
 `
 
 export const ScorePositioning = styled.div`
-  position: absolute;
-  bottom: 150px;
-  right: 30vw;
+  border: 5px solid black;
+  background-color: white;
+  border-radius: 50%;
+  text-align: center;
+  height: 2em;
+  width: 2em;
+  font-size: 1.5em;
+  position: relative;
+  left: 1.4em;
+  top: 5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  border-color: ${props => props.activeHand ? 'red' : 'black'};
 `
 
 export const BlackjackBackground = styled.div`

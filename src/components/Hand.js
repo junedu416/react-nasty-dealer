@@ -23,7 +23,7 @@ const Hand = (props) => {
     <div>
       {/* Displays cards */}
       <div style={scoreStyling}>
-        <h2 style={{ color: activeHand ? "red" : "black" }}>
+<h2 style={{ color: activeHand ? "red" : "black" }}>
           {dealer
             ? "Dealer: "
             : splitHand
@@ -31,8 +31,8 @@ const Hand = (props) => {
             : `${playerName}: `}
           {/* Displays score with aces as 11 if score is less than 21, else score with ace as 1
         Dont show points if no cards */}
-          {score.highTotal >= 1 &&
-            (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
+
+
         </h2>
         <h2 style={bustedStyling}>
           {cards.length > 0 && bust && `BUST!`}
@@ -44,6 +44,11 @@ const Hand = (props) => {
             (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
       </ScorePositioning>) */}
       <CenteredBox height="100%">
+        {score.lowTotal > 0 &&
+        <ScorePositioning activeHand={activeHand}>
+          {score.highTotal >= 1 &&
+            (score.highTotal > 21 ? score.lowTotal : score.highTotal)}
+        </ScorePositioning>}
         <div style={{ display: "flex" }}>
           {cards.map((card, index) => {
             return (
