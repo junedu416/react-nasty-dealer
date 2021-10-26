@@ -424,10 +424,11 @@ export const ScorePositioning = styled.div`
   width: 2em;
   font-size: 1.5em;
   position: relative;
-  left: 0.7em;
-  top: 2.5em;
+  left: 1.4em;
+  top: 5em;
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 2;
   border-color: ${props => props.activeHand ? 'red' : 'black'};
 `
