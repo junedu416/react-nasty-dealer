@@ -266,7 +266,7 @@ export const GoldText = styled.div`
 `;
 
 export const MessageAlert = styled.h1`
-  font-size: 6rem;
+  font-size: 5rem;
   color: ${(props) => (props.color ? props.color : "white")};
   position: absolute;
   top: 50%;
@@ -284,6 +284,7 @@ export const MessageAlert = styled.h1`
   padding: 30px;
   border-radius: 20px;
   z-index: 10;
+  flex-wrap: none;
 `;
 
 
