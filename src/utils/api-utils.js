@@ -17,6 +17,10 @@ async function drawCard(deckId, numCards) {
     `https://deckofcardsapi.com/api/deck/${deckId}/draw/?count=${numCards}`
   );
   const data = await response.json();
+  console.log(data.remaining)
+  if (data.remaining < 30) {
+    shuffleDeck(deckId);
+  }
   return data.cards;
 }
 
@@ -27,9 +31,16 @@ async function applyCensorship(string) {
     return data.result;
 }
 
+async function shuffleDeck(deckId) {
+  const response = await fetch(
+    `https://deckofcardsapi.com/api/deck/${deckId}/shuffle/?deck_count=6`
+  )
+  const data = await response.json();
+  return data.success;
+}
+
 export {
     initialiseDeck,
     drawCard,
     applyCensorship
 }
-

@@ -12,6 +12,7 @@ const Hand = (props) => {
     fontFamily: "helvetica",
     position: "relative",
     left: "20px",
+    opacity: '0'
     // top: "-15px",
   };
 
@@ -23,7 +24,7 @@ const Hand = (props) => {
     <div>
       {/* Displays cards */}
       <div style={scoreStyling}>
-<h2 style={{ color: activeHand ? "red" : "black" }}>
+<h2 style={{ opacity: "0", color: activeHand ? "red" : "black" }}>
           {dealer
             ? "Dealer: "
             : splitHand
