@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { Notification, TimerPositioning, InfoButton, CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { TimerPositioning, CoinPosition, CoinStyle, Balance, MoneyHeading, DollarDisplay, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -61,6 +61,13 @@ const CardTest = () => {
 
   // state used for GameResultMessage component. reducer function defined in utils/
   const [resultMessage, resultMessageDispatch] = useReducer(resultMessageReducer, {result:"", winAmount: 0})
+
+  //style for the inactive hand
+  const inactiveStyle = {
+    position: 'absolute',
+    bottom: '100px',
+    left: '-200px'
+  }
 
   //initState for dealer and player
   const initialHand = {
@@ -610,9 +617,10 @@ useEffect(() => {
   else if (resultMessage.result === "LOSE") LoseSound();
   else if (resultMessage.result === "PUSH")  PushSound();
   else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
-},[resultMessage.result])
+},[resultMessage.result, WinSound, BlackJackSound, LoseSound,
+  PushSound, gameOverSound])
 
-  const inactiveHandStyling = {
+  /*const inactiveHandStyling = {
     position: "absolute",
     display: "flex",
     flexDirection: "column",
@@ -620,7 +628,7 @@ useEffect(() => {
 
   const activeHandStyling = {
     border: '8px solid red',
-  } 
+  }*/
 
   return (
     <>
@@ -719,7 +727,7 @@ useEffect(() => {
             <DollarDisplay>${playerVars.betSize}</DollarDisplay>
             <MoneyHeading>{resultMessage.winAmount >= 0 ? "WIN:":"LOSE:"}</MoneyHeading>
             <DollarDisplay><WinAmount amount={resultMessage.winAmount}/></DollarDisplay>
-            
+
           </MoneyBox>
             <Hand
               dealer
@@ -727,15 +735,17 @@ useEffect(() => {
               cards={dealerVars.cards}
               score={dealerVars.score}
               bust={dealerVars.bust}
-            />    
-            <Hand
-              cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
-              score={playerVars.split ? playerVars.score[0] : playerVars.score}
-              bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
-              activeHand={playerVars.split && playerVars.curHand === 0}
             />
+            <div style={playerVars.curHand === 0 ? {} : inactiveStyle}>
+              <Hand
+                cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
+                score={playerVars.split ? playerVars.score[0] : playerVars.score}
+                bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
+                activeHand={playerVars.split && playerVars.curHand === 0}
+              />
+            </div>
             {playerVars.split && (
-              <div style={{position: 'absolute', bottom: '50px', left: '200px'}} >
+              <div style={playerVars.curHand === 1 ? {} : inactiveStyle} >
                 <Hand
                   cards={playerVars.cards[1]}
                   score={playerVars.score[1]}
@@ -744,7 +754,7 @@ useEffect(() => {
                   splitHand
                 />
               </div>
-             
+
             )}
              {/* style={activeHand ? {activeHandStyling} : {inactiveHandStyling}} */}
           </CardContainer>
@@ -757,7 +767,6 @@ useEffect(() => {
           <ChatContainer>
             <ChatBox playerBust={playerVars.bust} split={playerVars.split} curHand={playerVars.curHand} gameResult={playerVars.result} timerMode={timerMode} secondsLeft ={seconds}/>
           </ChatContainer>
-          <Notification />
         </GameContainer>
       </PageContainer>
     </>

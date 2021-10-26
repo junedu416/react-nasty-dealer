@@ -32,14 +32,6 @@ function App() {
 
   return (
     <>
-    {/* ============= JUNE ============ TAKE THIS CODE, and move to CardTest. */}
-      {/* <AlertParent>
-        <CenteredBox>
-          <MessageAlert>
-            BLACKJACK!
-          </MessageAlert>
-        </CenteredBox>
-      </AlertParent> */}
       <nav style={navStyling}>
         <div>
           <Link to="/">
@@ -59,6 +51,10 @@ function App() {
         <Route exact path="/nastydealer">
           <CardTest />
         </Route>
+        <Route path="*">
+          <CardTest />
+        </Route>
+
       </Switch>
     </>
   );

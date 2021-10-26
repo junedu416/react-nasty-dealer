@@ -326,7 +326,7 @@ export const MoneyHeading = styled.h2`
   border: 1px solid #9c6f0f;
 `;
 
-export const DollarDisplay = styled.p`
+export const DollarDisplay = styled.div`
   font-family: Helvetica, sans-serif;
   font-size: 1.2rem;
   font-weight: 800;
@@ -397,7 +397,11 @@ export const CoinPosition = styled.div`
 
 export const Notification = styled.div`
   position: absolute;
+  font-family: Helvetica, sans-serif;
+  font-size: 1.4rem;
   color: white;
+  line-height: 50%;
+  text-align: center;
   background-color: red;
   border-radius: 100%;
   bottom: 160px;
