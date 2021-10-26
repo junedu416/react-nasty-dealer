@@ -721,11 +721,11 @@ useEffect(() => {
           <CardContainer>
           <MoneyBox>
             <Balance>
-              <DollarDisplay style={{borderRadius: '50px', textAlign: 'center', color: '#ffff00', fontSize:'1.7rem', marginLeft: '20px', width: '250px'}}>${playerVars.chips}</DollarDisplay>
+              <DollarDisplay style={{borderRadius: '50px', textAlign: 'center', color: '#ffff00', fontSize:'1.7rem', marginLeft: '20px', width: '250px'}}>${(playerVars.chips).toLocaleString()}</DollarDisplay>
               <CoinPosition><CoinStyle src={Coin} alt="chip balance icon" /></CoinPosition>
             </Balance>
             <MoneyHeading>BET: </MoneyHeading>
-            <DollarDisplay>${playerVars.betSize}</DollarDisplay>
+            <DollarDisplay>${(playerVars.betSize).toLocaleString()}</DollarDisplay>
             <MoneyHeading>{resultMessage.winAmount >= 0 ? "WIN:":"LOSE:"}</MoneyHeading>
             <DollarDisplay><WinAmount amount={resultMessage.winAmount}/></DollarDisplay>
 
@@ -742,7 +742,7 @@ useEffect(() => {
                 cards={playerVars.split ? playerVars.cards[0] : playerVars.cards}
                 score={playerVars.split ? playerVars.score[0] : playerVars.score}
                 bust={playerVars.split ? playerVars.bust[0] : playerVars.bust}
-                activeHand={playerVars.split && playerVars.curHand === 0}
+                activeHand={playerVars.curHand === 0}
               />
             </div>
             {playerVars.split && (
