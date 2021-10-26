@@ -69,7 +69,7 @@ function Home() {
                   Hi
                   {username
                     ? ` ${username}! \nWelcome to the Nasty Dealer`
-                    : " idiot! \nYou forget to input your name, but you're still welcome!"}
+                    : " idiot! \nYou forget to type in your name, but you're still welcome!"}
                 </h1>
                 <Link to="/nastydealer" style={{textDecoration: 'none'}}>
                   <StartGame />
