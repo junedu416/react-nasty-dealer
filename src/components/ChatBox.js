@@ -121,11 +121,6 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   }, [secondsLeft])
 
 
-  // auto scroll messages container back to bottom    
-  useEffect(() => {
-    scrollToBottom()
-  }, [comments]);
-
   const messagesEndRef = useRef(null)
 
   const scrollToBottom = () => {
@@ -137,6 +132,12 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
   const [hideChat, setHideChat] = useState(true);
   const minimized = () => setHideChat(false);
   const expanded = () => setHideChat(true);
+
+  // auto scroll messages container back to bottom    
+  useEffect(() => {
+    if(hideChat) {scrollToBottom()}
+    scrollToBottom()
+  }, [comments, hideChat]);
 
   // counts number of unread messages. resets when you hide chat and start re-counting from 0
   useEffect(() => {

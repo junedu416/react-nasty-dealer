@@ -1,6 +1,6 @@
 import CardTest from "./components/CardTest";
 import Home from "./components/Home";
-import { Link, Switch, Route, Redirect} from "react-router-dom";
+import { Link, Switch, Route } from "react-router-dom";
 import { Lobby } from "./components/buttons/Lobby";
 import RulePage from "./components/rule/RulePage";
 import Player from './components/MusicPlayer'
@@ -17,6 +17,7 @@ function App() {
     padding: '0',
     flexDirection: 'row',
     alignItems: 'center',
+    paddingRight: '20px',
   }
 
   const buttons = {
@@ -25,6 +26,7 @@ function App() {
     height: '60px',
     justifyContent: 'flex-end',
     alignItems: 'center',
+    paddingRight: '50px',
     // border: '4px solid yellow',
   }
 

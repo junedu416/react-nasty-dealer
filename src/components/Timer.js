@@ -34,7 +34,7 @@ function Timer() {
     textSize: "25px",
     pathTransitionDuration: 0.5,
     pathColor: "#fff",
-    textColor: "#f88",
+    //textColor: "#f88",
     trailColor: "transparent",
     backgroundColor: `${seconds <=5 ? "red":"#3e98c7"}`,
     textColor: "#fff"
@@ -43,14 +43,14 @@ function Timer() {
   return {
     seconds,
     resetTimer,
-    renderTimer: 
+    renderTimer:
     (<div style ={{marginBottom:40}}>
-      {seconds !== 0 && 
+      {seconds !== 0 &&
       (<div style={{ maxWidth: 90 }}>
         <CircularProgressbar styles={style} value={percentage} background backgroundPadding={6} text={ seconds <=5 ? "Hurry!": seconds.toString()}/>
       </div>)}
     </div>)
-  }    
+  }
 }
 
 export default Timer;

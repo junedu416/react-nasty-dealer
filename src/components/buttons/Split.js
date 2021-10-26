@@ -1,5 +1,6 @@
 import Button from "@mui/material/Button";
 import { Tooltip } from "@mui/material";
+import SplitIcon from '../../images/split.png';
 
 const Split = (props) => {
   const {buttonFunc} = props;
@@ -7,7 +8,7 @@ const Split = (props) => {
   return (
     <Tooltip title={tooltipText} enterDelay={1000}>
       <Button variant="contained" size="large" color="warning" onClick={buttonFunc} style={{marginLeft: '10px'}}>
-      Split
+      Split <img src={SplitIcon} style={{width: "22px", height: "26px", marginLeft: "9px"}} alt="split cards" />
       </Button>
     </Tooltip>
   );

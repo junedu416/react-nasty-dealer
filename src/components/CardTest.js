@@ -15,7 +15,7 @@ import WarningMessage from "./WarningMessage";
 import resultMessageReducer from "../utils/result-message-reducer";
 import GameResultMessage from "./GameResultMessage";
 import { tallySplitResults } from "../utils/util-functions";
-import { TimerPositioning, InfoButton, CoinPosition, ChipBalance, CoinStyle, Balance, MoneyHeading, DollarDisplay, GoldText, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, CenteredBox, MoneyBox } from "./styled-components";
+import { TimerPositioning, CoinPosition, CoinStyle, Balance, MoneyHeading, DollarDisplay, GameContainer, ChatContainer, ButtonContainer, OuterContainer, CardContainer, PageContainer, MoneyBox } from "./styled-components";
 import Timer from "./Timer";
 import Chips from "./Chips";
 import useSound from "use-sound";
@@ -617,9 +617,10 @@ useEffect(() => {
   else if (resultMessage.result === "LOSE") LoseSound();
   else if (resultMessage.result === "PUSH")  PushSound();
   else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
-},[resultMessage.result])
+},[resultMessage.result, WinSound, BlackJackSound, LoseSound,
+  PushSound, gameOverSound])
 
-  const inactiveHandStyling = {
+  /*const inactiveHandStyling = {
     position: "absolute",
     display: "flex",
     flexDirection: "column",
@@ -627,7 +628,7 @@ useEffect(() => {
 
   const activeHandStyling = {
     border: '8px solid red',
-  }
+  }*/
 
   return (
     <>
