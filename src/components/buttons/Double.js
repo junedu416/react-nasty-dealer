@@ -9,7 +9,7 @@ const Double = (props) => {
   return (
     <Tooltip title={tooltipText} enterDelay={1000}>
        <Button variant="contained" size="large" color="secondary" onClick={buttonFunc} style={{marginLeft: '10px'}}>
-         Double <img src={DoubleIcon} style={{width: '30px', marginLeft:'10px'}} alt="double button" />
+         Double <img src={DoubleIcon} style={{width: '25px', height: '25px', marginLeft:'10px'}} alt="double button" />
       </Button>
     </Tooltip>
   );

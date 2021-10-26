@@ -56,7 +56,7 @@ export const ChatContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 26%;
-  height: 90vh;
+  height: 88vh;
   bottom: 0px;
   right: -8px;
   padding: 10px;
