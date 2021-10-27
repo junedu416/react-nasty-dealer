@@ -21,7 +21,7 @@ const GameResultMessage = ({ resultMessage }) => {
         </Backdrop>
       ) : (
         <Backdrop open={open} sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}  onClick={handleClose}>
-          <MessageAlert>
+          <MessageAlert characterLength={resultMessage.result.length}>
             {resultMessage.result}
           </MessageAlert>
         </Backdrop>

@@ -65,8 +65,8 @@ const CardTest = () => {
   //style for the inactive hand
   const inactiveStyle = {
     position: 'absolute',
-    bottom: '100px',
-    left: '-200px'
+    bottom: '21vh',
+    left: '-20vw'
   }
 
   //initState for dealer and player

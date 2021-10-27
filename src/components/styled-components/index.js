@@ -301,7 +301,7 @@ export const MessageAlert = styled.h1`
   padding: 60px 90px;
   z-index: 10;
   text-align: center;
-  min-width: 50vw;
+  min-width: ${(props) => props.characterLength > 8 ? '50vw' : '30vw'};
   max-width: 60vw;
   min-height: 15vh;
   max-height: 35vh;
