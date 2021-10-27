@@ -280,21 +280,35 @@ export const MessageAlert = styled.h1`
   justify-content: center;
   margin: 0 auto;
   font-family: helvetica;
-  padding: 60px;
+  padding: 60px 90px;
   z-index: 10;
-  flex-wrap: none;
-  min-width: 30vw;
+  text-align: center;
+  min-width: 50vw;
   max-width: 60vw;
   min-height: 15vh;
   max-height: 35vh;
   border-radius: 40px;
-  background-color: rgb(0, 0, 0, 0.55);              /* black background */
-  box-shadow: 0 0px 30px rgb(0 0 0 / 1);             /* black background */
-  -webkit-text-stroke: 1.5px black;                  /* black text outline */
-  text-shadow: 2px 2px 2px black;                    /* black text outline */
-  -webkit-text-stroke: 1.5px rgb(0, 150, 180);       /* blue text outline */
-  text-shadow: 2px 2px 2px rgba(0, 150, 180, 0.95);  /* blue text outline */
+  background-color: rgb(0, 0, 0, 0.55);
+  box-shadow: 0 0px 30px rgb(0 0 0 / 1);
+  /* -webkit-text-stroke: 1.5px black;
+  text-shadow: 2px 2px 2px black; */
+  -webkit-text-stroke: 1.5px rgb(0, 150, 180);
+  text-shadow: 2px 2px 2px rgba(0, 150, 180, 0.95);
 `;
+
+export const BJGifStyling = styled.img`
+  min-width: 60vw;
+  min-height: 30vh;
+  
+`;
+
+/* Line 291: black background 
+   Line 292: black background blur
+   Line 293: black text outline
+   Line 294: black text shadow
+   Line 295: blue text outline
+   Line 296: blue text shadow/3D effect.
+*/
 
 export const AlertParent = styled.div`
   /* background: radial-gradient(#444, #000); */
