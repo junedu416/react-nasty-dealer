@@ -489,7 +489,7 @@ const CardTest = () => {
   }
 
 
-  // set game Result state for GameResultMessage Comopent
+  // set game Result state for GameResultMessage Component
   useEffect(() => {
     let actionType="";
     if(dealerVars.stand && playerVars.stand) {

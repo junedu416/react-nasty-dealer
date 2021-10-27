@@ -249,9 +249,9 @@ export const GoldText = styled.div`
   flex-direction: column;
   color: transparent;
   font-size: 6rem;
-  font-family: serif;
+  font-family: Helvetica, sans-serif;
   letter-spacing: 5px;
-  font-weight: bold;
+  font-weight: 900;
   background: linear-gradient(
     #462523 0,
     #cb9b51 22%,
@@ -263,6 +263,9 @@ export const GoldText = styled.div`
   background-clip: text;
   -webkit-background-clip: text;
   z-index: 10;
+  -webkit-text-stroke: 1.5px #cb9b51;
+  -webkit-filter: drop-shadow(2px 2px 1px #9c6f0f);
+  /* -webkit-filter: drop-shadow(3px 3px 4px black); */
 `;
 
 export const MessageAlert = styled.h1`
@@ -271,22 +274,27 @@ export const MessageAlert = styled.h1`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  /* left: 36%; */
   margin: 0 auto;
-  /* transform: translate(-50%, -50%); */
-  /* background-color: rgb(0, 0, 0, 0.7); */
-  /* box-shadow: 0 1px 30px rgb(0 0 0 / 0.6); */
   font-family: helvetica;
-  padding: 30px;
-  border-radius: 20px;
+  padding: 60px;
   z-index: 10;
   flex-wrap: none;
+  min-width: 30vw;
+  max-width: 60vw;
+  min-height: 15vh;
+  max-height: 35vh;
+  border-radius: 40px;
+  background-color: rgb(0, 0, 0, 0.55);              /* black background */
+  box-shadow: 0 0px 30px rgb(0 0 0 / 1);             /* black background */
+  -webkit-text-stroke: 1.5px black;                  /* black text outline */
+  text-shadow: 2px 2px 2px black;                    /* black text outline */
+  -webkit-text-stroke: 1.5px rgb(0, 150, 180);       /* blue text outline */
+  text-shadow: 2px 2px 2px rgba(0, 150, 180, 0.95);  /* blue text outline */
 `;
-
 
 export const AlertParent = styled.div`
   /* background: radial-gradient(#444, #000); */
@@ -387,10 +395,10 @@ export const CoinStyle = styled.img`
   height: 70px;
 `;
 
-// export const ChipBalance = styled.div`
-//   width: 250px;
-//   height: 70px;
-// `;
+export const ChipBalance = styled.div`
+  width: 250px;
+  height: 70px;
+`;
 
 export const CoinPosition = styled.div`
   position: absolute;
@@ -432,4 +440,20 @@ export const ScorePositioning = styled.div`
   align-items: center;
   z-index: 2;
   border-color: ${props => props.activeHand ? 'red' : 'black'};
+`
+
+export const BlackjackBackground = styled.div`
+    background: linear-gradient(90deg, rgba(112,115,11,0.6558998599439776) 0%, rgba(219,201,90,0.6895133053221288) 47%, rgba(134,130,10,0.44861694677871145) 81%);
+    position:fixed;
+    border-radius: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width:45%;
+    height:35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    z-index:11;
 `

@@ -14,7 +14,7 @@ const GameResultMessage = ({ resultMessage }) => {
     <>
       {resultMessage.result === "BLACKJACK" ? (
         <Backdrop open={open} sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}  onClick={handleClose}>
-          <GoldText> BLACKJACK </GoldText>
+            <GoldText> BLACKJACK </GoldText>
         </Backdrop>
       ) : (
         <Backdrop open={open} sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}  onClick={handleClose}><MessageAlert>{resultMessage.result}</MessageAlert></Backdrop>
