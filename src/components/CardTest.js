@@ -653,10 +653,11 @@ useEffect(() => {
                !playerVars.split && !playerVars.stand &&
                !playerVars.split &&
                <Split buttonFunc={() => {
-                  playerDispatch({type:"splitCards"});
-                  splitSound();
-                  setTimerMode(false);
-                  }} />}
+                 if (playerVars.chips >= playerVars.betSize) {
+                    playerDispatch({type:"splitCards"});
+                    splitSound();
+                    setTimerMode(false);
+                    }}} />}
               {/*STAND*/}
              {!playerVars.stand && playerVars.cards.length > 0 &&
               <Stand
