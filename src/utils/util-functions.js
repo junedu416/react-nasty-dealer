@@ -31,7 +31,7 @@ const playerLoseResponse = [
   "PATHETIC!",
   "I'd happily take your chips all day, every day",
   "If you haven't noticed, I run the show around here",
-  "You couldn't beat me even at your best",
+  "You couldn't beat me even on your best day",
   "Lady luck just isn't on your side today, is she",
   "Boy, you sure suck at this",
   "If I got a $100 commission for every time you lose, I'd already be a billionaire",

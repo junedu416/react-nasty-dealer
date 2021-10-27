@@ -468,21 +468,23 @@ export const TimerPositioning = styled.div`
 `
 
 export const ScorePositioning = styled.div`
-  border: 5px solid black;
-  background-color: white;
+  border: 7px solid black;
+  background-color: black;
+  color: white;
   border-radius: 50%;
-  text-align: center;
   height: 2em;
   width: 2em;
   font-size: 1.5em;
+  font-weight: 900;
+  font-family: Helvetica, sans-serif;
   position: relative;
-  left: 1.4em;
-  top: 5em;
+  left: 1.8em;
+  top: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
-  border-color: ${props => props.activeHand ? 'red' : 'black'};
+  border-color: ${props => props.activeHand ? 'orange' : 'red'};
 `
 
 export const BlackjackBackground = styled.div`
