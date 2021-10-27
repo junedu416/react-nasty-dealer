@@ -721,7 +721,7 @@ useEffect(() => {
           <CardContainer>
           <MoneyBox>
             <Balance>
-              <DollarDisplay style={{borderRadius: '50px', textAlign: 'center', color: '#ffff00', fontSize:'1.7rem', marginLeft: '20px', width: '250px'}}>${(playerVars.chips).toLocaleString()}</DollarDisplay>
+              <DollarDisplay style={{borderRadius: '50px', textAlign: 'right', color: '#ffff00', fontSize:'1.7rem', paddingRight: '20px', width: '250px'}}>${(playerVars.chips).toLocaleString()}</DollarDisplay>
               <CoinPosition><CoinStyle src={Coin} alt="chip balance icon" /></CoinPosition>
             </Balance>
             <MoneyHeading>BET: </MoneyHeading>
