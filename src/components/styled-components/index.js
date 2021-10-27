@@ -278,7 +278,7 @@ export const MessageAlert = styled.h1`
   /* left: 36%; */
   margin: 0 auto;
   /* transform: translate(-50%, -50%); */
-  background-color: rgb(0, 0, 0, 0.7);
+  /* background-color: rgb(0, 0, 0, 0.7); */
   /* box-shadow: 0 1px 30px rgb(0 0 0 / 0.6); */
   font-family: helvetica;
   padding: 30px;
@@ -431,20 +431,4 @@ export const ScorePositioning = styled.div`
   align-items: center;
   z-index: 2;
   border-color: ${props => props.activeHand ? 'red' : 'black'};
-`
-
-export const BlackjackBackground = styled.div`
-    background: linear-gradient(90deg, rgba(112,115,11,0.6558998599439776) 0%, rgba(219,201,90,0.6895133053221288) 47%, rgba(134,130,10,0.44861694677871145) 81%);
-    position:fixed;
-    border-radius: 5px;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width:45%;
-    height:35%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index:11;
 `
