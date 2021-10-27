@@ -252,7 +252,7 @@ export const GoldText = styled.div`
   font-family: Helvetica, sans-serif;
   letter-spacing: 5px;
   font-weight: 900;
-  background: linear-gradient(
+  background-image: linear-gradient(
     #462523 0,
     #cb9b51 22%,
     #f6e27a 45%,
@@ -260,12 +260,30 @@ export const GoldText = styled.div`
     #cb9b51 78%,
     #462523 100%
   );
-  background-clip: text;
-  -webkit-background-clip: text;
   z-index: 10;
-  -webkit-text-stroke: 1.5px #cb9b51;
-  -webkit-filter: drop-shadow(2px 2px 1px #9c6f0f);
-  /* -webkit-filter: drop-shadow(3px 3px 4px black); */
+  /* -webkit-text-stroke: 0.5px #fce291; */
+  filter: drop-shadow(2px 2px 1px #a17000);
+  /* filter: drop-shadow(3px 3px 4px black); */
+  text-shadow:  0px 1px 0 #ffed98,
+                0px 2px 0 #fce291,
+                0px 3px 0 #ffd429,
+                0px 4px 0 #e0ba22,
+                0px 5px 0 #d1a511,
+                0px 6px 0 #be9111,
+                0px 7px 0 #bf9131,
+                0px 8px 0 #c69131,
+	
+                0 0 5px rgba(0,0,0,.05),
+                0 1px 3px rgba(0,0,0,.2),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.2),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.3);
+  
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
+
 `;
 
 export const MessageAlert = styled.h1`
@@ -289,11 +307,22 @@ export const MessageAlert = styled.h1`
   max-height: 35vh;
   border-radius: 40px;
   background-color: rgb(0, 0, 0, 0.55);
-  box-shadow: 0 0px 30px rgb(0 0 0 / 1);
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 
+              0 0 20px rgb(0 0 0 / 0.2),
+              0 0 30px rgb(0 0 0 / 0.3),
+              0 0 40px rgb(0 0 0 / 0.4),
+              0 0 50px rgb(0 0 0 / 0.45);
   /* -webkit-text-stroke: 1.5px black;
   text-shadow: 2px 2px 2px black; */
   -webkit-text-stroke: 1.5px rgb(0, 150, 180);
-  text-shadow: 2px 2px 2px rgba(0, 150, 180, 0.95);
+  /* text-shadow: 2px 2px 2px rgba(0, 150, 180, 0.95); */
+
+  text-shadow:  0 0 5px rgba(0,0,0,.05),
+                0 1px 3px rgba(0,0,0,.2),
+                0 3px 5px rgba(0,0,0,.2),
+                0 5px 10px rgba(0,0,0,.2),
+                0 10px 10px rgba(0,0,0,.2),
+                0 20px 20px rgba(0,0,0,.3);
 `;
 
 export const BJGifStyling = styled.img`
