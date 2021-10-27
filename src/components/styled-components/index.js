@@ -61,6 +61,7 @@ export const ChatContainer = styled.div`
   right: -8px;
   padding: 10px;
   opacity: 1;
+  overflow: hidden;
 `;
 
 export const MessageContainer = styled.div`
@@ -70,6 +71,30 @@ export const MessageContainer = styled.div`
   height: 100%;
   background-color: #cfefef;
   border-radius: 10px;
+  overflow: hidden;
+
+  @keyframes inAnimation {
+  0% {
+    opacity: 0;
+    transform: translateY(92%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(92%);
+  }
+}
+
+@keyframes outAnimation {
+  0% {
+    opacity: 1;
+    transform: translateY(92%)
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(0)
+    /* transform: scaleY(-1); */
+  }
+}
 `;
 
 export const MessageBox = styled.div`
@@ -97,15 +122,18 @@ export const CommentButton = styled.button`
   background: transparent;
   border: 0px solid transparent;
   background: transparent;
+  transition: 0.2s all;
 
   &:hover {
     background: transparent;
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
+    cursor: pointer;
+    transform: scale(1.1);
   }
 `;
 
-export const HideChat = styled.img`
+export const ShowChat = styled.img`
   position: absolute;
   right: 10px;
   top: 10px;
@@ -114,6 +142,12 @@ export const HideChat = styled.img`
   /* background: red; */
   padding: 10px;
   border-radius: 8px;
+  opacity: 0.9;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
 `;
 
 export const ChipButton = styled.button`
