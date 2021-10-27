@@ -584,8 +584,6 @@ const CardTest = () => {
   }
   //================
 
-
-
   function double() {
     if (
       playerVars.cards.length >= 2 &&
@@ -612,27 +610,16 @@ const CardTest = () => {
 
 // bring sound effects when player lose/win/get blackjack
 useEffect(() => {
-  if (resultMessage.result === "WIN") WinSound();
+  if (resultMessage.result === "YOU WIN") WinSound();
   else if (resultMessage.result === "BLACKJACK") BlackJackSound()
-  else if (resultMessage.result === "LOSE") LoseSound();
+  else if (resultMessage.result === "YOU LOSE") LoseSound();
   else if (resultMessage.result === "PUSH")  PushSound();
   else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
 },[resultMessage.result, WinSound, BlackJackSound, LoseSound,
   PushSound, gameOverSound])
 
-  /*const inactiveHandStyling = {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "column",
-  };
-
-  const activeHandStyling = {
-    border: '8px solid red',
-  }*/
-
   return (
     <>
-
       <PageContainer>
         <GameContainer>
           {/* <p>deckId: {deckId}</p> */}
