@@ -74,27 +74,27 @@ export const MessageContainer = styled.div`
   overflow: hidden;
 
   @keyframes inAnimation {
-  0% {
-    opacity: 0;
-    transform: translateY(92%);
+    0% {
+      opacity: 0;
+      transform: translateY(92%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(92%);
+    }
   }
-  100% {
-    opacity: 1;
-    transform: translateY(92%);
-  }
-}
 
-@keyframes outAnimation {
-  0% {
-    opacity: 1;
-    transform: translateY(92%)
+  @keyframes outAnimation {
+    0% {
+      opacity: 1;
+      transform: translateY(-100vh);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100vh);
+      /* transform: scaleY(-1); */
+    }
   }
-  100% {
-    opacity: 0;
-    transform: translateY(0)
-    /* transform: scaleY(-1); */
-  }
-}
 `;
 
 export const MessageBox = styled.div`
@@ -147,6 +147,15 @@ export const ShowChat = styled.img`
   &:hover {
     cursor: pointer;
     opacity: 1;
+  }
+
+  @keyframes fadeAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 `;
 
@@ -248,7 +257,7 @@ export const ButtonContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  z-index:2;
+  z-index: 2;
 `;
 
 export const MoneyBox = styled.div`
@@ -298,26 +307,15 @@ export const GoldText = styled.div`
   /* -webkit-text-stroke: 0.5px #fce291; */
   filter: drop-shadow(2px 2px 1px #a17000);
   /* filter: drop-shadow(3px 3px 4px black); */
-  text-shadow:  0px 1px 0 #ffed98,
-                0px 2px 0 #fce291,
-                0px 3px 0 #ffd429,
-                0px 4px 0 #e0ba22,
-                0px 5px 0 #d1a511,
-                0px 6px 0 #be9111,
-                0px 7px 0 #bf9131,
-                0px 8px 0 #c69131,
-	
-                0 0 5px rgba(0,0,0,.05),
-                0 1px 3px rgba(0,0,0,.2),
-                0 3px 5px rgba(0,0,0,.2),
-                0 5px 10px rgba(0,0,0,.2),
-                0 10px 10px rgba(0,0,0,.2),
-                0 20px 20px rgba(0,0,0,.3);
-  
+  text-shadow: 0px 1px 0 #ffed98, 0px 2px 0 #fce291, 0px 3px 0 #ffd429,
+    0px 4px 0 #e0ba22, 0px 5px 0 #d1a511, 0px 6px 0 #be9111, 0px 7px 0 #bf9131,
+    0px 8px 0 #c69131, 0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
+
   -webkit-text-fill-color: transparent;
   -webkit-background-clip: text;
   background-clip: text;
-
 `;
 
 export const MessageAlert = styled.h1`
@@ -335,34 +333,28 @@ export const MessageAlert = styled.h1`
   padding: 60px 90px;
   z-index: 10;
   text-align: center;
-  min-width: ${(props) => props.characterLength > 8 ? '70vw' : '30vw'};
+  min-width: ${(props) => (props.characterLength > 8 ? "70vw" : "30vw")};
   max-width: 60vw;
   min-height: 15vh;
   max-height: 35vh;
   border-radius: 40px;
   background-color: rgb(0, 0, 0, 0.55);
-  box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 
-              0 0 20px rgb(0 0 0 / 0.2),
-              0 0 30px rgb(0 0 0 / 0.3),
-              0 0 40px rgb(0 0 0 / 0.4),
-              0 0 50px rgb(0 0 0 / 0.45);
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 0 20px rgb(0 0 0 / 0.2),
+    0 0 30px rgb(0 0 0 / 0.3), 0 0 40px rgb(0 0 0 / 0.4),
+    0 0 50px rgb(0 0 0 / 0.45);
   /* -webkit-text-stroke: 1.5px black;
   text-shadow: 2px 2px 2px black; */
   -webkit-text-stroke: 1.5px rgb(0, 150, 180);
   /* text-shadow: 2px 2px 2px rgba(0, 150, 180, 0.95); */
 
-  text-shadow:  0 0 5px rgba(0,0,0,.05),
-                0 1px 3px rgba(0,0,0,.2),
-                0 3px 5px rgba(0,0,0,.2),
-                0 5px 10px rgba(0,0,0,.2),
-                0 10px 10px rgba(0,0,0,.2),
-                0 20px 20px rgba(0,0,0,.3);
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
 `;
 
 export const BJGifStyling = styled.img`
   min-width: 60vw;
   min-height: 30vh;
-  
 `;
 
 /* Line 291: black background 
@@ -494,12 +486,12 @@ export const Notification = styled.div`
   right: 120px;
   border: 22px solid rgb(240, 0, 0, 1);
   box-shadow: 2px 2px 7px black;
-`
+`;
 export const TimerPositioning = styled.div`
   position: absolute;
   bottom: 150px;
   right: 30vw;
-`
+`;
 
 export const ScorePositioning = styled.div`
   border: 7px solid black;
@@ -518,21 +510,26 @@ export const ScorePositioning = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 2;
-  border-color: ${props => props.activeHand ? 'orange' : 'red'};
-`
+  border-color: ${(props) => (props.activeHand ? "orange" : "red")};
+`;
 
 export const BlackjackBackground = styled.div`
-    background: linear-gradient(90deg, rgba(112,115,11,0.6558998599439776) 0%, rgba(219,201,90,0.6895133053221288) 47%, rgba(134,130,10,0.44861694677871145) 81%);
-    position:fixed;
-    border-radius: 5px;
-    top: 50%;
-    left: 50%;
-    transform: translateX(-50%) translateY(-50%);
-    width:45%;
-    height:35%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    z-index:11;
-`
+  background: linear-gradient(
+    90deg,
+    rgba(112, 115, 11, 0.6558998599439776) 0%,
+    rgba(219, 201, 90, 0.6895133053221288) 47%,
+    rgba(134, 130, 10, 0.44861694677871145) 81%
+  );
+  position: fixed;
+  border-radius: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 45%;
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 11;
+`;

@@ -176,8 +176,12 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
     animation: "inAnimation 500ms ease-in-out"
   };
   const hideAnimation = {
-    animation: "outAnimation 500ms ease-in-out",
+    animation: "outAnimation 500ms ease-in-out"
   };
+
+  const fadeAnimation = {
+    animation: "fadeAnimation 1000ms ease-in-out"
+  }
 
   return (
     <>
@@ -205,7 +209,7 @@ const ChatBox = ({ playerBust, gameResult, secondsLeft, split, curHand }) => {
           <ShowChat src={Minimise} onClick={minimized} />
         </MessageContainer>
       ) : (
-        <MessagingIcon src={ChatIcon} onClick={expanded} alt="chat box" />
+        <MessagingIcon src={ChatIcon} onClick={expanded} style={fadeAnimation} alt="chat box" />
       )}
       {!showChat && unreadMessages.count - 1 > 0 && (
         <Notification>{unreadMessages.count - 1}</Notification>
