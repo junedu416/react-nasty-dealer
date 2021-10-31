@@ -4,21 +4,21 @@ export default function resultMessageReducer(state, action) {
         case "split_win_lose": {
             return {
                 ...state,
-                result: "WIN ONE LOSE ONE",
+                result: "WIN ONE, LOSE ONE",
                 winAmount: action.data / 2
             }
         }
         case "split_win_push": {
             return {
                 ...state,
-                result: "WIN ONE PUSH ONE",
+                result: "WIN ONE, PUSH ONE",
                 winAmount: action.data + (action.data / 2)
             }
         }
         case "split_lose_push": {
             return {
                 ...state,
-                result: "LOSE ONE PUSH ONE",
+                result: "LOSE ONE, PUSH ONE",
                 winAmount: -action.data / 2
             }
         }
@@ -39,14 +39,14 @@ export default function resultMessageReducer(state, action) {
         case "split_blackjack_win": {
             return {
                 ...state,
-                result: "ONE BLACKJACK ONE WIN",
+                result: "ONE BLACKJACK, ONE WIN",
                 winAmount: ((action.data / 2) * 2.5) + (action.data)
             }
         }
         case "split_blackjack_lose": {
             return {
                 ...state,
-                result: "ONE BLACKJACK ONE LOSE",
+                result: "ONE BLACKJACK, ONE LOSE",
                 winAmount: ((action.data / 2) * 2.5) - (action.data / 2)
             }
         }
@@ -60,7 +60,7 @@ export default function resultMessageReducer(state, action) {
         case "split_blackjack_push": {
             return {
                 ...state,
-                result: "ONE BLACKJACK ONE PUSH",
+                result: "ONE BLACKJACK, ONE PUSH",
                 winAmount: (action.data / 2) * 2.5
             }
         }
@@ -81,14 +81,14 @@ export default function resultMessageReducer(state, action) {
         case "win": {
             return {
                 ...state,
-                result: "WIN",
+                result: "YOU WIN",
                 winAmount: action.data * 2
             }
         }
         case "lose": {
             return {
                 ...state,
-                result: "LOSE",
+                result: "YOU LOSE",
                 winAmount: -action.data
             }
         }
