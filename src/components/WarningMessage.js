@@ -9,9 +9,19 @@ const WarningMessage = ({ message, closeWarning }) => {
     transform: "translate(-50%, -50%)",
   };
 
+  const [open, setOpen] = React.useState(true);
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
-      <Alert style={warningStyling} severity="warning" onClose={closeWarning}>
+      <Alert style={warningStyling} 
+        severity="warning" 
+        open={open}
+        onClick={handleClose}
+        onClose={closeWarning}
+      >
         {message}
       </Alert>
     </div>

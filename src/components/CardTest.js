@@ -619,13 +619,6 @@ useEffect(() => {
 },[resultMessage.result, WinSound, BlackJackSound, LoseSound,
   PushSound, gameOverSound])
 
-  const centeredStyling = {
-    position: 'absolute',
-    top: '52%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-  }
-
   return (
     <>
       <PageContainer>
