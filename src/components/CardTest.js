@@ -67,7 +67,7 @@ const CardTest = () => {
   const inactiveStyle = {
     position: 'absolute',
     bottom: '21vh',
-    left: '-20vw'
+    left: '-17%'
   }
 
   //initState for dealer and player
