@@ -51,8 +51,11 @@ const runningOutTimeResponse = [
   "I ain't got all day..",
   "Time is ticking",
   "The clock is ticking",
-  "Even a statue can run faster than you",
+  "Even a statue can run faster than you, that's saying something..",
   "Goddamn, just make your move already!",
+  "I'll be down the bare bones by the time you're done.",
+  "100 years later...",
+  "C'mon! Snap, snap!",
 ];
 
 function decodeHtmlEntity(str) {

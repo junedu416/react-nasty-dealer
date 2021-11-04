@@ -32,6 +32,7 @@ import gameOver from "./sounds/game_over.mp3"
 import soundPush from "./sounds/disappointment.wav"
 import WinAmount from "./WinAmount";
 import Coin from "../images/coin.png";
+import GetChips from "./buttons/GetChips";
 
 const CardTest = () => {
   // useSound hook
@@ -618,6 +619,13 @@ useEffect(() => {
 },[resultMessage.result, WinSound, BlackJackSound, LoseSound,
   PushSound, gameOverSound])
 
+  const centeredStyling = {
+    position: 'absolute',
+    top: '52%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+  }
+
   return (
     <>
       <PageContainer>
@@ -627,10 +635,11 @@ useEffect(() => {
           {warning && <WarningMessage message={warning} closeWarning={closeWarning}/>}
           {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
           {resultMessage.result && resultMessage.result === "GAME OVER. GO HOME" &&
-          <button onClick={() => {
+          <GetChips buttonFunc={() => {
             localStorage.setItem("chips", 1000);
             playerDispatch({type: "reset", payload: true});
-          }}>Give me a small loan</button>}
+          }}
+          >Get a small loan</GetChips>}
       {/* ===================== BUTTONS ===================== */}
           <OuterContainer>
             <ButtonContainer>
