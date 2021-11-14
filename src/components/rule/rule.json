@@ -1,14 +1,14 @@
 {
   "title": "Nasty Dealer - BlackJack",
-  "generalRule": "The goal of the game is to beat the dealer's hand without going over 21. Each player starts with two cards, the dealer will have one card hidden until their turn starts. Dealer will hit until their hand is 16, and stand on 17 or higher. You bust if you go over 21 and the dealer wins regardless of their hand. ",
-  "hit": "draw another card ",
-  "stand": "end your turn.",
-  "double": "You double your bet and only draw one more card and end your turn. (You can only double on your first move of your hand after the cards have been dealt and if you chose to split, the same rules apply for each split hand.)",
-  "split": "You can only split when you have two of the same card - the pair is split into two separate hands. Splitting also requires you to bet the same value as the original bet for the new split hand. You cannot play on two aces after they are split.",
-  "bet": "You must place your bet before each hand, min. $25 - max. $5,000. You can clear your bet and set the amount of chips you wish to bet by clicking on the corresponding chip(s).",
-  "insurance": "If the dealer's face up card is an Ace, you may opt to buy insurance, which is the same value as your original bet, and if the dealer has BlackJack, you will be paid out 2 to 1. If the dealer does not have BlackJack, the insurance bet is forfeited to the dealer",
+  "objective": "The goal of the game is to beat the dealer's hand without going over 21. Each player starts with two cards, the dealer will have one card hidden until their turn starts. Dealer will hit until 16, and stand on 17 or higher. You bust if you go over 21 and the dealer wins regardless of their hand.",
+  "cardValues": "Numbered cards, 2 to 10, are worth their face values. Jacks, Queens and Kings are valued at 10. Aces can either have a value of 1 or 11, whichever is higher without the hand going over 21.",
+  "bet": "You must place your bet before each hand. You can clear and set your bet by clicking on the corresponding chip(s).",
+  "blackjack": "If your first 2 cards dealt are 21 (Ace & 10 or a picture card), you got blackjack.",
+  "hit": "Draw another card.",
+  "stand": "End your turn.",
+  "push": "If both the player and dealer hands are the same value, result is a tie. The player's bet is returned.",
+  "double": "Your bet is doubled, you only draw one more card and end your turn. Doubling is only available at the start of your hand after the cards have been dealt, this also applies to each split hand.",
+  "split": "If you have two of the same card, you can only split the pair into two separate hands. You are required to make same original bet for the new split hand.",
   "surrender": "At the start of your turn, you may chose to surrender and have half your bet returned and the other half forfeited to the dealer.",
-  "cardValues": "When playing Blackjack the numeral cards 2 to 10 have their face values, Jacks, Queens and Kings are valued at 10, and Aces can have a value of either 1 or 11. The Ace is always valued at 11 unless that would result in the hand going over 21, in which case it is valued as 1. ",
-  "blackjack":"If you are dealt 21 from the start (Ace & 10 or picture card), you got a blackjack. ",
-  "push":"If both the player and dealer have the same valued hand, the result is a tie and the bet is returned to the player."
+  "insurance": "If dealer's face up card is an Ace, you may opt to buy insurance (same value as original bet). You get paid 2 to 1 if dealer has BlackJack, otherwise, the insurance bet is forfeited."
 }

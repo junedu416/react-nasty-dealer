@@ -10,7 +10,7 @@ import { InfoButton } from "../styled-components";
 import {
   push,
   blackjack,
-  generalRule,
+  objective,
   hit,
   stand,
   double,
@@ -45,7 +45,7 @@ function RulePage() {
   return (
     <div>
       <Button onClick={handleOpen}>
-        <InfoButton src={Info} alt='how to play icon' />
+        <InfoButton src={Info} alt="how to play icon" />
       </Button>
       <Modal
         open={open}
@@ -55,11 +55,15 @@ function RulePage() {
       >
         <Box sx={style}>
           <Typography
+            style={descriptorStyle}
             id="modal-modal-description"
             sx={{ mt: 2 }}
-            variant="body1"
+            variant="h6"
           >
-            {generalRule}
+            OBJECTIVE
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mb: 2 }}>
+            {objective}
           </Typography>
           <Typography
             style={descriptorStyle}
@@ -67,31 +71,11 @@ function RulePage() {
             sx={{ mt: 2 }}
             variant="h6"
           >
-            {" "}
-            CARD VALUES{" "}
+            CARD VALUES
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {" "}
-            {cardValues}{" "}
+          <Typography id="modal-modal-description" sx={{ mb: 2 }}>
+            {cardValues}
           </Typography>
-          <Typography
-            style={descriptorStyle}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-            variant="h6"
-          >
-            {" "}
-            BLACKJACK{" "}
-          </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-          >
-            {" "}
-            {blackjack}{" "}
-          </Typography>
-          <br />
           <Grid container wrap="nowrap">
             <Typography
               style={descriptorStyle}
@@ -99,32 +83,14 @@ function RulePage() {
               sx={{ mt: 2 }}
               variant="h6"
             >
-              {" "}
-              PUSH{" "}
+              BLACKJACK
             </Typography>
             <Typography
               style={{ display: "inline-block" }}
               id="modal-modal-description"
-              sx={{ mt: 2, ml: 8 }}
+              sx={{ mt: 2.5, ml: 2 }}
             >
-              {" "}
-              {push}{" "}
-            </Typography>
-          </Grid>
-          <br />
-          <Grid container wrap="nowrap">
-            <Typography
-              style={descriptorStyle}
-              id="modal-modal-description"
-              sx={{ mt: 2 }}
-              variant="h6"
-            >
-              {" "}
-              DOUBLE{" "}
-            </Typography>
-            <Typography id="modal-modal-description" sx={{ mt: 2, ml: 5 }}>
-              {" "}
-              {double}{" "}
+              {blackjack}
             </Typography>
           </Grid>
           <Grid container wrap="nowrap">
@@ -134,16 +100,14 @@ function RulePage() {
               sx={{ mt: 2 }}
               variant="h6"
             >
-              {" "}
-              SPLIT{" "}
+              BET
             </Typography>
             <Typography
               style={{ display: "inline-block" }}
               id="modal-modal-description"
-              sx={{ mt: 2, ml: 8 }}
+              sx={{ mt: 2.5, ml: 11.5 }}
             >
-              {" "}
-              {split}{" "}
+              {bet}
             </Typography>
           </Grid>
           <Grid container wrap="nowrap">
@@ -153,18 +117,15 @@ function RulePage() {
               sx={{ mt: 2 }}
               variant="h6"
             >
-              {" "}
-              BET{" "}
+              HIT
             </Typography>
             <Typography
               style={{ display: "inline-block" }}
               id="modal-modal-description"
-              sx={{ mt: 2, ml: 10 }}
+              sx={{ mt: 2.5, ml: 12.5 }}
             >
-              {" "}
-              {bet}{" "}
+              {hit}
             </Typography>
-            <br />
           </Grid>
           <Grid container wrap="nowrap">
             <Typography
@@ -173,48 +134,84 @@ function RulePage() {
               sx={{ mt: 2 }}
               variant="h6"
             >
-              {" "}
-              INSURANCE{" "}
+              STAND
             </Typography>
             <Typography
               style={{ display: "inline-block" }}
               id="modal-modal-description"
-              sx={{ mt: 2 }}
+              sx={{ mt: 2.5, ml: 8 }}
             >
-              {" "}
-              {insurance}{" "}
+              {stand}
             </Typography>
           </Grid>
-          <Typography
-            style={descriptorStyle}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-            variant="h6"
-          >
-            {" "}
-            HIT{" "}
-          </Typography>
-          <Typography style={{ display: "inline-block", marginRight: 20 }}>
-            {" "}
-            {hit}{" "}
-          </Typography>
-          <Typography
-            style={descriptorStyle}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-            variant="h6"
-          >
-            {" "}
-            STAND{" "}
-          </Typography>
-          <Typography
-            style={{ display: "inline-block" }}
-            id="modal-modal-description"
-            sx={{ mt: 2 }}
-          >
-            {" "}
-            {stand}{" "}
-          </Typography>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              PUSH
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              id="modal-modal-description"
+              sx={{ mt: 2.5, ml: 9.5 }}
+            >
+              {push}
+            </Typography>
+          </Grid>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              DOUBLE
+            </Typography>
+            <Typography 
+              style={{ display: "inline-block" }}
+              id="modal-modal-description" 
+              sx={{ mt: 2.5, ml: 6 }}
+            >
+              {double}
+            </Typography>
+          </Grid>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              SPLIT
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              id="modal-modal-description"
+              sx={{ mt: 2.5, ml: 9 }}
+            >
+              {split}
+            </Typography>
+          </Grid>
+          <Grid container wrap="nowrap">
+            <Typography
+              style={descriptorStyle}
+              id="modal-modal-description"
+              sx={{ mt: 2 }}
+              variant="h6"
+            >
+              INSURANCE
+            </Typography>
+            <Typography
+              style={{ display: "inline-block" }}
+              id="modal-modal-description"
+              sx={{ mt: 2.6, ml: 1 }}
+            >
+              {insurance}
+            </Typography>
+          </Grid>
         </Box>
       </Modal>
     </div>
