@@ -53,7 +53,6 @@ const runningOutTimeResponse = [
   "The clock is ticking",
   "Even a statue can run faster than you, that's saying something..",
   "Goddamn, just make your move already!",
-  "I'll be down the bare bones by the time you're done.",
   "100 years later...",
   "C'mon! Snap, snap!",
 ];
