@@ -476,7 +476,7 @@ export const CoinPosition = styled.div`
 export const Notification = styled.div`
   position: absolute;
   font-family: Helvetica, sans-serif;
-  font-size: 1.4rem;
+  font-size: 2.3rem;
   color: white;
   line-height: 50%;
   text-align: center;
@@ -484,7 +484,7 @@ export const Notification = styled.div`
   border-radius: 100%;
   bottom: 160px;
   right: 120px;
-  border: 22px solid rgb(240, 0, 0, 1);
+  border: 16px solid rgb(240, 0, 0, 1);
   box-shadow: 2px 2px 7px black;
 `;
 export const TimerPositioning = styled.div`

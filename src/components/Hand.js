@@ -60,13 +60,13 @@ const Hand = (props) => {
                     alt={"face down card"}
                     src={faceDownCard}
                     style={{
-                      width: "85px",
+                      width: "80px",
                       height: "128px",
                       padding: "5px",
                       border: "1px solid black",
                       borderRadius: "9px",
                       position: "relative",
-                      transform: "translate(-60px, 13.5vh) rotateX(-48deg) rotateY(3deg) rotate(-4deg) skewX(-9deg) skewY(7deg)",
+                      transform: "translate(-57px, 12.8vh) rotateX(-48deg) rotateY(3deg) rotate(-4deg) skewX(-9deg) skewY(7deg)",
 
                       // top: '62px',
                       // right: `${(55 * index) + (40 * (index - 1))}px`,
