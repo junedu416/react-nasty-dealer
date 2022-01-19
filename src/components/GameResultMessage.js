@@ -5,7 +5,7 @@ import {
   BJGifStyling,
 } from "./styled-components/index";
 import Backdrop from "@mui/material/Backdrop";
-import BJGif from "../images/gif.jpg";
+
 
 const GameResultMessage = ({ resultMessage }) => {
   const [open, setOpen] = React.useState(true);
@@ -21,7 +21,7 @@ const GameResultMessage = ({ resultMessage }) => {
           onClick={handleClose}
         >
           <GoldText> BLACKJACK </GoldText>
-          <BJGifStyling src={BJGif} alt="sparkles blackjack win" />
+          {/* <BJGifStyling src={BJGif} alt="sparkles blackjack win" /> */}
         </Backdrop>
       ) : (
         <Backdrop
