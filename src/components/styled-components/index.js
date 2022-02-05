@@ -61,6 +61,7 @@ export const ChatContainer = styled.div`
   right: -8px;
   padding: 10px;
   opacity: 1;
+  overflow: hidden;
 `;
 
 export const MessageContainer = styled.div`
@@ -70,6 +71,30 @@ export const MessageContainer = styled.div`
   height: 100%;
   background-color: #cfefef;
   border-radius: 10px;
+  overflow: hidden;
+
+  @keyframes inAnimation {
+    0% {
+      opacity: 0;
+      transform: translateY(92%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(92%);
+    }
+  }
+
+  @keyframes outAnimation {
+    0% {
+      opacity: 1;
+      transform: translateY(-100vh);
+    }
+    100% {
+      opacity: 0;
+      transform: translateY(-100vh);
+      /* transform: scaleY(-1); */
+    }
+  }
 `;
 
 export const MessageBox = styled.div`
@@ -97,15 +122,18 @@ export const CommentButton = styled.button`
   background: transparent;
   border: 0px solid transparent;
   background: transparent;
+  transition: 0.2s all;
 
   &:hover {
     background: transparent;
     box-shadow: 0px 0px 0px transparent;
     border: 0px solid transparent;
+    cursor: pointer;
+    transform: scale(1.1);
   }
 `;
 
-export const HideChat = styled.img`
+export const ShowChat = styled.img`
   position: absolute;
   right: 10px;
   top: 10px;
@@ -114,6 +142,21 @@ export const HideChat = styled.img`
   /* background: red; */
   padding: 10px;
   border-radius: 8px;
+  opacity: 0.9;
+
+  &:hover {
+    cursor: pointer;
+    opacity: 1;
+  }
+
+  @keyframes fadeAnimation {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 `;
 
 export const ChipButton = styled.button`
@@ -214,7 +257,7 @@ export const ButtonContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   width: 100%;
-  z-index:2;
+  z-index: 2;
 `;
 
 export const MoneyBox = styled.div`
@@ -249,10 +292,10 @@ export const GoldText = styled.div`
   flex-direction: column;
   color: transparent;
   font-size: 6rem;
-  font-family: serif;
+  font-family: Helvetica, sans-serif;
   letter-spacing: 5px;
-  font-weight: bold;
-  background: linear-gradient(
+  font-weight: 900;
+  background-image: linear-gradient(
     #462523 0,
     #cb9b51 22%,
     #f6e27a 45%,
@@ -260,9 +303,19 @@ export const GoldText = styled.div`
     #cb9b51 78%,
     #462523 100%
   );
-  background-clip: text;
-  -webkit-background-clip: text;
   z-index: 10;
+  /* -webkit-text-stroke: 0.5px #fce291; */
+  filter: drop-shadow(2px 2px 1px #a17000);
+  /* filter: drop-shadow(3px 3px 4px black); */
+  text-shadow: 0px 1px 0 #ffed98, 0px 2px 0 #fce291, 0px 3px 0 #ffd429,
+    0px 4px 0 #e0ba22, 0px 5px 0 #d1a511, 0px 6px 0 #be9111, 0px 7px 0 #bf9131,
+    0px 8px 0 #c69131, 0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
+
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  background-clip: text;
 `;
 
 export const MessageAlert = styled.h1`
@@ -271,22 +324,46 @@ export const MessageAlert = styled.h1`
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
   justify-content: center;
-  /* left: 36%; */
   margin: 0 auto;
-  /* transform: translate(-50%, -50%); */
-  /* background-color: rgb(0, 0, 0, 0.7); */
-  /* box-shadow: 0 1px 30px rgb(0 0 0 / 0.6); */
   font-family: helvetica;
-  padding: 30px;
-  border-radius: 20px;
+  padding: 60px 90px;
   z-index: 10;
-  flex-wrap: none;
+  text-align: center;
+  min-width: ${(props) => (props.characterLength > 8 ? "70vw" : "30vw")};
+  max-width: 60vw;
+  min-height: 15vh;
+  max-height: 35vh;
+  border-radius: 40px;
+  background-color: rgb(0, 0, 0, 0.55);
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.1), 0 0 20px rgb(0 0 0 / 0.2),
+    0 0 30px rgb(0 0 0 / 0.3), 0 0 40px rgb(0 0 0 / 0.4),
+    0 0 50px rgb(0 0 0 / 0.45);
+  /* -webkit-text-stroke: 1.5px black;
+  text-shadow: 2px 2px 2px black; */
+  -webkit-text-stroke: 1.5px rgb(0, 150, 180);
+  /* text-shadow: 2px 2px 2px rgba(0, 150, 180, 0.95); */
+
+  text-shadow: 0 0 5px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.2),
+    0 3px 5px rgba(0, 0, 0, 0.2), 0 5px 10px rgba(0, 0, 0, 0.2),
+    0 10px 10px rgba(0, 0, 0, 0.2), 0 20px 20px rgba(0, 0, 0, 0.3);
 `;
 
+export const BJGifStyling = styled.img`
+  min-width: 60vw;
+  min-height: 30vh;
+`;
+
+/* Line 291: black background 
+   Line 292: black background blur
+   Line 293: black text outline
+   Line 294: black text shadow
+   Line 295: blue text outline
+   Line 296: blue text shadow/3D effect.
+*/
 
 export const AlertParent = styled.div`
   /* background: radial-gradient(#444, #000); */
@@ -387,10 +464,10 @@ export const CoinStyle = styled.img`
   height: 70px;
 `;
 
-// export const ChipBalance = styled.div`
-//   width: 250px;
-//   height: 70px;
-// `;
+export const ChipBalance = styled.div`
+  width: 250px;
+  height: 70px;
+`;
 
 export const CoinPosition = styled.div`
   position: absolute;
@@ -399,7 +476,7 @@ export const CoinPosition = styled.div`
 export const Notification = styled.div`
   position: absolute;
   font-family: Helvetica, sans-serif;
-  font-size: 1.4rem;
+  font-size: 2.3rem;
   color: white;
   line-height: 50%;
   text-align: center;
@@ -407,29 +484,52 @@ export const Notification = styled.div`
   border-radius: 100%;
   bottom: 160px;
   right: 120px;
-  border: 22px solid rgb(240, 0, 0, 1);
+  border: 16px solid rgb(240, 0, 0, 1);
   box-shadow: 2px 2px 7px black;
-`
+`;
 export const TimerPositioning = styled.div`
   position: absolute;
   bottom: 150px;
   right: 30vw;
-`
+`;
 
 export const ScorePositioning = styled.div`
-  border: 5px solid black;
-  background-color: white;
+  border: 7px solid black;
+  background-color: black;
+  color: white;
   border-radius: 50%;
-  text-align: center;
   height: 2em;
   width: 2em;
   font-size: 1.5em;
+  font-weight: 900;
+  font-family: Helvetica, sans-serif;
   position: relative;
-  left: 1.4em;
-  top: 5em;
+  left: 1.8em;
+  top: 20vh;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 2;
-  border-color: ${props => props.activeHand ? 'red' : 'black'};
-`
+  border-color: ${(props) => (props.activeHand ? "orange" : "red")};
+`;
+
+export const BlackjackBackground = styled.div`
+  background: linear-gradient(
+    90deg,
+    rgba(112, 115, 11, 0.6558998599439776) 0%,
+    rgba(219, 201, 90, 0.6895133053221288) 47%,
+    rgba(134, 130, 10, 0.44861694677871145) 81%
+  );
+  position: fixed;
+  border-radius: 5px;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 45%;
+  height: 35%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 11;
+`;

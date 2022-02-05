@@ -32,6 +32,7 @@ import gameOver from "./sounds/game_over.mp3"
 import soundPush from "./sounds/disappointment.wav"
 import WinAmount from "./WinAmount";
 import Coin from "../images/coin.png";
+import GetChips from "./buttons/GetChips";
 
 const CardTest = () => {
   // useSound hook
@@ -65,8 +66,8 @@ const CardTest = () => {
   //style for the inactive hand
   const inactiveStyle = {
     position: 'absolute',
-    bottom: '100px',
-    left: '-200px'
+    bottom: '21vh',
+    left: '-17%'
   }
 
   //initState for dealer and player
@@ -489,7 +490,7 @@ const CardTest = () => {
   }
 
 
-  // set game Result state for GameResultMessage Comopent
+  // set game Result state for GameResultMessage Component
   useEffect(() => {
     let actionType="";
     if(dealerVars.stand && playerVars.stand) {
@@ -584,8 +585,6 @@ const CardTest = () => {
   }
   //================
 
-
-
   function double() {
     if (
       playerVars.cards.length >= 2 &&
@@ -612,27 +611,16 @@ const CardTest = () => {
 
 // bring sound effects when player lose/win/get blackjack
 useEffect(() => {
-  if (resultMessage.result === "WIN") WinSound();
+  if (resultMessage.result === "YOU WIN") WinSound();
   else if (resultMessage.result === "BLACKJACK") BlackJackSound()
-  else if (resultMessage.result === "LOSE") LoseSound();
+  else if (resultMessage.result === "YOU LOSE") LoseSound();
   else if (resultMessage.result === "PUSH")  PushSound();
   else if (resultMessage.result === "GAME OVER. GO HOME") gameOverSound();
 },[resultMessage.result, WinSound, BlackJackSound, LoseSound,
   PushSound, gameOverSound])
 
-  /*const inactiveHandStyling = {
-    position: "absolute",
-    display: "flex",
-    flexDirection: "column",
-  };
-
-  const activeHandStyling = {
-    border: '8px solid red',
-  }*/
-
   return (
     <>
-
       <PageContainer>
         <GameContainer>
           {/* <p>deckId: {deckId}</p> */}
@@ -640,10 +628,11 @@ useEffect(() => {
           {warning && <WarningMessage message={warning} closeWarning={closeWarning}/>}
           {resultMessage.result && <GameResultMessage resultMessage={resultMessage} />}
           {resultMessage.result && resultMessage.result === "GAME OVER. GO HOME" &&
-          <button onClick={() => {
+          <GetChips buttonFunc={() => {
             localStorage.setItem("chips", 1000);
             playerDispatch({type: "reset", payload: true});
-          }}>Give me a small loan</button>}
+          }}
+          >Get a small loan</GetChips>}
       {/* ===================== BUTTONS ===================== */}
           <OuterContainer>
             <ButtonContainer>

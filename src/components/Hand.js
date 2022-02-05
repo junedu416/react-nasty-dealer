@@ -60,13 +60,13 @@ const Hand = (props) => {
                     alt={"face down card"}
                     src={faceDownCard}
                     style={{
-                      width: "90px",
+                      width: "80px",
                       height: "128px",
                       padding: "5px",
                       border: "1px solid black",
                       borderRadius: "9px",
                       position: "relative",
-                      transform: "translate(-60px, 60px) rotateX(-48deg) rotateY(3deg) rotate(-4deg) skewX(-9deg) skewY(7deg)",
+                      transform: "translate(-57px, 12.8vh) rotateX(-48deg) rotateY(3deg) rotate(-4deg) skewX(-9deg) skewY(7deg)",
 
                       // top: '62px',
                       // right: `${(55 * index) + (40 * (index - 1))}px`,
@@ -81,17 +81,12 @@ const Hand = (props) => {
                       <img
                         alt={`${card.value} ${card.suit}`}
                         src={card.imgString}
-                        width={100}
+                        width={95}
                         style={{
                           position: "relative",
-                          // transform: "translate(20px, 0px)",
-                          transform: "skewX(-13deg) skewY(6deg) rotateX(-48deg) rotateY(3deg) rotate(-4deg) translate(20px, 12px)",
+                          transform: "skewX(-13deg) skewY(6deg) rotateX(-48deg) rotateY(3deg) rotate(-4deg) translate(37px, 23vh)",
                           boxShadow: "-1px 3px 6px black",
                           // right: `${(-20 * index) + (20 * (index - 1))}px`,
-                          // transform: [{ skewX: "20deg" }],
-                          top: "70px",
-
-                          // trying to make card have perspective.
                         }}
                       />
                     ) : (
@@ -99,7 +94,8 @@ const Hand = (props) => {
                         alt={`${card.value} ${card.suit}`}
                         src={card.imgString}
                         style={{
-                          width: "100px",
+                          width: "90px",
+                          height: '128px',
                           position: "relative",
                           // transform: `translate(${
                           //   -55 * index - 20 * (index - 1)
@@ -108,8 +104,8 @@ const Hand = (props) => {
                           transform: `skewX(-13deg) skewY(6deg) rotateX(-48deg) rotateY(3deg) rotate(-4deg)`,
                           boxShadow: "-1px 3px 6px black",
 
-                          right: `${(55 * index) + (20 * (index - 1))}px`,
-                          top: `${60 - (22 * (index - 1))}px`,
+                          right: `${(56 * index) + (17 * (index - 1))}px`,
+                          top: `${14 - (2 * (index - 1))}vh`,
                         }}
                       />
                     )}
